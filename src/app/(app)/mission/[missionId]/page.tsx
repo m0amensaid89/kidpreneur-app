@@ -2,14 +2,23 @@
 
 import { use, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
 import { QuackyAvatar } from "@/components/ui/QuackyAvatar";
 import { XPCounter } from "@/components/ui/XPCounter";
 import { BadgeReveal } from "@/components/ui/BadgeReveal";
 import { Badge } from "@/lib/badges";
 import { awardBadge } from "@/lib/badgeDispatcher";
 import { createClient } from "@/lib/supabase/client";
-import { Star } from "lucide-react";
+import { WORLDS } from "@/lib/data/lessons";
+import { Star, Trophy, ArrowRight, MapPin } from "lucide-react";
+
+// Per-world identity — matches Phase 1, 2, 3
+const WORLD_COLORS: Record<string, { color: string; colorDark: string; confetti: string[] }> = {
+  w1: { color: "#FF6340", colorDark: "#D85A30", confetti: ["#FF6340", "#FBBF24", "#FFF", "#F0997B", "#F5C4B3"] },
+  w2: { color: "#7B52EE", colorDark: "#534AB7", confetti: ["#7B52EE", "#FBBF24", "#FFF", "#AFA9EC", "#CECBF6"] },
+  w3: { color: "#2E8CE6", colorDark: "#185FA5", confetti: ["#2E8CE6", "#FBBF24", "#FFF", "#85B7EB", "#B5D4F4"] },
+  w4: { color: "#00A878", colorDark: "#0F6E56", confetti: ["#00A878", "#FBBF24", "#FFF", "#5DCAA5", "#9FE1CB"] },
+  w5: { color: "#6B35FF", colorDark: "#3C3489", confetti: ["#6B35FF", "#FBBF24", "#FFF", "#AFA9EC", "#EEEDFE"] },
+};
 
 export default function MissionCompletePage({ params }: { params: Promise<{ missionId: string }> }) {
   const router = useRouter();
@@ -23,23 +32,40 @@ export default function MissionCompletePage({ params }: { params: Promise<{ miss
     setMounted(true);
   }, []);
 
+  // Look up the mission details from the data file
+  const missionId = unwrappedParams.missionId;
+  const lessonId = missionId.split("_")[0];
+
+  let world = null;
+  let lesson = null;
+  let mission = null;
+  for (const w of WORLDS) {
+    const l = w.lessons.find((x) => x.id === lessonId);
+    if (l) {
+      world = w;
+      lesson = l;
+      mission = l.missions.find((m) => m.id === missionId) || null;
+      break;
+    }
+  }
+
+  const meta = WORLD_COLORS[world?.id || "w1"] || WORLD_COLORS.w1;
+  const xpReward = mission?.xpReward ?? 30;
+
   useEffect(() => {
-    const awardMissionComplete = async () => {
+    const award = async () => {
       if (hasAwarded) return;
 
       const { data: { session } } = await supabase.auth.getSession();
       if (!session) return;
 
       const userId = session.user.id;
-      const missionId = unwrappedParams.missionId;
-      // Derive lessonId from missionId pattern l{n}_m{1|2|3}
-      const lessonId = missionId.split("_")[0];
 
-      // 1. Award 30 XP
+      // 1. Log the actual XP from the mission data
       await supabase.from("xp_log").insert({
         user_id: userId,
-        xp_amount: 30,
-        source: `mission_complete_${missionId}`
+        xp_amount: xpReward,
+        source: `mission_complete_${missionId}`,
       });
 
       // 2. Mark mission complete
@@ -49,16 +75,16 @@ export default function MissionCompletePage({ params }: { params: Promise<{ miss
           mission_id: missionId,
           lesson_id: lessonId,
           stars: 3,
-          completed_at: new Date().toISOString()
+          completed_at: new Date().toISOString(),
         },
         { onConflict: "user_id,mission_id" }
       );
 
-      // 3. Route badge check through the dispatcher
+      // 3. Dispatcher badge check
       const badge = await awardBadge(supabase, userId, {
         type: "mission_complete",
         missionId,
-        lessonId
+        lessonId,
       });
 
       if (badge) {
@@ -67,23 +93,45 @@ export default function MissionCompletePage({ params }: { params: Promise<{ miss
 
       setHasAwarded(true);
     };
+    award();
+  }, [hasAwarded, supabase, missionId, lessonId, xpReward]);
 
-    awardMissionComplete();
-  }, [hasAwarded, supabase, unwrappedParams.missionId]);
+  const handleNextMission = () => {
+    if (!lesson || !mission) {
+      router.push("/home");
+      return;
+    }
+    // Find the next mission in the same lesson; if last, route to lesson's next lesson; else home
+    const currentIndex = lesson.missions.findIndex((m) => m.id === missionId);
+    if (currentIndex >= 0 && currentIndex < lesson.missions.length - 1) {
+      router.push(`/chat?lessonId=${lessonId}`);
+      return;
+    }
+    if (lesson.nextLesson) {
+      router.push(`/lesson/${lesson.nextLesson}`);
+      return;
+    }
+    router.push(`/world/${world?.id || ""}`);
+  };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[100dvh] pb-16 bg-gradient-to-b from-primary/20 via-background to-background relative overflow-hidden">
-
+    <div
+      className="flex flex-col items-center justify-between min-h-[100dvh] pb-10 relative overflow-hidden animate-in fade-in duration-500"
+      style={{
+        background: `linear-gradient(180deg, ${meta.color}33 0%, hsl(var(--background)) 60%, hsl(var(--background)) 100%)`,
+      }}
+    >
+      {/* Confetti particles */}
       {mounted && (
         <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
-          {Array.from({ length: 50 }).map((_, i) => (
+          {Array.from({ length: 60 }).map((_, i) => (
             <div
               key={i}
               className="absolute w-2 h-2 rounded-sm opacity-0 animate-confetti"
               style={{
                 left: `${Math.random() * 100}%`,
                 top: `-10px`,
-                backgroundColor: ['#10B981', '#FBBF24', '#3B82F6', '#8B5CF6', '#EF4444'][Math.floor(Math.random() * 5)],
+                backgroundColor: meta.confetti[Math.floor(Math.random() * meta.confetti.length)],
                 animationDelay: `${Math.random() * 3}s`,
                 animationDuration: `${2 + Math.random() * 3}s`,
               }}
@@ -92,59 +140,125 @@ export default function MissionCompletePage({ params }: { params: Promise<{ miss
         </div>
       )}
 
-      <div className="flex-1 flex flex-col items-center justify-center p-6 space-y-8 w-full max-w-sm z-10 text-center animate-in zoom-in-95 duration-500">
+      {/* Main content */}
+      <div className="flex-1 flex flex-col items-center justify-center px-6 py-10 w-full max-w-sm z-10 text-center animate-in zoom-in-95 duration-500 space-y-6">
 
+        {/* World breadcrumb chip */}
+        {world && lesson && (
+          <div
+            className="flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold tracking-wider"
+            style={{
+              backgroundColor: `${meta.color}20`,
+              color: meta.color,
+            }}
+          >
+            <MapPin className="w-3 h-3" />
+            {world.name.toUpperCase()} · {lesson.title.toUpperCase()}
+          </div>
+        )}
+
+        {/* Quacky cheering */}
         <div className="animate-bounce">
           <QuackyAvatar state="cheering" size="xl" className="drop-shadow-2xl" />
         </div>
 
-        <div className="space-y-4">
-          <h1 className="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent drop-shadow-sm uppercase tracking-widest">
+        {/* Headline */}
+        <div className="space-y-1">
+          <h1
+            className="text-3xl font-black uppercase tracking-widest"
+            style={{ color: meta.color }}
+          >
             Mission Complete!
           </h1>
+          {mission && (
+            <p className="text-sm text-foreground/80 font-semibold">
+              {mission.title}
+            </p>
+          )}
+        </div>
 
-          <div className="flex justify-center space-x-2 py-2">
-            {[1, 2, 3].map((star) => (
-              <Star key={star} className="w-12 h-12 fill-accent text-accent animate-in zoom-in spin-in-12 duration-700 delay-300 drop-shadow-md" />
-            ))}
-          </div>
+        {/* 3-star animated row */}
+        <div className="flex justify-center gap-3 py-1">
+          {[1, 2, 3].map((star, idx) => (
+            <Star
+              key={star}
+              className="w-11 h-11 fill-amber-400 text-amber-400 animate-in zoom-in spin-in-12 drop-shadow-md"
+              style={{
+                animationDuration: "700ms",
+                animationDelay: `${300 + idx * 150}ms`,
+                animationFillMode: "both",
+              }}
+            />
+          ))}
+        </div>
 
-          <div className="bg-card/80 backdrop-blur-md border border-border/50 rounded-3xl p-6 shadow-xl">
-            <p className="text-sm font-bold text-muted-foreground uppercase tracking-wider mb-1">XP Earned</p>
-            <p className="text-5xl font-black text-primary">
-              <XPCounter from={0} to={30} duration={1000} />
+        {/* XP card */}
+        <div
+          className="w-full rounded-3xl p-5 border-2 animate-in slide-in-from-bottom-4 fade-in"
+          style={{
+            backgroundColor: "hsl(var(--card))",
+            borderColor: meta.color,
+            animationDuration: "500ms",
+            animationDelay: "800ms",
+            animationFillMode: "both",
+          }}
+        >
+          <div className="flex items-center justify-center gap-3">
+            <Trophy className="w-6 h-6" style={{ color: meta.color }} />
+            <p className="text-[11px] font-black tracking-[0.2em] text-muted-foreground">
+              XP EARNED
             </p>
           </div>
+          <p
+            className="text-5xl font-black tabular-nums mt-1"
+            style={{ color: meta.color }}
+          >
+            +<XPCounter from={0} to={xpReward} duration={1000} />
+          </p>
         </div>
+
       </div>
 
-      <div className="w-full max-w-sm px-6 space-y-3 z-10 animate-in slide-in-from-bottom-10 fade-in duration-700 delay-500">
-        <Button
-          className="w-full h-16 rounded-2xl text-xl font-bold shadow-lg"
-          onClick={() => router.push("/home")}
+      {/* Action buttons */}
+      <div
+        className="w-full max-w-sm px-6 space-y-2 z-10 animate-in slide-in-from-bottom-8 fade-in"
+        style={{
+          animationDuration: "500ms",
+          animationDelay: "1000ms",
+          animationFillMode: "both",
+        }}
+      >
+        <button
+          onClick={handleNextMission}
+          className="w-full h-14 rounded-2xl text-base font-black text-white flex items-center justify-center gap-2 transition-transform active:translate-y-0.5"
+          style={{
+            backgroundColor: meta.color,
+            boxShadow: `0 4px 0 ${meta.colorDark}`,
+          }}
         >
-          Next Mission
-        </Button>
-        <Button
-          variant="outline"
-          className="w-full h-14 rounded-2xl text-lg font-bold border-2"
+          Next mission <ArrowRight className="w-4 h-4" />
+        </button>
+        <button
           onClick={() => router.push("/home")}
+          className="w-full h-12 rounded-2xl text-sm font-bold text-muted-foreground hover:text-foreground transition"
         >
-          Back to Map
-        </Button>
+          Back to map
+        </button>
       </div>
 
-      <style dangerouslySetInnerHTML={{__html: `
+      <style dangerouslySetInnerHTML={{
+        __html: `
         @keyframes confetti {
           0% { opacity: 1; transform: translateY(0) rotate(0deg); }
-          100% { opacity: 0; transform: translateY(100vh) rotate(720deg); }
+          100% { opacity: 0; transform: translateY(110vh) rotate(720deg); }
         }
         .animate-confetti {
           animation-name: confetti;
           animation-timing-function: linear;
           animation-iteration-count: infinite;
         }
-      `}} />
+      `
+      }} />
 
       {revealedBadge && (
         <BadgeReveal badge={revealedBadge} onDismiss={() => setRevealedBadge(null)} />
