@@ -8,11 +8,15 @@ export default async function QuizPage({ params }: { params: Promise<{ lessonId:
   const { data: { session } } = await supabase.auth.getSession();
 
   let currentLesson = null;
+  let worldId: string | undefined;
+  let lessonTitle: string | undefined;
 
   for (const world of WORLDS) {
     const lesson = world.lessons.find(l => l.id === unwrappedParams.lessonId);
     if (lesson) {
       currentLesson = lesson;
+      worldId = world.id;
+      lessonTitle = lesson.title;
       break;
     }
   }
@@ -28,6 +32,8 @@ export default async function QuizPage({ params }: { params: Promise<{ lessonId:
   return (
     <QuizClient
       lessonId={currentLesson.id}
+      worldId={worldId}
+      lessonTitle={lessonTitle}
       quizData={currentLesson.quiz}
       userId={session?.user?.id}
     />
