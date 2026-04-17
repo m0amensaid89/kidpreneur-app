@@ -1291,9 +1291,1184 @@ const CANVAS_KINGDOM: World = {
 // WORLD REGISTRY (other worlds to follow in next sessions)
 // ═══════════════════════════════════════════════════════════
 
+// ═══════════════════════════════════════════════════════════
+// WORLD 2 : STORY FORGE
+// AI writing, storytelling, voice, and screenplays
+// Empire Builder: Storytelling as a product
+// ═══════════════════════════════════════════════════════════
+
+const STORY_FORGE: World = {
+  id: "w2",
+  name: "Story Forge",
+  color: "#7B52EE",
+  icon: "scroll",
+  description: "Turn your voice, your ideas, and your imagination into stories people actually want to hear.",
+  empireBuilderConcept: "Storytelling as a product : writers, podcasters, and creators get paid to make people feel something.",
+  lessonCount: 8,
+  unlockRequirement: { previousWorld: "w1", minXP: 2000 },
+  capstoneProject: "Publish a 5-piece story collection across text, audio, and video using 3 different AI writing tools.",
+  lessons: [
+    // ─────────────────────────────────────────────────────────
+    // L9 : CHATGPT
+    // ─────────────────────────────────────────────────────────
+    {
+      id: "l9",
+      worldId: "w2",
+      lessonNumber: 1,
+      title: "ChatGPT",
+      toolName: "ChatGPT",
+      toolUrl: "https://chat.openai.com/",
+      toolCategory: "AI conversation and writing assistant",
+      difficulty: "easy",
+      estimatedMinutes: 18,
+      heroLine: "Your always-on writing partner who never runs out of ideas.",
+      warmUpChallenge: "Writing used to take hours of staring at a blank page. Now your blank page talks back. Today you stop writing alone.",
+      warmUpQuiz: {
+        question: "What would you write first if you had a 24/7 writing partner?",
+        options: [
+          "The birthday speech I keep avoiding",
+          "The first chapter of a book I have in my head",
+          "A tough email I do not know how to start"
+        ]
+      },
+      features: [
+        {
+          feature: "Conversation mode",
+          description: "Ask, get a draft, ask for changes. It remembers the whole conversation.",
+          example: "Write a thank you note. Now make it funnier. Now cut it in half."
+        },
+        {
+          feature: "Custom instructions",
+          description: "Tell ChatGPT how you write so it always matches your voice.",
+          example: "I am 12, I write short sentences, I use humor not formal words"
+        },
+        {
+          feature: "Role-play mode",
+          description: "Ask ChatGPT to play a role: interviewer, editor, tutor, critic.",
+          example: "Be my English teacher and give me honest notes on this paragraph"
+        }
+      ],
+      costInfo: "Free plan covers most writing tasks. ChatGPT Plus is $20 per month for faster responses, GPT-4, and DALL-E images.",
+      parentTip: "Teach your kid to iterate, not accept the first draft. Three rounds of refinement is where real writing lives.",
+      learningPoints: [
+        "How to give clear writing instructions",
+        "The power of asking for revisions",
+        "Setting your own voice and tone",
+        "Using AI as an editor, not a replacement"
+      ],
+      quiz: [
+        {
+          question: "What is the BEST way to get a great draft from ChatGPT?",
+          options: [
+            "Ask for one line and hope",
+            "Describe who it is for, the tone, and the length",
+            "Type just one word",
+            "Copy a boring example"
+          ],
+          correctAnswer: 1,
+          explainer: "Great prompts give audience, tone, and length. Skip any of those and the output is random."
+        },
+        {
+          question: "The first draft is not quite right. You should:",
+          options: [
+            "Start over in a new chat",
+            "Ask ChatGPT to revise specific parts",
+            "Use it anyway",
+            "Give up on the project"
+          ],
+          correctAnswer: 1,
+          explainer: "Iteration is the whole game. Say what to change and ChatGPT rewrites only that part."
+        },
+        {
+          question: "Why set custom instructions?",
+          options: [
+            "To make ChatGPT slower",
+            "So every answer matches your voice and context",
+            "It looks cool",
+            "It costs less"
+          ],
+          correctAnswer: 1,
+          explainer: "Custom instructions mean ChatGPT knows your age, style, and goals from the first message of every chat."
+        }
+      ],
+      missions: [
+        {
+          id: "l9_m1",
+          title: "School Newsletter Feature",
+          objective: "Write a 300-word feature for a school newsletter about a topic you care about.",
+          instructions: [
+            "Pick your topic: a cause, a club, a person you admire",
+            "Ask ChatGPT to draft 300 words in a friendly student voice",
+            "Revise twice: tighten the intro, add a memorable ending",
+            "Read it out loud and fix anything that sounds robotic"
+          ],
+          sandboxPrompt: "Help me write a 300-word school newsletter feature about [topic] in a friendly student voice.",
+          quackySystemPrompt: "You are Quacky helping a kid write a school newsletter feature. Given the topic, draft around 300 words in a warm, student-to-student voice with a strong hook line and a memorable closer. One newspaper emoji.",
+          reflectionQuestion: "Which sentence would make a friend actually stop scrolling and read?",
+          xpReward: 50
+        },
+        {
+          id: "l9_m2",
+          title: "Partnership Email to a Brand",
+          objective: "Draft a real email pitching yourself to a brand you love.",
+          instructions: [
+            "Pick a brand you genuinely love and use",
+            "Identify what you could offer: review, content, student ambassador role",
+            "Ask ChatGPT to draft a short, respectful email",
+            "Revise so it sounds like YOU wrote it, not a robot"
+          ],
+          sandboxPrompt: "Help me draft a short partnership email to [brand] offering [what you can do] as a student ambassador or reviewer.",
+          quackySystemPrompt: "You are Quacky helping a kid pitch a brand partnership. Draft a short, genuine email under 120 words: personal intro, why you love the brand, what you can offer, what you ask for, soft close. One handshake emoji.",
+          reflectionQuestion: "What made your email feel like a real person wrote it?",
+          xpReward: 75
+        },
+        {
+          id: "l9_m3",
+          title: "Grandparent Memory Chapter",
+          objective: "Interview a family elder and turn their story into a polished chapter.",
+          instructions: [
+            "Prepare 5 good questions about their childhood or a life moment",
+            "Record the conversation on your phone (with permission)",
+            "Transcribe the key quotes and feed them to ChatGPT",
+            "Ask it to shape the raw quotes into a warm 500-word chapter"
+          ],
+          sandboxPrompt: "I recorded my grandparent talking about [topic]. Help me turn these notes into a 500-word chapter that feels like them.",
+          quackySystemPrompt: "You are Quacky helping a kid shape grandparent interview notes into a warm family memory chapter. Keep their original phrases intact, add only connective narrative. Aim for around 500 words. One heart emoji.",
+          reflectionQuestion: "What did you learn about your elder that you did not know before?",
+          xpReward: 100
+        }
+      ],
+      empireBuilderTip: "Ghostwriters charge $50 to $500 per article. Family legacy writers charge $500 to $5000 per memoir chapter. You are learning the same craft.",
+      completionBadge: "story_forge_l1",
+      nextLesson: "l10"
+    },
+
+    // ─────────────────────────────────────────────────────────
+    // L10 : CLAUDE
+    // ─────────────────────────────────────────────────────────
+    {
+      id: "l10",
+      worldId: "w2",
+      lessonNumber: 2,
+      title: "Claude",
+      toolName: "Claude",
+      toolUrl: "https://claude.ai/",
+      toolCategory: "AI writing with deep reasoning",
+      difficulty: "medium",
+      estimatedMinutes: 22,
+      heroLine: "The writing partner that actually thinks before it writes.",
+      warmUpChallenge: "Some writing needs speed. Some writing needs depth. Today you learn when to slow down and let an AI actually think.",
+      warmUpQuiz: {
+        question: "Which kind of writing needs the most careful thinking?",
+        options: [
+          "A 2000-word chapter for younger siblings",
+          "A tutorial that actually teaches a skill",
+          "A persuasive letter that asks for something big"
+        ]
+      },
+      features: [
+        {
+          feature: "Long context",
+          description: "Feed Claude a whole book chapter or a 50-page document and it remembers everything.",
+          example: "Paste an entire short story, then ask Claude to revise chapter 3 only"
+        },
+        {
+          feature: "Honest reasoning",
+          description: "Claude explains why it made a writing choice.",
+          example: "Ask: why did you start with dialogue instead of description?"
+        },
+        {
+          feature: "Voice matching",
+          description: "Paste your old writing and Claude learns your style.",
+          example: "Here are 3 things I wrote. Write a new one in the same voice."
+        }
+      ],
+      costInfo: "Free plan is generous. Claude Pro is $20 per month with priority access, longer conversations, and the newest model.",
+      parentTip: "Claude is best for deep work. Use it for assignments that deserve real time and attention, not quick chats.",
+      learningPoints: [
+        "When depth matters more than speed",
+        "Feeding context into long writing tasks",
+        "Asking why to learn from the AI",
+        "Matching voice instead of writing generic text"
+      ],
+      quiz: [
+        {
+          question: "What is Claude especially strong at?",
+          options: [
+            "Generating images",
+            "Long-form thinking and nuanced writing",
+            "Only one-sentence replies",
+            "Coding games"
+          ],
+          correctAnswer: 1,
+          explainer: "Claude shines on long, careful writing like chapters, tutorials, and nuanced letters."
+        },
+        {
+          question: "You paste 3 of your old writing samples. Why?",
+          options: [
+            "To delete them",
+            "So Claude can match your voice",
+            "It does nothing",
+            "It translates them"
+          ],
+          correctAnswer: 1,
+          explainer: "When Claude sees examples of your voice, it stops writing generic text and starts writing like YOU."
+        },
+        {
+          question: "Claude wrote something you love. Next step?",
+          options: [
+            "Ask why it made those choices so you learn",
+            "Never ask questions",
+            "Delete the chat",
+            "Always rewrite it"
+          ],
+          correctAnswer: 0,
+          explainer: "Asking WHY teaches you the craft. Over time you can write like Claude even without Claude."
+        }
+      ],
+      missions: [
+        {
+          id: "l10_m1",
+          title: "First Chapter for Younger Kids",
+          objective: "Write chapter one of a children's book for kids younger than you.",
+          instructions: [
+            "Pick an age: 5-7, 8-10",
+            "Tell Claude the theme, setting, and main character",
+            "Ask for a 500-word first chapter with simple sentences",
+            "Revise so the hook line is unforgettable"
+          ],
+          sandboxPrompt: "Help me write chapter one of a children's book for ages [X-Y]. Theme: [theme]. Character: [character].",
+          quackySystemPrompt: "You are Quacky helping a kid write a children's book chapter one. Given theme and character, write around 500 words with short, vivid sentences and a gripping hook. End on a cliffhanger. One book emoji.",
+          reflectionQuestion: "Would a kid that age actually turn the page?",
+          xpReward: 75
+        },
+        {
+          id: "l10_m2",
+          title: "Tutorial That Teaches",
+          objective: "Pick something you are good at. Write the tutorial you wish existed.",
+          instructions: [
+            "Pick your skill: a video game, a craft, a study trick, a sport move",
+            "List 5 steps from beginner to intermediate",
+            "Ask Claude to write a warm, student-friendly tutorial",
+            "Add one personal story that makes the tutorial feel human"
+          ],
+          sandboxPrompt: "I am good at [skill]. Help me write a 600-word tutorial for beginners with 5 steps.",
+          quackySystemPrompt: "You are Quacky helping a kid write a tutorial. Structure: personal hook, 5 numbered steps with why each matters, one mistake to avoid, encouraging closer. Around 600 words. One spark emoji.",
+          reflectionQuestion: "Who is the one person who would read this and say thank you?",
+          xpReward: 75
+        },
+        {
+          id: "l10_m3",
+          title: "Persuasive Letter",
+          objective: "Write the most thoughtful letter of your life asking for something big.",
+          instructions: [
+            "Pick your ask: extended curfew, a pet, a trip, a class change",
+            "Tell Claude your actual situation and what the parent or teacher might worry about",
+            "Ask for a letter that answers those worries before they bring them up",
+            "Read it aloud to feel the tone before you send it"
+          ],
+          sandboxPrompt: "I want to ask [parent or teacher] for [thing]. Their likely concerns are [list]. Help me write a thoughtful letter that addresses each concern.",
+          quackySystemPrompt: "You are Quacky helping a kid write a persuasive letter. Use structure: warm opener, the ask, three concerns the reader has, how you handle each, what changes if they say yes, respectful close. Mature but still a kid's voice. One letter emoji.",
+          reflectionQuestion: "Which worry were you least ready to answer before Claude helped you?",
+          xpReward: 100
+        }
+      ],
+      empireBuilderTip: "Editorial ghostwriters, tutorial creators on Skillshare, and speechwriters all get paid for the same skill. Depth writing is a six-figure freelance path.",
+      completionBadge: "story_forge_l2",
+      nextLesson: "l11"
+    },
+
+    // ─────────────────────────────────────────────────────────
+    // L11 : DESCRIPT
+    // ─────────────────────────────────────────────────────────
+    {
+      id: "l11",
+      worldId: "w2",
+      lessonNumber: 3,
+      title: "Descript",
+      toolName: "Descript",
+      toolUrl: "https://www.descript.com/",
+      toolCategory: "AI podcast and audio editing",
+      difficulty: "medium",
+      estimatedMinutes: 22,
+      heroLine: "Record like a beginner, edit like a professional.",
+      warmUpChallenge: "The hardest part of making a podcast used to be editing out every ah and um. Now that takes one click. Today you sound professional the moment you stop recording.",
+      warmUpQuiz: {
+        question: "Which audio show would you start if editing was easy?",
+        options: [
+          "A 3-minute interview show with one guest per week",
+          "Solo audio diary where I talk through my week",
+          "Review show where I test things and share honest takes"
+        ]
+      },
+      features: [
+        {
+          feature: "Edit audio by editing text",
+          description: "Descript transcribes your recording, so delete a word and the audio cuts to match.",
+          example: "Delete an embarrassing sentence from the transcript and the audio disappears"
+        },
+        {
+          feature: "One-click filler word removal",
+          description: "Remove every um, uh, like in one action.",
+          example: "A 10-minute recording loses 47 ums automatically"
+        },
+        {
+          feature: "AI voice cloning",
+          description: "Record enough of your voice and Descript can type new sentences in your voice.",
+          example: "Add a missing line to your podcast without re-recording"
+        }
+      ],
+      costInfo: "Free plan includes solid editing. Paid plans start at $12 per month with more hours and AI voice features.",
+      parentTip: "Descript is powerful. Start with the free plan and focus on editing real recordings before unlocking the AI voice clone.",
+      learningPoints: [
+        "Why editing matters more than recording gear",
+        "Text-based editing as a superpower",
+        "Confidence from knowing mistakes are fixable",
+        "When to use AI voice (and when not to)"
+      ],
+      quiz: [
+        {
+          question: "What is Descript famous for?",
+          options: [
+            "Editing audio by editing the transcript",
+            "Only recording music",
+            "Generating images",
+            "Translating languages"
+          ],
+          correctAnswer: 0,
+          explainer: "Descript turns your audio into editable text. Delete a word, delete the audio. Game changing."
+        },
+        {
+          question: "One-click filler removal kills:",
+          options: [
+            "All your audio",
+            "Every um, uh, and like",
+            "Your podcast file",
+            "Nothing useful"
+          ],
+          correctAnswer: 1,
+          explainer: "Filler word removal makes amateur recordings sound studio-grade instantly."
+        },
+        {
+          question: "When is AI voice cloning useful?",
+          options: [
+            "Replacing your whole voice forever",
+            "Adding small missing lines without re-recording",
+            "Pretending to be someone else",
+            "Never"
+          ],
+          correctAnswer: 1,
+          explainer: "The honest use case: patch small gaps in your own voice. Pretending to be someone else is not cool."
+        }
+      ],
+      missions: [
+        {
+          id: "l11_m1",
+          title: "Interview Show Pilot",
+          objective: "Record and publish a 3-minute interview show pilot.",
+          instructions: [
+            "Interview one family member or friend for 5 minutes",
+            "Import the recording into Descript",
+            "Edit down to the best 3 minutes by cutting the weak parts",
+            "Run filler word removal and export"
+          ],
+          sandboxPrompt: "I interviewed [who] about [topic]. Help me plan 5 good questions to guide editing.",
+          quackySystemPrompt: "You are Quacky helping a kid prep an interview. Given the guest and topic, return 5 numbered questions that move from easy to deep to surprising. Each question under 15 words. One mic emoji.",
+          reflectionQuestion: "Which sentence of your guest would you put on a poster?",
+          xpReward: 75
+        },
+        {
+          id: "l11_m2",
+          title: "Audio Diary Episode",
+          objective: "Record a 2-minute personal narrative about a moment from this month.",
+          instructions: [
+            "Pick a moment from this month that changed how you think",
+            "Record it on your phone as one take",
+            "Import to Descript, clean the fillers, cut any slow parts",
+            "Add 10 seconds of silence at start and end for breathing room"
+          ],
+          sandboxPrompt: "I want to record an audio diary about [moment]. Help me outline the emotional arc in 4 beats.",
+          quackySystemPrompt: "You are Quacky helping a kid structure a 2-minute audio diary. Given the moment, outline 4 beats: where you started, what happened, what you felt, what changed. Under 60 words total. One heart emoji.",
+          reflectionQuestion: "How did hearing your own voice back change how you felt about the moment?",
+          xpReward: 75
+        },
+        {
+          id: "l11_m3",
+          title: "30-Second Ad Read",
+          objective: "Write and voice a 30-second ad for an imaginary product you actually want to exist.",
+          instructions: [
+            "Invent the product: something you wish existed",
+            "Write a 70-word script that ends with a clear call to action",
+            "Record in one take, punchy and energetic",
+            "Edit in Descript so it feels like real radio"
+          ],
+          sandboxPrompt: "I want to write and record a 30-second ad for [imaginary product]. Help me write the script.",
+          quackySystemPrompt: "You are Quacky helping a kid write a 30-second radio ad. Structure: attention hook, problem, product solution, one specific benefit, call to action. Exactly 70-75 words, punchy energy. One megaphone emoji.",
+          reflectionQuestion: "Would YOU buy your own product after hearing your ad?",
+          xpReward: 100
+        }
+      ],
+      empireBuilderTip: "Podcast editors charge $50 to $300 per episode. Ad voice actors earn $100 to $1000 per spot. You can learn both crafts before you finish middle school.",
+      completionBadge: "story_forge_l3",
+      nextLesson: "l12"
+    },
+
+    // ─────────────────────────────────────────────────────────
+    // L12 : ELEVENLABS
+    // ─────────────────────────────────────────────────────────
+    {
+      id: "l12",
+      worldId: "w2",
+      lessonNumber: 4,
+      title: "ElevenLabs",
+      toolName: "ElevenLabs",
+      toolUrl: "https://elevenlabs.io/",
+      toolCategory: "AI voice generation and narration",
+      difficulty: "medium",
+      estimatedMinutes: 20,
+      heroLine: "Make any words sound like a real human speaking them.",
+      warmUpChallenge: "Before this year, audiobook narration cost thousands of dollars per chapter. Now one line of text becomes a professional performance. Today you become a narrator.",
+      warmUpQuiz: {
+        question: "Which voice project would you launch first?",
+        options: [
+          "Narrate a chapter of my favorite book in my own voice",
+          "Make a museum-style guide for my neighborhood",
+          "Create a multilingual welcome message to the world"
+        ]
+      },
+      features: [
+        {
+          feature: "Text to speech",
+          description: "Type anything, pick a voice, get professional audio instantly.",
+          example: "Paste a 500-word story and get a 3-minute narrated audio file"
+        },
+        {
+          feature: "Voice library",
+          description: "Pick from dozens of voices by age, accent, mood, and gender.",
+          example: "Find a British grandmother voice for a cozy bedtime story"
+        },
+        {
+          feature: "Voice cloning",
+          description: "Record yourself for a few minutes and make your clone narrate anything.",
+          example: "Record 2 minutes, then type new words and hear yourself say them"
+        }
+      ],
+      costInfo: "Free plan includes 10,000 characters per month. Starter plan is $5 per month for 30,000 characters plus voice cloning.",
+      parentTip: "Set ground rules early: ElevenLabs voice cloning is NEVER used to imitate someone without their knowledge. Only your own voice, only with permission.",
+      learningPoints: [
+        "How AI narration sounds so human",
+        "Picking the right voice for the right story",
+        "Voice cloning ethics : your voice, your rules",
+        "Building audio content at scale"
+      ],
+      quiz: [
+        {
+          question: "What does ElevenLabs do?",
+          options: [
+            "Draws pictures",
+            "Turns typed text into human-sounding speech",
+            "Writes your text for you",
+            "Plays music"
+          ],
+          correctAnswer: 1,
+          explainer: "ElevenLabs is the best text-to-speech AI. You type, it reads it out in a natural human voice."
+        },
+        {
+          question: "When is it OK to clone someone's voice?",
+          options: [
+            "Anytime, no rules",
+            "Only your own voice, or with clear permission",
+            "Anyone famous",
+            "Only during weekends"
+          ],
+          correctAnswer: 1,
+          explainer: "Only clone YOUR voice, or someone who said yes with full understanding. Never imitate without consent. That is a rule that protects everyone."
+        },
+        {
+          question: "The voice library lets you:",
+          options: [
+            "Only pick one robot voice",
+            "Choose by age, mood, accent, and gender",
+            "Read minds",
+            "Write songs"
+          ],
+          correctAnswer: 1,
+          explainer: "Hundreds of voices by age, mood, and accent. Pick the voice that fits the story."
+        }
+      ],
+      missions: [
+        {
+          id: "l12_m1",
+          title: "Audiobook Sample",
+          objective: "Narrate a 1-minute passage from a favorite book (or your own writing).",
+          instructions: [
+            "Pick a 150-word passage with emotion",
+            "Choose 3 different ElevenLabs voices and preview each",
+            "Pick the voice that serves the passage best",
+            "Export the audio and save it as your sample"
+          ],
+          sandboxPrompt: "I want to narrate this passage: [paste passage]. Help me decide what voice style fits: age, mood, accent.",
+          quackySystemPrompt: "You are Quacky helping a kid pick a narration voice in ElevenLabs. Given the passage, recommend 3 voices (age, accent, mood) and explain why each would work differently. Short numbered list. One headphone emoji.",
+          reflectionQuestion: "Did the voice change how the passage felt? How much?",
+          xpReward: 75
+        },
+        {
+          id: "l12_m2",
+          title: "Neighborhood Audio Guide",
+          objective: "Create a 90-second guide to a real or imagined place you know well.",
+          instructions: [
+            "Pick your place: your street, a favorite park, an imagined shop",
+            "Write a 200-word script like you are walking a visitor through it",
+            "Use ElevenLabs to narrate in a warm, welcoming voice",
+            "Export and imagine playing it when someone new visits"
+          ],
+          sandboxPrompt: "Help me write a 200-word narrated guide to [place], like a warm local showing a visitor around.",
+          quackySystemPrompt: "You are Quacky helping a kid write an audio walking guide. Given the place, write 200 words in first person, walking pace, with specific sensory details. Warm and welcoming. One compass emoji.",
+          reflectionQuestion: "What did your narrator notice that you usually walk past?",
+          xpReward: 75
+        },
+        {
+          id: "l12_m3",
+          title: "Hello World Multilingual",
+          objective: "Write a 30-second welcome message and voice it in 3 languages.",
+          instructions: [
+            "Write the message in your native language (about 50 words)",
+            "Use ChatGPT or Claude to translate into 2 other languages",
+            "Use ElevenLabs multilingual voices to narrate all 3",
+            "Line them up as one continuous intro"
+          ],
+          sandboxPrompt: "Help me write a 50-word welcome message about who I am, then translate it into [language 2] and [language 3].",
+          quackySystemPrompt: "You are Quacky helping a kid write a multilingual intro. Given the native language message, return the English version first, then the 2 translations the kid requested. Keep meaning and warmth identical across all 3. One globe emoji.",
+          reflectionQuestion: "Which version of you felt most true to yourself?",
+          xpReward: 100
+        }
+      ],
+      empireBuilderTip: "Voice narration is a global business. Audiobook narrators earn $100 to $500 per finished hour. Voice actors for ads, games, and animations can make it a full career.",
+      completionBadge: "story_forge_l4",
+      nextLesson: "l13"
+    },
+
+    // ─────────────────────────────────────────────────────────
+    // L13 : HEYGEN
+    // ─────────────────────────────────────────────────────────
+    {
+      id: "l13",
+      worldId: "w2",
+      lessonNumber: 5,
+      title: "HeyGen",
+      toolName: "HeyGen",
+      toolUrl: "https://www.heygen.com/",
+      toolCategory: "AI avatar video generation",
+      difficulty: "medium",
+      estimatedMinutes: 20,
+      heroLine: "Star in your own video without ever turning on the camera.",
+      warmUpChallenge: "Some kids love being on camera. Some hate it. HeyGen does not care. Today your message is a star, and your face is optional.",
+      warmUpQuiz: {
+        question: "What video would you make if you never had to be on camera?",
+        options: [
+          "A how-to video explaining a skill I am great at",
+          "A welcome video for a creative project I am launching",
+          "A translated message for kids in another country"
+        ]
+      },
+      features: [
+        {
+          feature: "Avatar library",
+          description: "Pick a realistic human avatar that reads your script on camera.",
+          example: "Choose from 100+ avatars by age, style, and setting"
+        },
+        {
+          feature: "Custom avatar",
+          description: "Record 2 minutes of yourself on camera and create your personal AI avatar.",
+          example: "Your own face, your own voice, saying any new words you type"
+        },
+        {
+          feature: "Video translation",
+          description: "Upload a video in one language, get a dubbed version in another with matching lip sync.",
+          example: "Your English explainer becomes Arabic, Spanish, or Japanese"
+        }
+      ],
+      costInfo: "Free plan gives 3 minutes of avatar video per month. Creator plan starts at $24 per month for 15 minutes and more features.",
+      parentTip: "HeyGen creating your kid's custom avatar needs parent consent. Start with stock avatars first. Move to custom only if and when the family wants to.",
+      learningPoints: [
+        "Storytelling without being on camera",
+        "When an avatar works better than real footage",
+        "How translation unlocks global audiences",
+        "Ethics of AI avatars and likeness rights"
+      ],
+      quiz: [
+        {
+          question: "What is HeyGen's main magic?",
+          options: [
+            "Only editing photos",
+            "Making realistic avatars speak any script",
+            "Writing emails",
+            "Making music"
+          ],
+          correctAnswer: 1,
+          explainer: "HeyGen turns typed scripts into videos with realistic talking avatars. Wild stuff."
+        },
+        {
+          question: "When you translate a video in HeyGen, what happens?",
+          options: [
+            "It gets deleted",
+            "You get a version in another language with matching lip sync",
+            "Nothing changes",
+            "Only the subtitles change"
+          ],
+          correctAnswer: 1,
+          explainer: "Full dubbed version in the new language, with the avatar's mouth matching the new words. Insane for reaching global audiences."
+        },
+        {
+          question: "Who can make a HeyGen avatar of themselves?",
+          options: [
+            "Only you (with permission) and with grown-up consent",
+            "Anyone you want",
+            "Your teacher without asking",
+            "Celebrities only"
+          ],
+          correctAnswer: 0,
+          explainer: "Custom avatars need consent. Only you, with a grown-up's sign-off. Never anyone else without their clear yes."
+        }
+      ],
+      missions: [
+        {
+          id: "l13_m1",
+          title: "Explainer Reel for Your Project",
+          objective: "Make a 60-second explainer video about something you built this year.",
+          instructions: [
+            "Pick something you built or learned recently",
+            "Write a 150-word script that hooks, explains, and closes",
+            "Pick a HeyGen avatar whose vibe matches your project",
+            "Export and share with one person who would care"
+          ],
+          sandboxPrompt: "I built [project]. Help me write a 150-word explainer script with a strong hook and clear takeaway.",
+          quackySystemPrompt: "You are Quacky helping a kid write a 60-second explainer script. Structure: 1-sentence hook, what it is, why it matters, one specific detail, takeaway line. Exactly 140-160 words. One video emoji.",
+          reflectionQuestion: "Did your avatar make the project feel bigger or smaller than it is?",
+          xpReward: 75
+        },
+        {
+          id: "l13_m2",
+          title: "Studio Welcome Video",
+          objective: "Create the welcome video for your future creative studio.",
+          instructions: [
+            "Use your Canvas Kingdom studio name (or invent a new one)",
+            "Write a 100-word welcome script: who you are, what you do, how to work with you",
+            "Pick an avatar that matches your brand vibe",
+            "Export as your landing page hero video"
+          ],
+          sandboxPrompt: "I run a creative studio called [name] that does [what]. Help me write a 100-word welcome script.",
+          quackySystemPrompt: "You are Quacky helping a kid write a studio welcome video script. Structure: warm welcome, who you are, what you do, who you help, how to reach you. Under 100 words. Confident but kid-real. One wave emoji.",
+          reflectionQuestion: "Would someone hire you after watching this video?",
+          xpReward: 75
+        },
+        {
+          id: "l13_m3",
+          title: "Message to the World",
+          objective: "Record a message in your language, translate it into 2 others with HeyGen.",
+          instructions: [
+            "Write a 60-second message about something important to you",
+            "Record it once using an avatar (or your own)",
+            "Translate to 2 languages with HeyGen's translation",
+            "Share all 3 versions side by side"
+          ],
+          sandboxPrompt: "Help me write a 60-second message about [topic] that will work when translated into [language 2] and [language 3].",
+          quackySystemPrompt: "You are Quacky helping a kid write a translation-ready message. Keep sentences simple and metaphor-free so translation lands well. Around 120 words with emotional clarity. One earth emoji.",
+          reflectionQuestion: "How did it feel hearing your message in a language you do not speak?",
+          xpReward: 100
+        }
+      ],
+      empireBuilderTip: "Explainer video freelancers earn $200 to $2000 per video. Multilingual creators unlock 5x the audience. HeyGen gives you both.",
+      completionBadge: "story_forge_l5",
+      nextLesson: "l14"
+    },
+
+    // ─────────────────────────────────────────────────────────
+    // L14 : FLIKI
+    // ─────────────────────────────────────────────────────────
+    {
+      id: "l14",
+      worldId: "w2",
+      lessonNumber: 6,
+      title: "Fliki",
+      toolName: "Fliki",
+      toolUrl: "https://fliki.ai/",
+      toolCategory: "AI text to video for social content",
+      difficulty: "easy",
+      estimatedMinutes: 18,
+      heroLine: "Type your story, get a full video ready for social in minutes.",
+      warmUpChallenge: "Ten years ago, making a video meant cameras, microphones, and editing software. Today you type a paragraph and you have a video. The only bottleneck left is your ideas.",
+      warmUpQuiz: {
+        question: "What kind of short video would get you excited?",
+        options: [
+          "A 30-second explainer for a topic I love",
+          "A 90-second tutorial that actually helps kids",
+          "A cinematic teaser that looks like a movie trailer"
+        ]
+      },
+      features: [
+        {
+          feature: "Text to video",
+          description: "Paste text and Fliki picks visuals, voice, and music automatically.",
+          example: "Paste a 200-word script and get a 60-second short video"
+        },
+        {
+          feature: "Blog to video",
+          description: "Give Fliki a URL and it turns the article into a video.",
+          example: "Your school newsletter feature becomes a 90-second video"
+        },
+        {
+          feature: "Voice + visual library",
+          description: "Swap voices, stock footage, and music with one click.",
+          example: "Try the same script with 3 different narrators to find the right fit"
+        }
+      ],
+      costInfo: "Free plan includes 5 minutes per month. Basic plan is $21 per month for 180 minutes of HD video.",
+      parentTip: "Fliki is the fastest path from 'I have an idea' to 'I have a video'. Help your kid focus on script quality. Visuals are easy, ideas are hard.",
+      learningPoints: [
+        "Scripts as the real asset, not visuals",
+        "Turning existing writing into video",
+        "Matching tone, pace, and music",
+        "Building a library of short videos fast"
+      ],
+      quiz: [
+        {
+          question: "What does Fliki do best?",
+          options: [
+            "Only plays music",
+            "Turns your written script into a finished short video",
+            "Writes essays",
+            "Designs logos"
+          ],
+          correctAnswer: 1,
+          explainer: "Paste script, get video. Fliki handles voice, visuals, and music automatically."
+        },
+        {
+          question: "What makes Fliki a time saver?",
+          options: [
+            "You record everything yourself",
+            "It handles voice, visuals, and music automatically",
+            "It only does 1 second videos",
+            "It needs no ideas"
+          ],
+          correctAnswer: 1,
+          explainer: "The heavy lifting (voice recording, stock footage, music sync) happens automatically. You write, it produces."
+        },
+        {
+          question: "Why would you turn a blog into a video?",
+          options: [
+            "To delete the blog",
+            "Because video reaches audiences who do not read",
+            "To make it smaller",
+            "No reason"
+          ],
+          correctAnswer: 1,
+          explainer: "Different people learn differently. Turning one piece of writing into a video doubles your audience for the same effort."
+        }
+      ],
+      missions: [
+        {
+          id: "l14_m1",
+          title: "30-Second Explainer",
+          objective: "Turn one paragraph of your own writing into a 30-second video.",
+          instructions: [
+            "Pick a 80-word paragraph you wrote in an earlier lesson",
+            "Paste it into Fliki and let it auto-generate",
+            "Swap the voice until it fits the tone",
+            "Export and watch it back to check pacing"
+          ],
+          sandboxPrompt: "I want to turn this 80-word paragraph into a 30-second video. [Paste paragraph.] What voice and vibe should I pick?",
+          quackySystemPrompt: "You are Quacky helping a kid pick voice and visuals for a 30-second Fliki video. Given the paragraph, recommend one voice profile (age, energy, accent), one music mood, and one visual theme. Short numbered list. One clapperboard emoji.",
+          reflectionQuestion: "Did your writing hit harder as a video or as text?",
+          xpReward: 50
+        },
+        {
+          id: "l14_m2",
+          title: "Kid's Guide Mini-Series",
+          objective: "Build the first 3 episodes of a 90-second tutorial series.",
+          instructions: [
+            "Pick your topic: something you know better than most kids your age",
+            "Plan 3 short lessons in one sentence each",
+            "Write a 200-word script per lesson and generate in Fliki",
+            "Keep the same voice and style across all 3 so it feels like a real series"
+          ],
+          sandboxPrompt: "I want to build a 3-episode kid's tutorial series on [topic]. Help me outline and write the 3 scripts.",
+          quackySystemPrompt: "You are Quacky helping a kid plan a 3-episode tutorial series. Given the topic, return the series title and 3 episode outlines (1 sentence each) plus one full 200-word script for episode 1. One school emoji.",
+          reflectionQuestion: "Which episode do you think would help a kid the most?",
+          xpReward: 100
+        },
+        {
+          id: "l14_m3",
+          title: "Life Movie Trailer",
+          objective: "Create a cinematic 60-second trailer of your actual life this year.",
+          instructions: [
+            "List 5 real moments from this year that felt like movie scenes",
+            "Write a dramatic 100-word trailer script around them",
+            "Generate in Fliki with cinematic music",
+            "Share with one family member who was in those moments"
+          ],
+          sandboxPrompt: "Help me write a cinematic 100-word trailer script about these 5 real moments from my year: [list].",
+          quackySystemPrompt: "You are Quacky helping a kid write their life's movie trailer script. Take the 5 moments. Write around 100 words in dramatic trailer voice: hook, build, stakes, twist, close. One film reel emoji.",
+          reflectionQuestion: "When you watched your own year as a trailer, did it feel bigger than you thought?",
+          xpReward: 100
+        }
+      ],
+      empireBuilderTip: "Content creators who publish every week win because of volume. Fliki makes volume easy. Your 50th video beats someone's 1 perfect video.",
+      completionBadge: "story_forge_l6",
+      nextLesson: "l15"
+    },
+
+    // ─────────────────────────────────────────────────────────
+    // L15 : SCRIPT AI
+    // ─────────────────────────────────────────────────────────
+    {
+      id: "l15",
+      worldId: "w2",
+      lessonNumber: 7,
+      title: "Script AI",
+      toolName: "Script AI",
+      toolUrl: "https://scripai.com/",
+      toolCategory: "AI screenplay and script writing",
+      difficulty: "medium",
+      estimatedMinutes: 22,
+      heroLine: "Write Hollywood-format scripts in the time it takes to eat lunch.",
+      warmUpChallenge: "Every movie, every show, every cutscene starts as a script. The format looks scary but it is only pattern. Today you learn the pattern and start writing like a screenwriter.",
+      warmUpQuiz: {
+        question: "Which script would you write first?",
+        options: [
+          "A short film scene between two friends at a turning point",
+          "A video game cutscene where the hero realizes they are wrong",
+          "A 30-second commercial for a product people actually need"
+        ]
+      },
+      features: [
+        {
+          feature: "Format-aware writing",
+          description: "Script AI automatically formats your writing into proper screenplay style.",
+          example: "Write one paragraph, get formatted scene headings, action lines, and dialogue"
+        },
+        {
+          feature: "Scene beats",
+          description: "Ask Script AI for the classic beats of your scene type.",
+          example: "Get the 5 beats of a confession scene, a chase scene, a reveal"
+        },
+        {
+          feature: "Character voice lock",
+          description: "Define your characters once and Script AI keeps their voices distinct.",
+          example: "Teen-sarcastic brother vs. serious-calm sister never sound alike"
+        }
+      ],
+      costInfo: "Free plan covers short scripts. Paid plans start around $10 per month for longer scripts and more characters.",
+      parentTip: "Screenwriting teaches story structure better than any other writing. Encourage your kid to write scripts even if they never get filmed.",
+      learningPoints: [
+        "Screenplay format and why it matters",
+        "Scene beats as story engines",
+        "Distinct character voices",
+        "Dialogue that moves the scene forward"
+      ],
+      quiz: [
+        {
+          question: "Why does screenplay format matter?",
+          options: [
+            "It does not matter at all",
+            "Industry people trust scripts that look professional",
+            "It is always boring",
+            "Only Netflix uses it"
+          ],
+          correctAnswer: 1,
+          explainer: "Format is the first credibility signal. Scripts with weird formatting get rejected before the first page."
+        },
+        {
+          question: "What are scene beats?",
+          options: [
+            "Musical instruments",
+            "The classic emotional checkpoints of a scene type",
+            "Only for comedy",
+            "A dance style"
+          ],
+          correctAnswer: 1,
+          explainer: "Every scene type (chase, reveal, confession) has 4-6 emotional beats that audiences expect. Great writers know them."
+        },
+        {
+          question: "What makes good script dialogue?",
+          options: [
+            "Everyone sounds the same",
+            "Each character has a distinct voice and dialogue moves the scene",
+            "Lots of long speeches",
+            "Only one-word answers"
+          ],
+          correctAnswer: 1,
+          explainer: "Each character should sound like themselves. Every line should either reveal character or push the scene forward."
+        }
+      ],
+      missions: [
+        {
+          id: "l15_m1",
+          title: "Short Film Turning Point",
+          objective: "Write a 2-page short film scene where two friends face a decision together.",
+          instructions: [
+            "Define the 2 characters in one line each",
+            "Pick the turning point: a choice they disagree on",
+            "Ask Script AI to draft the scene with proper format",
+            "Revise so each character has a distinct voice throughout"
+          ],
+          sandboxPrompt: "I want to write a 2-page short film scene where [character A] and [character B] face [decision]. Help me draft it.",
+          quackySystemPrompt: "You are Quacky helping a kid write a short film scene. Given 2 characters and a decision, draft a 2-page scene with proper scene heading, action lines, and dialogue. Each character must sound distinct. One film emoji.",
+          reflectionQuestion: "Whose side would YOU take if you were watching this scene?",
+          xpReward: 75
+        },
+        {
+          id: "l15_m2",
+          title: "Game Cutscene Reveal",
+          objective: "Write the cutscene where your game hero realizes they were wrong.",
+          instructions: [
+            "Use your Leonardo AI hero from Canvas Kingdom (or invent one)",
+            "Pick the thing they were wrong about: an enemy, a friend, a choice",
+            "Write a 90-second cutscene with internal thought and one dramatic line",
+            "Script AI will format it, you bring the truth"
+          ],
+          sandboxPrompt: "My game hero [name] realizes they were wrong about [thing]. Help me write a 90-second cutscene reveal.",
+          quackySystemPrompt: "You are Quacky helping a kid write a game cutscene reveal. Given the hero and the realization, draft a 90-second scene with internal monologue, one dramatic spoken line, and a visual beat that lands the truth. One controller emoji.",
+          reflectionQuestion: "What would your hero do differently in the next level because of this scene?",
+          xpReward: 100
+        },
+        {
+          id: "l15_m3",
+          title: "30-Second Product Commercial",
+          objective: "Write a 30-second commercial for an imaginary product kids would actually want.",
+          instructions: [
+            "Invent a product that solves a real kid problem",
+            "Write a 70-word commercial script with format: problem, product, proof, call to action",
+            "Use Script AI to add proper pacing marks",
+            "Record it on your phone as a quick test read"
+          ],
+          sandboxPrompt: "I am writing a 30-second commercial for [imaginary product]. Help me write a 70-word script.",
+          quackySystemPrompt: "You are Quacky helping a kid write a 30-second commercial. Given the imaginary product, draft 70 words with 4 beats: problem, product, proof, call to action. Tight, punchy, fun. One shopping emoji.",
+          reflectionQuestion: "If you heard this commercial on the radio, would you actually look up the product?",
+          xpReward: 75
+        }
+      ],
+      empireBuilderTip: "Screenwriters earn $20K to $200K per short film script. Commercial writers earn $1K to $20K per spot. Script AI makes you competitive before you graduate high school.",
+      completionBadge: "story_forge_l7",
+      nextLesson: "l16"
+    },
+
+    // ─────────────────────────────────────────────────────────
+    // L16 : COPY.AI
+    // ─────────────────────────────────────────────────────────
+    {
+      id: "l16",
+      worldId: "w2",
+      lessonNumber: 8,
+      title: "Copy.ai",
+      toolName: "Copy.ai",
+      toolUrl: "https://www.copy.ai/",
+      toolCategory: "AI marketing and brand copywriting",
+      difficulty: "medium",
+      estimatedMinutes: 18,
+      heroLine: "The words that sell a product are worth more than the product itself.",
+      warmUpChallenge: "Every brand you love spent weeks on one headline. You can now test ten headlines in one minute. The winning words of the future belong to whoever writes the most and picks the best.",
+      warmUpQuiz: {
+        question: "Which copy project would you ship first?",
+        options: [
+          "A product launch email that people actually want to open",
+          "A landing page headline that makes visitors buy",
+          "A caption pack that makes posts go viral"
+        ]
+      },
+      features: [
+        {
+          feature: "Copy templates",
+          description: "Prebuilt frameworks for emails, headlines, social captions, and ad copy.",
+          example: "Product launch email: hook, story, offer, CTA"
+        },
+        {
+          feature: "Brand voice memory",
+          description: "Paste examples of your voice and Copy.ai matches it every time.",
+          example: "Feed it 3 sample captions and all future captions sound like you"
+        },
+        {
+          feature: "Variation generator",
+          description: "Get 10 versions of the same idea with one click.",
+          example: "10 different headlines for the same product in 3 seconds"
+        }
+      ],
+      costInfo: "Free plan covers basic needs. Starter plan is $49 per month for unlimited generation.",
+      parentTip: "Copy.ai is where marketers live. Teach your kid that copy is a SKILL, not a shortcut. The AI suggests, but the human chooses. Choosing is the real skill.",
+      learningPoints: [
+        "Why copy matters more than product features",
+        "Frameworks that sell: hook, story, offer, CTA",
+        "Matching voice across all marketing",
+        "Testing variations to find the winner"
+      ],
+      quiz: [
+        {
+          question: "What is great copy's real job?",
+          options: [
+            "Impress the writer",
+            "Get the reader to DO something",
+            "Sound smart",
+            "Be long"
+          ],
+          correctAnswer: 1,
+          explainer: "Copy has one job: drive action. Buy, click, sign up, reply. If it does not drive action, it is decoration."
+        },
+        {
+          question: "Why is the variation generator powerful?",
+          options: [
+            "It makes you lazy",
+            "It lets you test 10 versions and pick the winner",
+            "It deletes your work",
+            "It is for images only"
+          ],
+          correctAnswer: 1,
+          explainer: "The best marketers do not guess. They test. 10 versions, ship the winner, learn, iterate."
+        },
+        {
+          question: "What is brand voice memory good for?",
+          options: [
+            "Nothing",
+            "Keeping all your marketing consistent",
+            "Changing topic constantly",
+            "Making you sound like someone else"
+          ],
+          correctAnswer: 1,
+          explainer: "Consistency builds trust. Brand voice memory means every caption, email, and headline feels like the same person wrote it."
+        }
+      ],
+      missions: [
+        {
+          id: "l16_m1",
+          title: "Launch Email",
+          objective: "Write the launch email for an imaginary product you actually want to exist.",
+          instructions: [
+            "Invent the product: something you wish was real",
+            "Use the product launch email framework: hook, story, offer, CTA",
+            "Generate 3 email versions, pick the one with the strongest hook",
+            "Revise the subject line 5 times until it is unignorable"
+          ],
+          sandboxPrompt: "I want to launch [imaginary product]. Help me write a launch email with hook, story, offer, and call to action.",
+          quackySystemPrompt: "You are Quacky helping a kid write a product launch email. Given the imaginary product, write under 200 words: attention-grabbing subject line, 1-line hook, 2-sentence story, clear offer, urgent CTA. One rocket emoji.",
+          reflectionQuestion: "Which word in your subject line did you agonize over the most?",
+          xpReward: 75
+        },
+        {
+          id: "l16_m2",
+          title: "Landing Page Hero Copy",
+          objective: "Write the 3 most important lines on a landing page for your future business.",
+          instructions: [
+            "Take your Canvas Kingdom studio (or invent a new business)",
+            "Write the 3-part hero: headline, subhead, call-to-action button",
+            "Generate 10 variations with Copy.ai and pick the winner",
+            "Explain in one sentence why your winner beats the other 9"
+          ],
+          sandboxPrompt: "I am writing hero copy for my business: [business]. Help me draft 10 versions of headline, subhead, and CTA.",
+          quackySystemPrompt: "You are Quacky helping a kid write 10 landing page hero variations. Given the business, return 10 numbered sets. Each set: 1 bold headline (under 10 words), 1 subhead (under 20 words), 1 CTA button text (2-4 words). One target emoji.",
+          reflectionQuestion: "What did you learn by seeing 10 different ways to say the same thing?",
+          xpReward: 75
+        },
+        {
+          id: "l16_m3",
+          title: "Social Caption Pack",
+          objective: "Write 5 post captions for the same product, each aimed at a different feeling.",
+          instructions: [
+            "Take your launch email product (or any product)",
+            "Target 5 different moods: curious, urgent, funny, proof, FOMO",
+            "Generate 5 captions, each under 150 characters",
+            "Drop them in a notes doc so your future self has a caption bank"
+          ],
+          sandboxPrompt: "Help me write 5 social captions for [product]. Each one targets a different feeling: curious, urgent, funny, proof, FOMO.",
+          quackySystemPrompt: "You are Quacky helping a kid build a 5-caption social pack. Given the product, return 5 numbered captions (curious, urgent, funny, proof, FOMO). Each under 150 characters. Label each with its feeling. One phone emoji.",
+          reflectionQuestion: "Which emotion do you think would actually drive the most taps?",
+          xpReward: 100
+        }
+      ],
+      empireBuilderTip: "Copywriters are the highest-paid freelance writers. Brand copy jobs pay $500 to $5000 per week of work. The best never run out of clients.",
+      completionBadge: "story_forge_l8",
+      nextLesson: null
+    }
+  ],
+  empireBuilderModule: {
+    id: "eb_w2",
+    worldId: "w2",
+    title: "Your First Story Studio",
+    tagline: "Turn your AI writing, voice, and video skills into a content service people pay for.",
+    estimatedMinutes: 45,
+    businessArchetype: "Freelance storyteller or content creator",
+    targetCustomer: "Small businesses, local authors, YouTubers, family historians, indie brands.",
+    realWorldExamples: [
+      "A 13-year-old in India runs a $500 a month newsletter-writing side business.",
+      "Teen podcasters on Anchor earn $100 to $1000 per episode through sponsors once they hit 1000 listeners.",
+      "Kid ghostwriters on Fiverr earn $50 to $300 per article for local businesses."
+    ],
+    businessSteps: [
+      {
+        step: 1,
+        title: "Pick your medium",
+        description: "Choose ONE: written articles, audio podcast, short video, screenplays, or copywriting.",
+        usingTools: ["ChatGPT", "Claude", "Descript", "ElevenLabs", "Fliki", "Copy.ai"],
+        deliverable: "Your one-line pitch: I write/record [medium] for [who] about [theme]."
+      },
+      {
+        step: 2,
+        title: "Build your first 3 pieces",
+        description: "Make 3 examples of your best work in your chosen medium. These are your portfolio.",
+        usingTools: ["Claude", "Descript", "Fliki"],
+        deliverable: "3 finished pieces ready to show a potential client."
+      },
+      {
+        step: 3,
+        title: "Create your signature voice",
+        description: "Define your tone in 3 words. Every future piece must match those 3 words.",
+        usingTools: ["Claude"],
+        deliverable: "A 1-page brand voice guide you can share with ChatGPT or Claude for every project."
+      },
+      {
+        step: 4,
+        title: "Launch your studio page",
+        description: "Use Galileo AI from Canvas Kingdom to design a simple studio page with samples, voice, and contact.",
+        usingTools: ["Galileo AI", "Ideogram"],
+        deliverable: "One mockup of your Story Forge studio page."
+      },
+      {
+        step: 5,
+        title: "Write your first pitch",
+        description: "Write a real pitch email using Copy.ai frameworks and send it to a small business you admire.",
+        usingTools: ["ChatGPT", "Copy.ai"],
+        deliverable: "A sent pitch email with a screenshot of the send."
+      }
+    ],
+    quackyPlaybook: "Stories are not hobbies. Stories sell companies, win elections, and build movements. Every brand you admire has a writer behind it who got paid. You are becoming that writer. Start small, stay consistent, get louder every month.",
+    pricingLesson: {
+      yourFirstPrice: "$0 for your first piece (trade for a testimonial). $25 to $50 per short piece (500 words or 60-second video) for pieces 2 through 5. $75 to $200 once you have a visible portfolio.",
+      whyThisPrice: "Writers get paid per word, per minute, or per project. Start low to build proof. Testimonials beat portfolios. A real quote from a real client is your most valuable asset in month one.",
+      scaleUp: "Every 5 happy clients, raise your price 25%. Writers who never raise prices never grow. Writers who raise too fast lose clients. Steady beats heroic."
+    },
+    firstCustomerExercise: {
+      task: "Pick ONE person who runs something: a family member's business, a local cafe, your school. Offer to write ONE piece for free in exchange for a quote you can use on your site.",
+      prompt: "Help me write a friendly pitch to [person] offering one free [article, video, podcast episode] in exchange for a testimonial.",
+      quackySystemPrompt: "You are Quacky helping a kid write a first-client pitch email. Short, warm, under 120 words. Structure: personal opener, what you noticed about their work, one free thing you will make them, what you ask in return (a short quote), soft close. One pen emoji."
+    },
+    xpReward: 500,
+    completionBadge: "story_forge_champion"
+  },
+  capstone: {
+    id: "cap_w2",
+    worldId: "w2",
+    title: "The Story Forge Collection",
+    narrative: "Writers prove themselves by publishing. By the end of Story Forge, you have real pieces in multiple mediums. This collection is your evidence.",
+    requiredMissions: ["l9_m3", "l10_m1", "l11_m1", "l14_m2", "l16_m1"],
+    deliverableSpec: "Submit a 5-piece Story Forge Collection as a shareable folder or PDF: one family chapter (L9), one children's book chapter (L10), one audio episode (L11), one tutorial video (L14), and one launch email (L16). Include a 1-page cover with your studio name and a 3-line bio.",
+    submissionFormat: "portfolio",
+    parentReviewPrompt: "Your child just published a 5-piece multimedia collection. Pick their strongest piece and discuss where they could share it publicly. A family newsletter? A small local publication? A social account?",
+    xpReward: 1000,
+    unlocksWorld: "w3"
+  }
+};
+
 export const WORLDS: World[] = [
   CANVAS_KINGDOM,
-  // w2 Story Forge     : next session
+  STORY_FORGE,
   // w3 Crowd Plaza     : next session
   // w4 Power Grid      : next session
   // w5 Neural Nexus    : next session
