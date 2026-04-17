@@ -4546,10 +4546,1185 @@ const POWER_GRID: World = {
   }
 };
 
+// ═══════════════════════════════════════════════════════════
+// WORLD 5 : NEURAL NEXUS
+// AI for research, reasoning, deep work, and custom agents
+// Empire Builder: AI as your business tool
+// ═══════════════════════════════════════════════════════════
+
+const NEURAL_NEXUS: World = {
+  id: "w5",
+  name: "Neural Nexus",
+  color: "#6B35FF",
+  icon: "brain",
+  description: "Where AI stops being a tool and becomes your research team, your analyst, and your agents.",
+  empireBuilderConcept: "AI as your business tool : operators who command AI agents will out-think, out-ship, and out-earn teams of 10.",
+  lessonCount: 8,
+  unlockRequirement: { previousWorld: "w4", minXP: 10000 },
+  capstoneProject: "Publish a 2000-word deep research report on a topic you care about, built using AI research agents and your own custom GPT.",
+  lessons: [
+    // ─────────────────────────────────────────────────────────
+    // L31 : PERPLEXITY
+    // ─────────────────────────────────────────────────────────
+    {
+      id: "l31",
+      worldId: "w5",
+      lessonNumber: 1,
+      title: "Perplexity",
+      toolName: "Perplexity",
+      toolUrl: "https://www.perplexity.ai/",
+      toolCategory: "AI research engine with cited sources",
+      difficulty: "easy",
+      estimatedMinutes: 18,
+      heroLine: "Google, but smarter, with sources, and without the 10 ads on top.",
+      warmUpChallenge: "Search engines were built to sell you stuff. Research engines are built to make you smart. Today you stop searching and start researching.",
+      warmUpQuiz: {
+        question: "What is the biggest lie about Googling?",
+        options: [
+          "That the first result is always the best answer",
+          "That ads and real results look the same",
+          "That Google is 'research' instead of shopping with extra steps"
+        ]
+      },
+      features: [
+        {
+          feature: "Cited answers",
+          description: "Perplexity answers your question in plain language AND links every fact to its source.",
+          example: "Ask about climate policy, get a 3-paragraph answer with 12 linked sources"
+        },
+        {
+          feature: "Follow-up questions",
+          description: "Perplexity suggests smart next questions to go deeper.",
+          example: "After a surface answer, follow-ups take you from 'what' to 'why' to 'so what'"
+        },
+        {
+          feature: "Focus modes",
+          description: "Search within specific domains: academic, YouTube, Reddit, finance.",
+          example: "Academic mode pulls only peer-reviewed research, not random blog posts"
+        }
+      ],
+      costInfo: "Free plan is generous. Pro plan is $20 per month with GPT-4, Claude, and unlimited file uploads.",
+      parentTip: "Teach your kid to click the citations. AI can be wrong, even in Perplexity. Clicking a citation builds the habit of verifying, which is the single most important research skill.",
+      learningPoints: [
+        "Why citations change everything",
+        "Follow-up questions as depth multipliers",
+        "Picking the right search mode for the task",
+        "AI as a starting point, not a final answer"
+      ],
+      quiz: [
+        {
+          question: "What makes Perplexity different from a regular search engine?",
+          options: [
+            "It is slower",
+            "It answers with cited sources instead of a list of links",
+            "It has more ads",
+            "It only works on weekends"
+          ],
+          correctAnswer: 1,
+          explainer: "Regular search gives you 10 links to read. Perplexity reads them FOR you and tells you the answer, with sources."
+        },
+        {
+          question: "Why click a citation?",
+          options: [
+            "To waste time",
+            "Because AI can be wrong and the source is the truth",
+            "Only when bored",
+            "Citations are decoration"
+          ],
+          correctAnswer: 1,
+          explainer: "AI summarizes. Sometimes it summarizes wrong. Clicking the citation is how you verify the facts are real."
+        },
+        {
+          question: "What is academic mode good for?",
+          options: [
+            "Only homework",
+            "Getting peer-reviewed research instead of random blog opinions",
+            "Finding TikToks",
+            "Nothing useful"
+          ],
+          correctAnswer: 1,
+          explainer: "Academic mode restricts sources to published studies and papers. Perfect when you need real evidence, not internet noise."
+        }
+      ],
+      missions: [
+        {
+          id: "l31_m1",
+          title: "Myth Buster",
+          objective: "Pick a popular belief and investigate if it is actually true.",
+          instructions: [
+            "Pick a belief everyone repeats (ex: 'we only use 10% of our brain')",
+            "Ask Perplexity with academic mode on",
+            "Read the top 3 cited sources",
+            "Write a 1-paragraph verdict with citation links"
+          ],
+          sandboxPrompt: "I want to investigate if this belief is true: [paste belief]. Help me write 3 sharp Perplexity queries that will surface real evidence.",
+          quackySystemPrompt: "You are Quacky helping a kid investigate a popular belief with Perplexity. Given the belief, return 3 numbered search queries that progress: 1 direct test, 1 counter-evidence hunt, 1 context check. Each under 15 words. One magnifier emoji.",
+          reflectionQuestion: "Was the belief true, false, or messier than expected?",
+          xpReward: 75
+        },
+        {
+          id: "l31_m2",
+          title: "Follow-Up Chain",
+          objective: "Start with a simple question and follow Perplexity's suggestions 5 levels deep.",
+          instructions: [
+            "Start with any question you actually want to know (ex: 'why do octopuses have 3 hearts?')",
+            "Follow suggested follow-ups 5 times without going off-topic",
+            "At level 5, write what you learned that you did not know existed",
+            "Note which level had the most surprising answer"
+          ],
+          sandboxPrompt: "I started with this question: [paste]. Help me plan a 5-level follow-up chain that goes from 'what' to 'why' to 'so what'.",
+          quackySystemPrompt: "You are Quacky helping a kid plan a 5-level Perplexity follow-up chain. Given the starting question, return 5 numbered follow-ups that progress: basic fact → mechanism → implications → debate → future. Each under 15 words. One tree emoji.",
+          reflectionQuestion: "Which level surprised you most? That is where curiosity lives.",
+          xpReward: 75
+        },
+        {
+          id: "l31_m3",
+          title: "Client Research Brief",
+          objective: "Research a topic for an imaginary client and deliver a 5-source brief.",
+          instructions: [
+            "Pick a topic a small business might pay to understand (ex: 'AI tools for local bakeries')",
+            "Use Perplexity to find 5 high-quality sources",
+            "Summarize each source in one paragraph with citation",
+            "Write a 3-bullet conclusion for the imaginary client"
+          ],
+          sandboxPrompt: "I am researching [topic] for a small business. Help me write 4 focused Perplexity queries that will give me 5 quality sources.",
+          quackySystemPrompt: "You are Quacky helping a kid do client research. Given the topic, return 4 numbered queries aimed at different angles: market size, customer behavior, tools available, case studies. Each under 15 words. One briefcase emoji.",
+          reflectionQuestion: "Would a real business owner pay $100 for this brief? Why or why not?",
+          xpReward: 100
+        }
+      ],
+      empireBuilderTip: "Research analysts start at $50-$100 per hour. Freelance researchers on Upwork charge $25-$75 per hour. You just did a researcher's job in 20 minutes.",
+      completionBadge: "neural_nexus_l1",
+      nextLesson: "l32"
+    },
+
+    // ─────────────────────────────────────────────────────────
+    // L32 : NOTEBOOKLM
+    // ─────────────────────────────────────────────────────────
+    {
+      id: "l32",
+      worldId: "w5",
+      lessonNumber: 2,
+      title: "NotebookLM",
+      toolName: "NotebookLM",
+      toolUrl: "https://notebooklm.google.com/",
+      toolCategory: "AI document analysis and synthesis",
+      difficulty: "medium",
+      estimatedMinutes: 22,
+      heroLine: "Upload 20 documents. Get answers that cite exactly which page said what.",
+      warmUpChallenge: "Textbooks, research papers, interview transcripts, PDFs. All gold, all unread by most people because reading takes forever. NotebookLM reads for you, but only trusts what YOU gave it. That is the difference.",
+      warmUpQuiz: {
+        question: "What research project would you tackle first with a reading AI?",
+        options: [
+          "All my textbooks for one subject, summarized by chapter",
+          "A stack of articles about a topic I want to master",
+          "Interview transcripts from my Crowd Plaza and Power Grid research"
+        ]
+      },
+      features: [
+        {
+          feature: "Source-grounded answers",
+          description: "NotebookLM only answers from documents YOU upload, not the whole internet.",
+          example: "Upload 5 biology papers, ask questions, get answers cited to exact pages"
+        },
+        {
+          feature: "Auto-generated study guides",
+          description: "NotebookLM creates summaries, timelines, and FAQs from your sources.",
+          example: "Upload 10 history chapters, get a full timeline of events instantly"
+        },
+        {
+          feature: "Audio overview",
+          description: "Generates a podcast-style audio summary of your documents.",
+          example: "Upload 3 papers, get a 10-minute AI podcast that makes sense of them all"
+        }
+      ],
+      costInfo: "Free with a Google account. No paid tier as of now : one of the most generous AI tools available.",
+      parentTip: "NotebookLM is a game-changer for homework and research. Upload your kid's textbook chapters and help them ask questions. It transforms passive reading into active learning.",
+      learningPoints: [
+        "Source-grounded AI vs open-web AI",
+        "When you want AI limited to your documents",
+        "Audio overviews as comprehension tools",
+        "Building your own knowledge base"
+      ],
+      quiz: [
+        {
+          question: "What is source-grounded AI?",
+          options: [
+            "AI that can only speak in rhymes",
+            "AI that only answers from documents you uploaded",
+            "AI that lives underground",
+            "AI that uses old search engines"
+          ],
+          correctAnswer: 1,
+          explainer: "Source-grounded means the AI ignores everything else and only uses YOUR documents. No hallucinations, no outside noise."
+        },
+        {
+          question: "Why is that useful?",
+          options: [
+            "It is not",
+            "When you trust specific sources and want AI to respect them",
+            "Only for lawyers",
+            "It makes the AI slower"
+          ],
+          correctAnswer: 1,
+          explainer: "Your textbook is more trustworthy than random blogs. Source-grounded AI lets you leverage that trust."
+        },
+        {
+          question: "What is the audio overview good for?",
+          options: [
+            "Making AI louder",
+            "Listening to your research while walking or cleaning",
+            "Only bedtime",
+            "Nothing"
+          ],
+          correctAnswer: 1,
+          explainer: "The audio overview is a 10-minute AI-generated podcast from your docs. Great for review or multitasking."
+        }
+      ],
+      missions: [
+        {
+          id: "l32_m1",
+          title: "Textbook Study Guide",
+          objective: "Turn a whole textbook chapter into a personalized study guide in 15 minutes.",
+          instructions: [
+            "Export or photograph a full textbook chapter into a PDF",
+            "Upload to NotebookLM",
+            "Generate a study guide, FAQ, and timeline",
+            "Test yourself with 5 practice questions from the AI"
+          ],
+          sandboxPrompt: "I uploaded a chapter on [topic]. Help me design 5 practice questions that test deep understanding, not just memory.",
+          quackySystemPrompt: "You are Quacky helping a kid generate practice questions from a study guide. Given the topic, return 5 numbered questions progressing: recall → apply → analyze → synthesize → evaluate. Each under 20 words. One brain emoji.",
+          reflectionQuestion: "Did this chapter feel easier or harder than reading it normally?",
+          xpReward: 75
+        },
+        {
+          id: "l32_m2",
+          title: "Interview Synthesis",
+          objective: "Upload 3 Otter.ai interview transcripts and extract the hidden pattern.",
+          instructions: [
+            "Grab 3 interview transcripts from Power Grid (Otter.ai) or record 3 new ones",
+            "Upload all to NotebookLM",
+            "Ask: 'What 3 themes repeat across these interviews?'",
+            "Write a 200-word synthesis with citations"
+          ],
+          sandboxPrompt: "I have 3 interview transcripts about [shared topic]. Help me write 4 synthesis queries that pull out themes, contradictions, and surprises.",
+          quackySystemPrompt: "You are Quacky helping a kid synthesize interviews in NotebookLM. Given the shared topic, return 4 numbered queries: theme hunt, contradiction hunt, outlier detection, implication extraction. Each under 15 words. One link emoji.",
+          reflectionQuestion: "What did all 3 people agree on that you did not expect?",
+          xpReward: 100
+        },
+        {
+          id: "l32_m3",
+          title: "Audio Overview Test",
+          objective: "Generate audio overviews for 3 different document sets and judge which works best.",
+          instructions: [
+            "Pick 3 different document types (textbook, article collection, research paper)",
+            "Generate an audio overview for each",
+            "Listen while walking or doing something simple",
+            "Rank them by: depth, clarity, memorability"
+          ],
+          sandboxPrompt: "I generated audio overviews of 3 document types. Help me design a 3-criteria rubric to judge which format worked best.",
+          quackySystemPrompt: "You are Quacky helping a kid evaluate AI audio overviews. Return a 3-criteria rubric (depth, clarity, memorability) with a 1-10 scoring guide and 1 question to ask for each criterion. Under 100 words. One headphones emoji.",
+          reflectionQuestion: "Which document type translated best to audio? Why did that format click?",
+          xpReward: 100
+        }
+      ],
+      empireBuilderTip: "Consultants, analysts, and paralegals spend hours reading documents for clients. NotebookLM gives you their superpower at 12. Document synthesis is a $100+/hour service.",
+      completionBadge: "neural_nexus_l2",
+      nextLesson: "l33"
+    },
+
+    // ─────────────────────────────────────────────────────────
+    // L33 : CONSENSUS
+    // ─────────────────────────────────────────────────────────
+    {
+      id: "l33",
+      worldId: "w5",
+      lessonNumber: 3,
+      title: "Consensus",
+      toolName: "Consensus",
+      toolUrl: "https://consensus.app/",
+      toolCategory: "AI search for peer-reviewed research",
+      difficulty: "medium",
+      estimatedMinutes: 18,
+      heroLine: "Ask a question, get the actual scientific consensus with real studies.",
+      warmUpChallenge: "The internet is full of 'studies show...' with no studies attached. Consensus shows the actual studies, how many say yes, how many say no. Today you upgrade from opinion to evidence.",
+      warmUpQuiz: {
+        question: "Which claim have you seen online that you always wondered about?",
+        options: [
+          "That coffee is bad for kids (or is it?)",
+          "That social media actually changes teen brains",
+          "That AI will take all the jobs in 10 years"
+        ]
+      },
+      features: [
+        {
+          feature: "Consensus meter",
+          description: "See what percentage of studies agree with a claim.",
+          example: "78% of 23 studies say exercise improves mental health, with links"
+        },
+        {
+          feature: "Paper summaries",
+          description: "Every paper gets a plain-English summary of findings.",
+          example: "A 40-page paper summarized in 3 sentences with confidence level"
+        },
+        {
+          feature: "Study quality filter",
+          description: "Filter by sample size, recency, peer-reviewed status.",
+          example: "Only show meta-analyses from the last 5 years with n > 1000"
+        }
+      ],
+      costInfo: "Free plan covers 20 searches per month. Premium is $9 per month for unlimited searches.",
+      parentTip: "Consensus is the real evidence-based research tool every student should know. Use it together to settle debates at the dinner table with actual studies, not Google opinions.",
+      learningPoints: [
+        "Evidence quality hierarchy",
+        "What 'peer-reviewed' actually means",
+        "Consensus vs cherry-picking",
+        "Sample size and why it matters"
+      ],
+      quiz: [
+        {
+          question: "What does 'peer-reviewed' mean?",
+          options: [
+            "Other scientists checked the work before it was published",
+            "It has a lot of peers reading it",
+            "A celebrity endorsed it",
+            "It is on social media"
+          ],
+          correctAnswer: 0,
+          explainer: "Peer review means other experts verified the methodology before publication. It is not perfect but raises the quality bar."
+        },
+        {
+          question: "What is a meta-analysis?",
+          options: [
+            "A really long paper",
+            "A study that combines many studies to find stronger evidence",
+            "A social media post",
+            "Only for physics"
+          ],
+          correctAnswer: 1,
+          explainer: "A meta-analysis pools data from many studies. It is the strongest form of evidence because patterns across multiple studies are harder to fake."
+        },
+        {
+          question: "Why does sample size matter?",
+          options: [
+            "It does not",
+            "Small samples can show random patterns that disappear in larger studies",
+            "Bigger is always worse",
+            "Only for math"
+          ],
+          correctAnswer: 1,
+          explainer: "A study of 20 people might see a pattern by luck. A study of 20,000 people is more likely seeing something real."
+        }
+      ],
+      missions: [
+        {
+          id: "l33_m1",
+          title: "Dinner Table Debate",
+          objective: "Pick a family debate topic and settle it with real evidence.",
+          instructions: [
+            "Pick a claim that gets argued at home (ex: 'screen time ruins kids')",
+            "Search Consensus for studies",
+            "Note the consensus percentage and top 3 studies",
+            "Present the evidence at dinner without taking sides"
+          ],
+          sandboxPrompt: "The family claim is: [paste]. Help me phrase 2 Consensus queries that will surface both supporting and opposing evidence.",
+          quackySystemPrompt: "You are Quacky helping a kid find balanced evidence for a family debate. Given the claim, return 2 numbered queries: one testing the claim, one testing the opposite. Each under 15 words. Return as balanced research, not argument. One scale emoji.",
+          reflectionQuestion: "Did the evidence support what you thought, or did it surprise you?",
+          xpReward: 75
+        },
+        {
+          id: "l33_m2",
+          title: "Topic Deep Dive",
+          objective: "Build evidence-based opinion on one topic using 10 studies.",
+          instructions: [
+            "Pick a topic you have opinions on (ex: intermittent fasting, meditation, etc.)",
+            "Find 10 studies using Consensus filters (meta-analyses preferred)",
+            "Log each: title, year, finding, confidence",
+            "Write your own evidence-based position paper in 300 words"
+          ],
+          sandboxPrompt: "I want to build an evidence-based opinion on [topic]. Help me identify 4 specific sub-questions that will give me full picture coverage.",
+          quackySystemPrompt: "You are Quacky helping a kid build an evidence-based position. Given the topic, return 4 numbered sub-questions that cover: magnitude of effect, mechanism, exceptions, long-term vs short-term. Each under 20 words. One compass emoji.",
+          reflectionQuestion: "Did your pre-research opinion survive contact with 10 studies?",
+          xpReward: 100
+        },
+        {
+          id: "l33_m3",
+          title: "Claim Investigation",
+          objective: "Pick a viral claim from social media and judge its scientific accuracy.",
+          instructions: [
+            "Find a viral post making a health or psychology claim",
+            "Screenshot the claim",
+            "Search Consensus and find 3 relevant studies",
+            "Write a 1-paragraph fact-check with sources"
+          ],
+          sandboxPrompt: "The viral claim is: [paste]. Help me write 3 Consensus queries that test the claim, the opposite, and any known context.",
+          quackySystemPrompt: "You are Quacky helping a kid fact-check a viral claim. Given the claim, return 3 numbered queries: 1. direct test of claim, 2. test of opposite or exceptions, 3. mechanism or context check. Each under 15 words. One microscope emoji.",
+          reflectionQuestion: "How would the original poster react if you showed them the evidence?",
+          xpReward: 100
+        }
+      ],
+      empireBuilderTip: "Science communicators, health coaches, and content researchers all get paid to separate fact from noise. Consensus is the research assistant they all dream of. You have it free.",
+      completionBadge: "neural_nexus_l3",
+      nextLesson: "l34"
+    },
+
+    // ─────────────────────────────────────────────────────────
+    // L34 : ELICIT
+    // ─────────────────────────────────────────────────────────
+    {
+      id: "l34",
+      worldId: "w5",
+      lessonNumber: 4,
+      title: "Elicit",
+      toolName: "Elicit",
+      toolUrl: "https://elicit.com/",
+      toolCategory: "AI research assistant for academic work",
+      difficulty: "hard",
+      estimatedMinutes: 25,
+      heroLine: "The AI research assistant that runs literature reviews while you sleep.",
+      warmUpChallenge: "Graduate students spend weeks doing 'literature reviews' which means reading 50+ papers and making a table of what each found. Elicit does that in 4 minutes. You just got handed PhD power at 14.",
+      warmUpQuiz: {
+        question: "Which deep question would you research if it only took 30 minutes?",
+        options: [
+          "What actually works for getting kids to love reading",
+          "What really drives teen mental health trends",
+          "What separates successful AI founders from failed ones"
+        ]
+      },
+      features: [
+        {
+          feature: "Literature reviews",
+          description: "Ask a research question, Elicit pulls the most relevant papers and extracts key data.",
+          example: "Ask 'does meditation reduce anxiety?' and get 20 studies with effect sizes in a table"
+        },
+        {
+          feature: "Data extraction",
+          description: "Elicit pulls specific data from every paper: sample size, method, outcomes.",
+          example: "A table showing method, N, effect, and confidence for 30 papers at once"
+        },
+        {
+          feature: "Concept search",
+          description: "Search by meaning, not keywords, so papers using different words still surface.",
+          example: "Search 'focus techniques' and get papers that used 'attention training' too"
+        }
+      ],
+      costInfo: "Free plan covers basic research. Plus plan is $12 per month for unlimited paper access and table extraction.",
+      parentTip: "Elicit is the most powerful research tool on this list. If your kid is doing any academic project, upgrade to Plus temporarily. It turns a week of work into an afternoon.",
+      learningPoints: [
+        "Literature review as a real skill",
+        "Data tables as thinking tools",
+        "Concept search vs keyword search",
+        "Reading papers strategically, not linearly"
+      ],
+      quiz: [
+        {
+          question: "What is a literature review?",
+          options: [
+            "A book report",
+            "A summary of what all existing research says about a topic",
+            "A Netflix recommendation",
+            "Only for English class"
+          ],
+          correctAnswer: 1,
+          explainer: "A literature review maps the field: what is known, what is disputed, what is missing. Elicit does it in minutes."
+        },
+        {
+          question: "Why are data tables better than prose summaries?",
+          options: [
+            "They are not",
+            "Tables let you compare studies side by side instantly",
+            "Tables are prettier",
+            "Only in math class"
+          ],
+          correctAnswer: 1,
+          explainer: "One table showing N, method, and outcome across 20 studies reveals patterns that prose hides."
+        },
+        {
+          question: "What is concept search?",
+          options: [
+            "Searching for the word 'concept'",
+            "Finding papers by meaning, even if they use different words",
+            "Only for philosophy",
+            "Old search"
+          ],
+          correctAnswer: 1,
+          explainer: "Concept search understands that 'attention training' and 'focus techniques' are about the same thing. Keyword search misses that."
+        }
+      ],
+      missions: [
+        {
+          id: "l34_m1",
+          title: "PhD-Level Literature Review",
+          objective: "Run a full literature review on a topic you care about in 30 minutes.",
+          instructions: [
+            "Pick a focused research question (not too broad)",
+            "Run it in Elicit",
+            "Review the top 15 papers in the data table",
+            "Write a 300-word summary of what the field actually says"
+          ],
+          sandboxPrompt: "My research question is: [paste]. Help me narrow it down to one focused, answerable version that Elicit will handle well.",
+          quackySystemPrompt: "You are Quacky helping a kid sharpen a research question for Elicit. Given the rough question, return 3 numbered refinements: narrower version, more specific population, measurable outcome. Each under 20 words with a 1-line reason why. One target emoji.",
+          reflectionQuestion: "Did the research answer your question, or did it reveal the real question was different?",
+          xpReward: 100
+        },
+        {
+          id: "l34_m2",
+          title: "Compare Two Fields",
+          objective: "Research the same question across two different academic fields.",
+          instructions: [
+            "Pick a question two fields would approach differently (ex: 'what causes addiction' in psychology vs neuroscience)",
+            "Run two Elicit searches, one per field",
+            "Extract the key findings from each",
+            "Write what each field MISSES that the other one sees"
+          ],
+          sandboxPrompt: "I want to compare how [field A] and [field B] answer the same question: [paste]. Help me design two distinct Elicit queries.",
+          quackySystemPrompt: "You are Quacky helping a kid compare two academic fields on one question. Given the question and fields, return 2 numbered queries tuned to each field's vocabulary and methods. Each under 20 words. One bridge emoji.",
+          reflectionQuestion: "Which field's answer felt more complete, and which felt more specific?",
+          xpReward: 100
+        },
+        {
+          id: "l34_m3",
+          title: "Research Assistant for Hire",
+          objective: "Do a research job for an imaginary client and deliver a proper research brief.",
+          instructions: [
+            "Pretend you are hired by a parent, coach, or nonprofit to research one question",
+            "Use Elicit to build a real evidence base (15+ papers)",
+            "Write a 600-word brief with executive summary, findings, and recommendations",
+            "Format like a real consultant deliverable"
+          ],
+          sandboxPrompt: "I am pretending to be hired to research [question] for [imaginary client]. Help me structure the 600-word research brief.",
+          quackySystemPrompt: "You are Quacky helping a kid structure a consultant research brief. Return a 5-section outline with word targets: executive summary (80 words), key findings (200 words), evidence quality note (80 words), recommendations (150 words), citations (90 words). One briefcase emoji.",
+          reflectionQuestion: "If the client paid $500 for this brief, would they feel satisfied?",
+          xpReward: 150
+        }
+      ],
+      empireBuilderTip: "Research assistants at top universities earn $25-$40 per hour. Freelance researchers on Upwork and Kolabtree charge $50-$150 per hour. You just did their job at a higher quality level.",
+      completionBadge: "neural_nexus_l4",
+      nextLesson: "l35"
+    },
+
+    // ─────────────────────────────────────────────────────────
+    // L35 : CHATGPT AGENTS
+    // ─────────────────────────────────────────────────────────
+    {
+      id: "l35",
+      worldId: "w5",
+      lessonNumber: 5,
+      title: "ChatGPT Agents",
+      toolName: "ChatGPT Agents",
+      toolUrl: "https://openai.com/",
+      toolCategory: "AI autonomous task completion",
+      difficulty: "hard",
+      estimatedMinutes: 25,
+      heroLine: "Give the AI a goal. Walk away. Come back to the finished work.",
+      warmUpChallenge: "Until now, AI has been a tool you talk to. Agents are different. You give them a GOAL and they take actions: browse the web, click buttons, fill forms, collect data, write the result. Today you delegate real work for the first time.",
+      warmUpQuiz: {
+        question: "What would you delegate to an AI agent if you could?",
+        options: [
+          "Research and compare 10 products I want, with links",
+          "Build a first draft of a business plan overnight",
+          "Find the best-reviewed book for every topic I care about"
+        ]
+      },
+      features: [
+        {
+          feature: "Goal-oriented execution",
+          description: "Give the agent a goal in plain language, it plans and executes steps.",
+          example: "Goal: find and compare 5 used electric bikes under $1500 in my area"
+        },
+        {
+          feature: "Browser and tool use",
+          description: "Agents can browse websites, fill forms, click buttons, and return screenshots.",
+          example: "The agent visits 5 listings, logs prices, and delivers a comparison table"
+        },
+        {
+          feature: "Step-by-step visibility",
+          description: "You can watch every action the agent takes and pause if it goes sideways.",
+          example: "See the agent open 10 tabs, compare, and explain why it picked the top 3"
+        }
+      ],
+      costInfo: "Included in ChatGPT Plus ($20 per month) and above. Free plan has limited access to agent features.",
+      parentTip: "Agents are powerful AND need supervision. Never let an agent handle payment, personal data, or account creation without a grown-up watching. Start with pure research agents first.",
+      learningPoints: [
+        "Delegation as a skill, not a shortcut",
+        "Goal framing: clear input = clear output",
+        "When to intervene vs let it run",
+        "Ethics of autonomous AI"
+      ],
+      quiz: [
+        {
+          question: "How is an AI agent different from a chatbot?",
+          options: [
+            "Chatbots talk, agents execute actions toward a goal",
+            "Agents are slower",
+            "There is no difference",
+            "Agents only work on weekends"
+          ],
+          correctAnswer: 0,
+          explainer: "Chatbots respond to each message. Agents take a GOAL and autonomously work through multiple steps to reach it."
+        },
+        {
+          question: "Why supervise an agent?",
+          options: [
+            "It is always fine without supervision",
+            "Agents can take unintended actions (spending money, sharing data)",
+            "Only on weekends",
+            "Never"
+          ],
+          correctAnswer: 1,
+          explainer: "Agents take real actions. A mis-clicked 'Buy' button or wrong form submission matters. Supervision prevents small mistakes from becoming big ones."
+        },
+        {
+          question: "What is goal framing?",
+          options: [
+            "Decorating goals with frames",
+            "Writing goals clearly enough that AI knows exactly what success looks like",
+            "A type of art",
+            "Not important"
+          ],
+          correctAnswer: 1,
+          explainer: "Vague goal: 'find me a bike.' Clear goal: 'find 5 used electric bikes under $1500 in 20 miles with brand, price, seller contact.' Clear goals produce clean output."
+        }
+      ],
+      missions: [
+        {
+          id: "l35_m1",
+          title: "Comparison Research Agent",
+          objective: "Send an agent to compare 5 products or options and deliver a ranked table.",
+          instructions: [
+            "Pick a real decision you are thinking about (product, book, tool)",
+            "Write a precise goal statement: what to compare, on which criteria, in what format",
+            "Launch the agent with a grown-up watching",
+            "Review the output and check accuracy of 2 claims"
+          ],
+          sandboxPrompt: "I want an agent to compare [category] on these criteria: [list]. Help me write a precise goal statement that will produce a clean comparison table.",
+          quackySystemPrompt: "You are Quacky helping a kid write an agent goal statement. Given the comparison target, return ONE goal statement under 80 words with: specific subject, 3-5 criteria, output format (table/list/ranking), budget/filters, delivery format. One compass emoji.",
+          reflectionQuestion: "Did the agent include something you did not ask for? Did it miss something obvious?",
+          xpReward: 100
+        },
+        {
+          id: "l35_m2",
+          title: "Business Plan Overnight",
+          objective: "Give the agent a business idea and ask for a full first-draft plan by morning.",
+          instructions: [
+            "Pick a business idea from any Empire Builder module",
+            "Write a goal asking for a 6-section business plan with market, customer, pricing, competitors",
+            "Launch and let it work",
+            "Review the draft and mark what is strong vs weak"
+          ],
+          sandboxPrompt: "My business idea is [describe]. Help me write an agent goal for a 6-section business plan that covers market, customer, pricing, competitors, channels, first step.",
+          quackySystemPrompt: "You are Quacky helping a kid write an agent goal for a business plan. Given the idea, return a goal statement under 100 words requesting 6 labeled sections, with 1 source requirement per section, and specific output format. One clipboard emoji.",
+          reflectionQuestion: "Which section was surprisingly good? Which one did YOU have to rewrite from scratch?",
+          xpReward: 150
+        },
+        {
+          id: "l35_m3",
+          title: "Agent Accuracy Audit",
+          objective: "Test an agent's output against reality by verifying 5 of its claims.",
+          instructions: [
+            "Take any agent output you have (from missions above)",
+            "Pick 5 specific factual claims it made",
+            "Verify each with a human check (Perplexity, manual Google, or direct source)",
+            "Note which claims were right, wrong, or uncertain"
+          ],
+          sandboxPrompt: "I have agent output with factual claims. Help me design a 5-claim audit: which types of claims to check and how to verify each.",
+          quackySystemPrompt: "You are Quacky helping a kid audit AI agent output. Return a 5-point audit method: 1. pick measurable claims, 2. set verification sources, 3. compare data, 4. log discrepancies, 5. assign confidence rating. Each step under 20 words. One clipboard emoji.",
+          reflectionQuestion: "What was the agent's hit rate on facts? Would you trust it for something high-stakes?",
+          xpReward: 100
+        }
+      ],
+      empireBuilderTip: "The operators of the 2030s will not compete by working harder. They will compete by commanding more agents. You are learning to be that operator a decade ahead.",
+      completionBadge: "neural_nexus_l5",
+      nextLesson: "l36"
+    },
+
+    // ─────────────────────────────────────────────────────────
+    // L36 : CLAUDE PROJECTS
+    // ─────────────────────────────────────────────────────────
+    {
+      id: "l36",
+      worldId: "w5",
+      lessonNumber: 6,
+      title: "Claude Projects",
+      toolName: "Claude Projects",
+      toolUrl: "https://claude.ai/projects",
+      toolCategory: "AI persistent context workspace",
+      difficulty: "medium",
+      estimatedMinutes: 22,
+      heroLine: "Claude remembers everything about one project so you can build across weeks.",
+      warmUpChallenge: "Most AI chats start from zero every time. You re-explain everything. Claude Projects change that. Upload your files, set your instructions, and every conversation inside the project already knows your context. Today you stop starting over.",
+      warmUpQuiz: {
+        question: "What project would you build with an AI that never forgets?",
+        options: [
+          "A book I am writing where Claude remembers all past chapters",
+          "A business I am launching with all research in one place",
+          "A portfolio site where Claude learns my voice over time"
+        ]
+      },
+      features: [
+        {
+          feature: "Persistent context",
+          description: "Upload documents once, every conversation in the project uses them automatically.",
+          example: "Upload your brand guide, every future copywriting chat uses the right voice"
+        },
+        {
+          feature: "Custom instructions per project",
+          description: "Set rules and preferences that apply only inside this project.",
+          example: "This project: always use third-person, never use em-dashes, cite sources"
+        },
+        {
+          feature: "Long-running work",
+          description: "Work on the same book, startup, or research across weeks without re-briefing.",
+          example: "Return 2 weeks later and Claude still remembers chapter 5 and all 20 characters"
+        }
+      ],
+      costInfo: "Projects are included in Claude Pro ($20 per month). Limited to 5 projects on the free tier.",
+      parentTip: "Projects turn Claude from a tool into a real collaborator. Set up one Project per major goal (school research, book, business). Help your kid write clear instructions once.",
+      learningPoints: [
+        "Context as the limiting factor in AI quality",
+        "Instructions as leverage",
+        "Long-horizon thinking with AI",
+        "Knowledge base as a business asset"
+      ],
+      quiz: [
+        {
+          question: "Why is context the limit for AI quality?",
+          options: [
+            "It is not",
+            "Better context equals better output; generic context equals generic output",
+            "Only speed matters",
+            "AI ignores context"
+          ],
+          correctAnswer: 1,
+          explainer: "An AI that knows your brand, your goals, and your past work gives you output 10x better than a blank-slate AI."
+        },
+        {
+          question: "Why set custom instructions per project?",
+          options: [
+            "To slow things down",
+            "Each project has different rules (tone, format, audience)",
+            "Only big projects need it",
+            "Instructions do nothing"
+          ],
+          correctAnswer: 1,
+          explainer: "Your children's book needs gentle tone. Your startup pitch needs confident tone. Separate projects, separate instructions."
+        },
+        {
+          question: "What is the real value of persistent context?",
+          options: [
+            "No value",
+            "Stop re-explaining, start building",
+            "Just saves typing",
+            "Only makes chats longer"
+          ],
+          correctAnswer: 1,
+          explainer: "Most AI users waste 30% of every chat briefing context. Projects eliminate that forever, letting you start from speed-dial every time."
+        }
+      ],
+      missions: [
+        {
+          id: "l36_m1",
+          title: "Your Empire Project",
+          objective: "Build a Claude Project for YOUR empire across all 5 worlds.",
+          instructions: [
+            "Create a project called 'My KidPreneur Empire'",
+            "Upload all your previous capstone deliverables from Canvas Kingdom through Power Grid",
+            "Write custom instructions: my age, my niche, my voice, my goals",
+            "Ask Claude: 'What patterns do you see across my work?'"
+          ],
+          sandboxPrompt: "I am setting up a Claude Project for my empire across 5 worlds. Help me write custom instructions that give Claude my context in under 200 words.",
+          quackySystemPrompt: "You are Quacky helping a kid write custom instructions for a Claude Project. Return an instructions template with 5 labeled sections: about me (name, age, voice), what I am building, my audience, my style rules, my non-negotiables. Fill with placeholder brackets. Under 200 words. One scroll emoji.",
+          reflectionQuestion: "What did Claude notice about your work that you did not see yourself?",
+          xpReward: 100
+        },
+        {
+          id: "l36_m2",
+          title: "Book or Business Workspace",
+          objective: "Pick a long-horizon project (book, startup, passion project) and build a dedicated workspace.",
+          instructions: [
+            "Pick one real project you want to ship in the next 90 days",
+            "Create a Claude Project for it",
+            "Upload everything: research, drafts, notes, outlines",
+            "Work inside it for 30 minutes and note how much faster you move"
+          ],
+          sandboxPrompt: "I am building [project] over 90 days. Help me list what files, notes, and rules should go into the Claude Project at setup.",
+          quackySystemPrompt: "You are Quacky helping a kid set up a 90-day Claude Project workspace. Given the project, return 4 numbered categories of content to upload (research, drafts, references, rules) with 2-3 specific examples for each. Under 120 words. One workspace emoji.",
+          reflectionQuestion: "What took you 20 minutes before that took 2 minutes inside the Project?",
+          xpReward: 100
+        },
+        {
+          id: "l36_m3",
+          title: "Voice Clone Project",
+          objective: "Train a Claude Project to write in YOUR voice indistinguishably.",
+          instructions: [
+            "Create a project called 'My Voice'",
+            "Upload 10 pieces of your own writing (posts, emails, captions, essays)",
+            "Write instructions describing your voice in 3 words",
+            "Ask Claude to write 3 new pieces on new topics and grade how well it matched"
+          ],
+          sandboxPrompt: "I am training Claude to write in my voice. Help me describe my writing voice in 3 specific words plus 1 sentence of clarification for each word.",
+          quackySystemPrompt: "You are Quacky helping a kid define their writing voice for Claude Projects. Return 3 numbered voice descriptors (each 1 word) with 1-sentence clarification, plus 3 'never do this' rules that define what is NOT the voice. Under 100 words. One mirror emoji.",
+          reflectionQuestion: "Could a friend tell Claude's writing apart from yours? Where did the mask slip?",
+          xpReward: 150
+        }
+      ],
+      empireBuilderTip: "Content agencies charge $2000-$10000 per month to act as a brand's voice. A Claude Project with your voice dialed in IS that agency, running 24/7, forever.",
+      completionBadge: "neural_nexus_l6",
+      nextLesson: "l37"
+    },
+
+    // ─────────────────────────────────────────────────────────
+    // L37 : GEMINI DEEP RESEARCH
+    // ─────────────────────────────────────────────────────────
+    {
+      id: "l37",
+      worldId: "w5",
+      lessonNumber: 7,
+      title: "Gemini Deep Research",
+      toolName: "Gemini Deep Research",
+      toolUrl: "https://gemini.google.com/",
+      toolCategory: "AI long-form research reports",
+      difficulty: "hard",
+      estimatedMinutes: 25,
+      heroLine: "Ask once. Wait 15 minutes. Get a 20-page research report with 50 sources.",
+      warmUpChallenge: "The most valuable people at any company are the ones who can explain a complex topic clearly. Until now, that took weeks of research. Deep Research does it in 15 minutes. The skill becomes choosing the right question.",
+      warmUpQuiz: {
+        question: "Which 20-page report would blow your mind to receive?",
+        options: [
+          "The full state of AI in education in 2026, with every trend explained",
+          "A deep dive on my future industry, with 5 paths mapped",
+          "A competitive analysis of every major tool I might use next year"
+        ]
+      },
+      features: [
+        {
+          feature: "Multi-step research",
+          description: "Gemini plans the research, searches the web, reads dozens of sources, and writes the report.",
+          example: "Ask one question, watch Gemini create a 10-step research plan, then execute it"
+        },
+        {
+          feature: "Long-form reports",
+          description: "Output is a structured 10-30 page document, not a chat reply.",
+          example: "Your report has executive summary, 5 sections, data tables, and a full bibliography"
+        },
+        {
+          feature: "Editable research plan",
+          description: "You can review and adjust the research plan before Gemini executes.",
+          example: "Remove topics, add focus areas, change scope before the deep work starts"
+        }
+      ],
+      costInfo: "Gemini Advanced is $19.99 per month (part of Google One AI Premium). Free trial available.",
+      parentTip: "Deep Research is the premium tool every researcher wishes they had. Save it for projects that deserve depth: a science fair project, a big school paper, a major decision.",
+      learningPoints: [
+        "Question quality decides report quality",
+        "Research planning as a skill",
+        "When depth matters more than speed",
+        "Editing scope before execution"
+      ],
+      quiz: [
+        {
+          question: "What makes Deep Research different from a regular AI chat?",
+          options: [
+            "It is slower",
+            "It plans, researches, and writes a multi-page report from one question",
+            "Only uses 1 source",
+            "It is for images"
+          ],
+          correctAnswer: 1,
+          explainer: "Regular AI responds in seconds with what it knows. Deep Research takes 10-20 minutes to truly investigate a question across dozens of sources."
+        },
+        {
+          question: "Why review the research plan before execution?",
+          options: [
+            "It is pointless",
+            "To narrow scope and focus where it matters",
+            "Just to kill time",
+            "Gemini never makes mistakes"
+          ],
+          correctAnswer: 1,
+          explainer: "A review-then-execute loop gives you control. Bad plan = bad report. 2 minutes reviewing saves 20 minutes of wrong research."
+        },
+        {
+          question: "When should you use Deep Research vs Perplexity?",
+          options: [
+            "Always Perplexity",
+            "Deep Research for major depth; Perplexity for quick answers",
+            "They are identical",
+            "Neither is useful"
+          ],
+          correctAnswer: 1,
+          explainer: "Perplexity: quick, cited answer in 30 seconds. Deep Research: full multi-page report in 15 minutes. Pick by depth needed."
+        }
+      ],
+      missions: [
+        {
+          id: "l37_m1",
+          title: "Future Industry Map",
+          objective: "Pick an industry you might work in and commission a full industry map.",
+          instructions: [
+            "Pick an industry you are curious about (AI, space, medicine, finance, creative work)",
+            "Write a deep research prompt: trends, players, jobs, skills needed, 5-year outlook",
+            "Review and refine Gemini's plan before execution",
+            "Read the 20-page report and highlight 5 insights you did not know"
+          ],
+          sandboxPrompt: "I want a deep research report on the future of [industry]. Help me write a prompt that covers trends, players, jobs, skills, and 5-year outlook.",
+          quackySystemPrompt: "You are Quacky helping a kid write a deep research prompt on an industry. Given the industry, return a structured prompt under 150 words with 5 labeled sub-questions covering: current state, top players, emerging trends, skill requirements, 5-year predictions. One map emoji.",
+          reflectionQuestion: "Which insight in the report changed your thinking about this industry?",
+          xpReward: 100
+        },
+        {
+          id: "l37_m2",
+          title: "Competitive Analysis",
+          objective: "Research 5 competitors in a space and deliver a full comparison report.",
+          instructions: [
+            "Pick a space you are thinking of entering (could be content niche, service type, local business)",
+            "Identify 5 competitors",
+            "Ask Deep Research to analyze each on 6 criteria",
+            "Write a 1-page positioning statement for yourself based on the gaps"
+          ],
+          sandboxPrompt: "I want a competitive analysis of 5 players in [space]. Help me define the 6 criteria that will produce actionable comparisons.",
+          quackySystemPrompt: "You are Quacky helping a kid build a competitive analysis prompt. Given the space, return 6 numbered comparison criteria: audience focus, content style, revenue model, growth rate, weaknesses, differentiation. Each under 15 words. One chess emoji.",
+          reflectionQuestion: "What gap did all 5 competitors leave open? That is your opening.",
+          xpReward: 150
+        },
+        {
+          id: "l37_m3",
+          title: "Trend Intelligence Briefing",
+          objective: "Publish an intelligence briefing on a trend people are talking about but misunderstand.",
+          instructions: [
+            "Pick a trend everyone discusses but few truly understand (ex: 'creator economy', 'AI regulation')",
+            "Commission a Deep Research report on the real dynamics",
+            "Summarize into a 500-word briefing with 3 counterintuitive insights",
+            "Publish as a newsletter or post (with citations)"
+          ],
+          sandboxPrompt: "The trend is: [paste]. Help me write a deep research prompt that uncovers what is really going on underneath the hype.",
+          quackySystemPrompt: "You are Quacky helping a kid research a trend beneath the hype. Given the trend, return a 5-part prompt covering: popular narrative, evidence for, evidence against, hidden drivers, probable future. Under 120 words. One telescope emoji.",
+          reflectionQuestion: "What is the trend's biggest public myth? What is the most important truth nobody talks about?",
+          xpReward: 150
+        }
+      ],
+      empireBuilderTip: "McKinsey charges clients $500,000+ per industry report. The reports you just built are 70% of the way there. You will not sell to Fortune 500 at 14, but you can sell smaller versions ($300-$1500) to small businesses starting today.",
+      completionBadge: "neural_nexus_l7",
+      nextLesson: "l38"
+    },
+
+    // ─────────────────────────────────────────────────────────
+    // L38 : CUSTOM GPTs
+    // ─────────────────────────────────────────────────────────
+    {
+      id: "l38",
+      worldId: "w5",
+      lessonNumber: 8,
+      title: "Custom GPTs",
+      toolName: "Custom GPTs",
+      toolUrl: "https://chat.openai.com/gpts",
+      toolCategory: "AI agent building and deployment",
+      difficulty: "hard",
+      estimatedMinutes: 30,
+      heroLine: "Build your own AI that does one job better than ChatGPT ever could.",
+      warmUpChallenge: "The final move is ownership. Not using AI, not talking to AI, but BUILDING AI that carries your voice, your knowledge, and your system. Today you stop being a user and become an AI creator.",
+      warmUpQuiz: {
+        question: "What custom AI would you build if you could?",
+        options: [
+          "A tutor that teaches my subject in my voice for younger kids",
+          "A brand assistant trained on my business that clients can talk to",
+          "A research agent with my rules that runs the kind of reports I need"
+        ]
+      },
+      features: [
+        {
+          feature: "Custom instructions",
+          description: "Define your GPT's personality, knowledge, and rules.",
+          example: "My GPT only answers as a supportive 8th grade tutor, never gives answers directly"
+        },
+        {
+          feature: "Knowledge upload",
+          description: "Upload up to 20 documents for your GPT to reference.",
+          example: "Upload 10 of your own articles, GPT answers like you wrote the response"
+        },
+        {
+          feature: "Public deployment",
+          description: "Share your GPT on a public URL or in the GPT Store.",
+          example: "Your 'Middle School Study Buddy' GPT gets used by 500 kids in a month"
+        }
+      ],
+      costInfo: "Building custom GPTs requires ChatGPT Plus ($20/month). Monetization through the GPT Store is free to join.",
+      parentTip: "This is the capstone skill of the empire. Your kid moves from AI user to AI builder. Monitor what they publish publicly : a GPT trained on their voice can reach thousands of strangers.",
+      learningPoints: [
+        "From user to builder",
+        "Knowledge + instructions = custom intelligence",
+        "Deployment as a business decision",
+        "AI ethics: safety, consent, responsibility"
+      ],
+      quiz: [
+        {
+          question: "What separates a custom GPT from regular ChatGPT?",
+          options: [
+            "Nothing",
+            "Instructions and knowledge focused on ONE specific job",
+            "Custom GPTs are slower",
+            "Only colors"
+          ],
+          correctAnswer: 1,
+          explainer: "ChatGPT is general. A custom GPT does ONE thing exceptionally because it is trained on your exact instructions and documents."
+        },
+        {
+          question: "When does deployment become a business decision?",
+          options: [
+            "It never does",
+            "When you publish a GPT others can use, responsibility starts",
+            "Only after 1 million users",
+            "Deployment has no consequences"
+          ],
+          correctAnswer: 1,
+          explainer: "Publishing = people relying on your work. Errors affect them. Monetization opens legal and ethical questions. Deploy with eyes open."
+        },
+        {
+          question: "What is the single biggest AI ethics question when you build?",
+          options: [
+            "How to make the most money",
+            "Who could be harmed by this, and how do I prevent it?",
+            "How fast to launch",
+            "Only color choices"
+          ],
+          correctAnswer: 1,
+          explainer: "Good builders ask: could my AI give dangerous advice, expose private data, or deceive someone vulnerable? Safety is the first question, always."
+        }
+      ],
+      missions: [
+        {
+          id: "l38_m1",
+          title: "Your First Tutor GPT",
+          objective: "Build a custom GPT that tutors YOUR favorite subject for younger kids.",
+          instructions: [
+            "Pick a subject you know well (math, a sport, a game, a craft)",
+            "Write instructions: never give direct answers, always ask guiding questions",
+            "Upload 5-10 documents as knowledge base",
+            "Test by having a younger sibling or friend use it for 15 minutes"
+          ],
+          sandboxPrompt: "I want to build a tutor GPT for [subject] for [target age]. Help me write custom instructions that keep it coaching, not answering.",
+          quackySystemPrompt: "You are Quacky helping a kid build a tutor GPT. Given the subject and age, return custom instructions under 250 words covering: role, tone, 3 teaching rules, 2 hard limits (never give direct answers, never discourage), a question-first approach. One graduation emoji.",
+          reflectionQuestion: "Did your sibling or friend learn faster? Where did the GPT mess up?",
+          xpReward: 150
+        },
+        {
+          id: "l38_m2",
+          title: "Brand Voice Agent",
+          objective: "Build a GPT trained on your brand from Canvas Kingdom through now.",
+          instructions: [
+            "Create a GPT named after your empire studio",
+            "Upload your portfolio: logos, copy samples, mission statements, content",
+            "Write instructions on your voice: 3 descriptors + 3 nevers",
+            "Share the GPT link with 3 friends and see how they use it"
+          ],
+          sandboxPrompt: "I am building a brand voice GPT for my studio [name]. Help me structure the knowledge base and instructions so it speaks like me.",
+          quackySystemPrompt: "You are Quacky helping a kid build a brand voice GPT. Given the studio, return: 5 labeled document categories to upload (portfolio, voice samples, mission, rules, examples), plus custom instructions under 200 words with voice descriptors and hard rules. One mask emoji.",
+          reflectionQuestion: "Would a first-time visitor actually feel like they were talking to YOU?",
+          xpReward: 150
+        },
+        {
+          id: "l38_m3",
+          title: "Research Agent",
+          objective: "Build a custom research GPT that follows YOUR rules for quality research.",
+          instructions: [
+            "Write instructions: always cite sources, always check both sides, never speculate without labeling",
+            "Upload 5 example 'good research' documents as reference",
+            "Test by asking it to research 3 real questions you care about",
+            "Compare output to ChatGPT default and note improvements"
+          ],
+          sandboxPrompt: "I am building a research agent GPT with my quality rules. Help me write 5 non-negotiable research rules and 3 output format rules.",
+          quackySystemPrompt: "You are Quacky helping a kid build a research GPT. Return 5 numbered non-negotiable research rules (citation, dual-side, uncertainty labeling, evidence quality, primary sources) plus 3 output format rules (structure, length, delivery). Each rule under 20 words. One telescope emoji.",
+          reflectionQuestion: "Did your custom GPT produce better research than default ChatGPT? Where exactly did it win?",
+          xpReward: 200
+        }
+      ],
+      empireBuilderTip: "The GPT Store is the new App Store of 2026. Top GPTs earn creators thousands per month. You are positioned to be an early creator before the space is crowded.",
+      completionBadge: "neural_nexus_l8",
+      nextLesson: null
+    }
+  ],
+  empireBuilderModule: {
+    id: "eb_w5",
+    worldId: "w5",
+    title: "Your First AI Agency",
+    tagline: "Productize your AI skills into a real agency that sells research, custom GPTs, and AI workflows.",
+    estimatedMinutes: 60,
+    businessArchetype: "AI consulting and agent building agency",
+    targetCustomer: "Small businesses, local professionals, solo creators, nonprofits that know AI matters but cannot build it themselves.",
+    realWorldExamples: [
+      "Kid-run Upwork AI consulting earns $500-$5000 per custom GPT delivered.",
+      "14-year-old founders on X/Twitter have built 6-figure businesses selling custom AI research reports.",
+      "Small agencies charging $3000+ per month for AI setup and training are thriving in every country."
+    ],
+    businessSteps: [
+      {
+        step: 1,
+        title: "Pick your AI service",
+        description: "Choose ONE productized AI service: custom research reports, custom GPTs, AI workflow setup, or AI research subscriptions.",
+        usingTools: ["Notion AI", "Claude Projects"],
+        deliverable: "A one-line pitch: I build [AI service] for [customer] so they can [outcome]."
+      },
+      {
+        step: 2,
+        title: "Build your 3 case study assets",
+        description: "Create 3 examples of the work you will sell, using real clients or imaginary ones.",
+        usingTools: ["Gemini Deep Research", "Custom GPTs", "Elicit", "Claude Projects"],
+        deliverable: "3 case studies showing before, process, after, with results."
+      },
+      {
+        step: 3,
+        title: "Package your service",
+        description: "Define scope, timeline, and price for 3 tiers: starter, standard, premium.",
+        usingTools: ["Copy.ai", "Notion AI"],
+        deliverable: "A 1-page service menu with tiers, deliverables, and clear pricing."
+      },
+      {
+        step: 4,
+        title: "Launch your agency site",
+        description: "Use Galileo AI, Ideogram, and Copy.ai to build a simple landing page.",
+        usingTools: ["Galileo AI", "Ideogram", "Copy.ai"],
+        deliverable: "A live landing page with case studies, pricing, and contact."
+      },
+      {
+        step: 5,
+        title: "Sell to your first real client",
+        description: "Pitch 5 real businesses (cafes, shops, solo pros) a starter-tier offer at 50% off.",
+        usingTools: ["ChatGPT", "Copy.ai"],
+        deliverable: "A closed deal with the first real dollar earned from your agency."
+      }
+    ],
+    quackyPlaybook: "AI is not hype. It is leverage. In 2026, the people who earn the most are not the ones who work the hardest, they are the ones who deploy AI most effectively. You have spent 5 worlds learning to be that operator. Now you sell that advantage to people who need it. The market is wide open for kids who move while adults hesitate.",
+    pricingLesson: {
+      yourFirstPrice: "Starter tier: $99-$299 for one custom GPT or one research report. Standard tier: $499-$999 for multi-step AI workflow setup. Premium tier: $1000-$3000 for agency retainer with monthly deliverables.",
+      whyThisPrice: "AI consulting is priced on ROI, not hours. A business owner who spends $500 and saves 10 hours a month is buying their life back. Price the transformation, not the task.",
+      scaleUp: "Every 5 clients, raise prices 50%. Move from one-off projects to monthly retainers by client 10. By client 25, productize your signature service and sell it as a package."
+    },
+    firstCustomerExercise: {
+      task: "Identify 3 local businesses and draft a pitch that shows exactly what you would build for them.",
+      prompt: "Help me find 3 local business types who would benefit from AI and write a pitch message for each with a specific offer.",
+      quackySystemPrompt: "You are Quacky helping a kid pitch AI services to local businesses. Return 3 numbered business types (cafe, local shop, service provider) each with: their pain point, the specific AI solution you would build, the starter offer ($ amount). Under 200 words total. One handshake emoji."
+    },
+    xpReward: 500,
+    completionBadge: "neural_nexus_champion"
+  },
+  capstone: {
+    id: "cap_w5",
+    worldId: "w5",
+    title: "The Neural Nexus Intelligence Report",
+    narrative: "The final capstone is the hardest: publish a 2000-word deep-research report on a topic that matters, using everything you have learned. Reports like this get published on LinkedIn, Substack, and quoted by journalists. This is not a school assignment. This is your first piece of real intellectual property.",
+    requiredMissions: ["l31_m3", "l32_m2", "l34_m1", "l37_m1", "l38_m3"],
+    deliverableSpec: "Submit a 2000-word intelligence report with: clear thesis, 3 main findings with evidence, 20+ cited sources, 1 custom chart or data table, a 200-word executive summary, a 100-word author bio with your Empire credentials. Must use Perplexity, Elicit, Gemini Deep Research, and your custom research GPT. Publish to a public URL (Substack, Medium, LinkedIn, or your own site).",
+    submissionFormat: "document",
+    parentReviewPrompt: "Your child just published a 2000-word research report that took most adults weeks to produce. Read it together, flag one finding that surprised you, and discuss where this work could be shared publicly. This is portfolio material that could go on a college application.",
+    xpReward: 2000,
+    unlocksWorld: null
+  }
+};
+
 export const WORLDS: World[] = [
   CANVAS_KINGDOM,
   STORY_FORGE,
   CROWD_PLAZA,
   POWER_GRID,
-  // w5 Neural Nexus    : next session
+  NEURAL_NEXUS,
 ];
