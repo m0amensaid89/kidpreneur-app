@@ -958,7 +958,7 @@ const CANVAS_KINGDOM: World = {
         question: "Which app design would you start with?",
         options: [
           "A magical pet tracker app",
-          "A portfolio site for a creative friend"
+          "A portfolio site for a creative friend",
           "A design that turns your drawings into real layouts"
         ]
       },
