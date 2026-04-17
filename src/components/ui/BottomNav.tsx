@@ -28,7 +28,7 @@ export function BottomNav() {
               href={tab.href}
               className={cn(
                 "flex flex-col items-center justify-center w-full h-full space-y-1 transition-colors",
-                isActive ? "text-primary" : "text-muted-foreground hover:text-foreground"
+                isActive ? "text-[#10B981]" : "text-muted-foreground hover:text-foreground"
               )}
             >
               <Icon className="w-5 h-5" strokeWidth={isActive ? 2.5 : 2} />
