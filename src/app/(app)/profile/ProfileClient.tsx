@@ -85,7 +85,7 @@ export function ProfileClient({ user, profile, totalXp, levelData, earnedBadges,
              </div>
            ) : (
              <div className="bg-card border border-border/50 border-dashed rounded-2xl p-6 flex flex-col items-center justify-center text-center shadow-sm space-y-3">
-               <img src="/quacky-thinking.png" alt="Quacky thinking" className="w-16 h-16 object-contain opacity-80" />
+               <img src="/quacky/quacky-thinking.png" alt="Quacky thinking" className="w-16 h-16 object-contain opacity-80" />
                <p className="text-muted-foreground text-sm font-medium">Keep learning to earn your first badge!</p>
              </div>
            )}

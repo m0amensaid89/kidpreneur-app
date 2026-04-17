@@ -71,7 +71,7 @@ export function SettingsClient({ user, profile }: { user: any, profile: any }) {
 
       <div className="p-4 flex-1 space-y-6">
         <div className="flex justify-center mb-6">
-          <img src="/quacky-neutral.png" alt="Quacky" className="w-24 h-24 object-contain" />
+          <img src="/quacky/quacky-neutral.png" alt="Quacky" className="w-24 h-24 object-contain" />
         </div>
 
         <div className="space-y-4">
