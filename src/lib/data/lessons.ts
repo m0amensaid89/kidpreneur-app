@@ -3371,10 +3371,1185 @@ const CROWD_PLAZA: World = {
   }
 };
 
+// ═══════════════════════════════════════════════════════════
+// WORLD 4 : POWER GRID
+// AI for productivity, systems, time, and automation
+// Empire Builder: Systems and time as money
+// ═══════════════════════════════════════════════════════════
+
+const POWER_GRID: World = {
+  id: "w4",
+  name: "Power Grid",
+  color: "#00A878",
+  icon: "bolt",
+  description: "Build systems that work while you sleep. Time is the one asset you can't make more of.",
+  empireBuilderConcept: "Systems and time as money : operators who systematize their work earn more while working less.",
+  lessonCount: 8,
+  unlockRequirement: { previousWorld: "w3", minXP: 7000 },
+  capstoneProject: "Design a complete personal operating system that runs your week across notes, tasks, email, and automations.",
+  lessons: [
+    // ─────────────────────────────────────────────────────────
+    // L23 : NOTION AI
+    // ─────────────────────────────────────────────────────────
+    {
+      id: "l23",
+      worldId: "w4",
+      lessonNumber: 1,
+      title: "Notion AI",
+      toolName: "Notion AI",
+      toolUrl: "https://www.notion.so/product/ai",
+      toolCategory: "AI knowledge base and workspace",
+      difficulty: "medium",
+      estimatedMinutes: 25,
+      heroLine: "Build your second brain where everything lives, searches, and writes itself.",
+      warmUpChallenge: "Your brain forgets things. Not because you are dumb, because that is what brains do. The best operators do not rely on memory. They build systems. Today you start yours.",
+      warmUpQuiz: {
+        question: "What would you put in a second brain first?",
+        options: [
+          "Every project I have ever started and abandoned",
+          "All the ideas I lose because I never write them down",
+          "My goals and the weekly review that makes them happen"
+        ]
+      },
+      features: [
+        {
+          feature: "AI writing inside any page",
+          description: "Press space and ask the AI to write, summarize, or rewrite anything inline.",
+          example: "Turn rough bullet notes into a clean weekly review in one command"
+        },
+        {
+          feature: "Database with AI fill",
+          description: "Notion databases can auto-fill fields using AI based on the content.",
+          example: "A task list auto-tags urgency, category, and next action"
+        },
+        {
+          feature: "Semantic search",
+          description: "Search by meaning, not just keywords. Ask a question, get an answer from your notes.",
+          example: "Ask: what did I decide about the logo last month? Notion finds it."
+        }
+      ],
+      costInfo: "Free plan covers personal use. Notion AI add-on is $10 per month with unlimited use.",
+      parentTip: "Notion is the gold-standard tool for operators. Help your kid build ONE system first (weekly review, or reading log) before expanding. Tool sprawl kills systems.",
+      learningPoints: [
+        "Second brain principles: capture, organize, retrieve",
+        "Databases as systems, not lists",
+        "Why semantic search changes the game",
+        "When to use AI inline vs asking questions"
+      ],
+      quiz: [
+        {
+          question: "What is a second brain for?",
+          options: [
+            "Replacing your real brain",
+            "Catching ideas your brain forgets and making them useful later",
+            "Storing passwords",
+            "Nothing important"
+          ],
+          correctAnswer: 1,
+          explainer: "Your brain is for thinking, not storing. A second brain holds everything so you can focus on thinking."
+        },
+        {
+          question: "Why do databases beat lists?",
+          options: [
+            "They do not",
+            "Databases let you filter, sort, and view the same info in 5 ways",
+            "Databases are uglier",
+            "Lists are always better"
+          ],
+          correctAnswer: 1,
+          explainer: "A task list is flat. A task database lets you view by priority, by project, by week, by status, all from the same data."
+        },
+        {
+          question: "What is semantic search?",
+          options: [
+            "Search for exact words only",
+            "Search by meaning, so 'logo decision' finds 'branding choice'",
+            "Search inside videos",
+            "A type of file"
+          ],
+          correctAnswer: 1,
+          explainer: "Semantic search understands meaning. You do not need to remember the exact words you wrote, just what you were thinking about."
+        }
+      ],
+      missions: [
+        {
+          id: "l23_m1",
+          title: "Weekly Review Template",
+          objective: "Build a weekly review page that forces you to reflect every Sunday in 10 minutes.",
+          instructions: [
+            "Create a Notion page called Weekly Review",
+            "Add 4 sections: wins, misses, lessons, next week",
+            "Add AI prompts inside each section that ask the right question",
+            "Duplicate it to a database so every week has its own entry"
+          ],
+          sandboxPrompt: "I want a 10-minute weekly review template in Notion with 4 sections: wins, misses, lessons, next week. Help me write the AI prompts for each section.",
+          quackySystemPrompt: "You are Quacky helping a kid design a weekly review template. For each of the 4 sections (wins, misses, lessons, next week), write 1 specific inline AI prompt that surfaces honest reflection. Keep each under 20 words. Numbered. One spiral emoji.",
+          reflectionQuestion: "Which section do you think you will dread most? That is the one that matters most.",
+          xpReward: 75
+        },
+        {
+          id: "l23_m2",
+          title: "Project Database",
+          objective: "Build a database that tracks every project you start, with auto-tagged next actions.",
+          instructions: [
+            "Create a Projects database with 5 fields: name, status, category, next action, deadline",
+            "Add AI fill on the category and next action fields",
+            "Log 5 real projects (finished, active, or idea stage)",
+            "View by status to see what is actually moving"
+          ],
+          sandboxPrompt: "I want to build a Notion project database with 5 fields. Help me write the AI prompts for auto-tagging category and next action.",
+          quackySystemPrompt: "You are Quacky helping a kid set up a project database with AI auto-fill. Write 2 short AI prompts: one for category tagging (creative/learning/business/personal), one for next-action extraction (under 10 words each output). One folder emoji.",
+          reflectionQuestion: "How many of your 5 projects have moved in the last 30 days? Be honest.",
+          xpReward: 75
+        },
+        {
+          id: "l23_m3",
+          title: "Second Brain Search Test",
+          objective: "Prove your second brain works by retrieving an idea you had weeks ago.",
+          instructions: [
+            "Drop 10 ideas you have had recently into Notion as quick notes",
+            "Wait 48 hours",
+            "Use semantic search to find 3 of them with partial memory",
+            "Note which ideas you could not have found without search"
+          ],
+          sandboxPrompt: "I want to test Notion's semantic search by retrieving 3 ideas from vague memory. Help me write 3 test queries based on typical vague recall.",
+          quackySystemPrompt: "You are Quacky helping a kid test semantic search. Given the experiment, return 3 vague-memory query examples (like 'the thing about late-night focus' or 'that idea about a teen newsletter'). Each under 12 words. Numbered. One magnifier emoji.",
+          reflectionQuestion: "Which idea would have been lost forever without your second brain?",
+          xpReward: 100
+        }
+      ],
+      empireBuilderTip: "Operations consultants charge $150 to $400 per hour to build Notion systems for founders. The skill is worth real money and makes your own life calmer.",
+      completionBadge: "power_grid_l1",
+      nextLesson: "l24"
+    },
+
+    // ─────────────────────────────────────────────────────────
+    // L24 : RECLAIM.AI
+    // ─────────────────────────────────────────────────────────
+    {
+      id: "l24",
+      worldId: "w4",
+      lessonNumber: 2,
+      title: "Reclaim.ai",
+      toolName: "Reclaim.ai",
+      toolUrl: "https://reclaim.ai/",
+      toolCategory: "AI calendar and focus time scheduler",
+      difficulty: "medium",
+      estimatedMinutes: 20,
+      heroLine: "The AI that defends your calendar like a bodyguard.",
+      warmUpChallenge: "Most calendars are full of other people's priorities. Reclaim flips it. Your habits and focus time come first, then everything else fits around them. Today you stop giving your time away by default.",
+      warmUpQuiz: {
+        question: "What would you defend on your calendar if you could?",
+        options: [
+          "A daily 90-minute focus block for deep work",
+          "Protected time for exercise and rest",
+          "Space for the projects that never get scheduled"
+        ]
+      },
+      features: [
+        {
+          feature: "Habits that auto-schedule",
+          description: "Tell Reclaim what matters (exercise, reading, focus blocks), it finds time automatically.",
+          example: "Set habit: focus work 2 hours per day. Reclaim places it where it fits."
+        },
+        {
+          feature: "Smart defenses",
+          description: "Reclaim reshuffles habits when meetings come up instead of deleting them.",
+          example: "A last-minute meeting on Tuesday, focus time auto-moves to Wednesday"
+        },
+        {
+          feature: "Task time blocking",
+          description: "Import tasks, Reclaim schedules them based on priority and deadline.",
+          example: "A 2-hour project due Friday gets blocked in before it."
+        }
+      ],
+      costInfo: "Free plan covers habits and tasks. Starter plan is $10 per month for smarter scheduling and team features.",
+      parentTip: "Teach calendar defense early. A kid who protects focus time at 12 is someone who can compete with adults at 20. It is the rarest adult skill and the easiest to start young.",
+      learningPoints: [
+        "Calendar as a system, not a scratchpad",
+        "Defending time before giving it away",
+        "Habits as the foundation of productivity",
+        "Time-blocking vs to-do lists"
+      ],
+      quiz: [
+        {
+          question: "What is the problem with most calendars?",
+          options: [
+            "Calendars are fine",
+            "They are full of other people's priorities",
+            "They cost too much",
+            "They are too colorful"
+          ],
+          correctAnswer: 1,
+          explainer: "Open your calendar. Count how many blocks YOU chose vs someone else scheduled. Most people lose the game by default."
+        },
+        {
+          question: "What does a Reclaim habit do?",
+          options: [
+            "Nothing special",
+            "Auto-schedules recurring time for what matters to you",
+            "Sends spam emails",
+            "Deletes meetings"
+          ],
+          correctAnswer: 1,
+          explainer: "A habit is a recurring block Reclaim defends. Exercise, focus, reading, meditation. It finds the time, you just show up."
+        },
+        {
+          question: "What happens when a meeting conflicts with a habit?",
+          options: [
+            "The habit is deleted",
+            "Reclaim reshuffles the habit to protect it",
+            "Nothing",
+            "The meeting gets cancelled"
+          ],
+          correctAnswer: 1,
+          explainer: "Reclaim does not abandon your habits. It moves them to another slot so they still happen."
+        }
+      ],
+      missions: [
+        {
+          id: "l24_m1",
+          title: "Calendar Audit",
+          objective: "Audit your current week and catch where your time actually goes.",
+          instructions: [
+            "Screenshot this week's calendar",
+            "Color-code: blue for your choices, red for others' choices, yellow for reactive",
+            "Count hours in each color",
+            "Write a one-line verdict: who owned your week"
+          ],
+          sandboxPrompt: "I audited my calendar: [X hours my choices], [Y hours others' choices], [Z hours reactive]. Help me interpret what this means for my week.",
+          quackySystemPrompt: "You are Quacky helping a kid analyze a calendar audit. Given the 3 numbers, return a direct verdict (1 sentence), 3 observations, and 1 specific change to try next week. Under 100 words. One pie chart emoji.",
+          reflectionQuestion: "Were you surprised by who actually owned your week?",
+          xpReward: 75
+        },
+        {
+          id: "l24_m2",
+          title: "3-Habit Stack",
+          objective: "Install 3 non-negotiable habits on your calendar that Reclaim defends automatically.",
+          instructions: [
+            "Pick 3 habits that would compound if you did them weekly: exercise, deep work, reading",
+            "Configure each in Reclaim with preferred time windows",
+            "Let Reclaim auto-schedule for 7 days",
+            "Mark completion each night and see the hit rate"
+          ],
+          sandboxPrompt: "I want to install 3 weekly habits: [list]. Help me set Reclaim rules: preferred time windows and minimum completions per week.",
+          quackySystemPrompt: "You are Quacky helping a kid configure 3 Reclaim habits. Given the habits, return 3 labeled configs: frequency per week, duration per session, preferred time window, and 1 recovery rule for when life breaks. Numbered. One shield emoji.",
+          reflectionQuestion: "Which habit did you skip most this week? Why is it the hardest?",
+          xpReward: 100
+        },
+        {
+          id: "l24_m3",
+          title: "The Deep Work Block",
+          objective: "Lock one 90-minute deep work block daily for 7 days and track what you do in it.",
+          instructions: [
+            "Configure a Reclaim habit: 90 minutes of focus, 5 days per week",
+            "Before each block, write ONE specific outcome you will achieve",
+            "Work with phone out of reach",
+            "Log the outcome at the end of each block"
+          ],
+          sandboxPrompt: "I am doing 5 days of 90-minute deep work. Help me pick 5 specific outcomes, one per day, around my project [describe].",
+          quackySystemPrompt: "You are Quacky helping a kid pick 5 deep-work outcomes. Given the project, return 5 numbered daily outcomes, each a specific deliverable that fits in 90 minutes. Start each with an action verb. One focus emoji.",
+          reflectionQuestion: "What became possible in 90 protected minutes that never got done in normal days?",
+          xpReward: 100
+        }
+      ],
+      empireBuilderTip: "The single biggest advantage any solo operator has is focus time. People who protect 90 minutes a day ship more work than people who grind 8 hours unfocused. Reclaim makes that possible at 12 years old.",
+      completionBadge: "power_grid_l2",
+      nextLesson: "l25"
+    },
+
+    // ─────────────────────────────────────────────────────────
+    // L25 : SUPERHUMAN AI
+    // ─────────────────────────────────────────────────────────
+    {
+      id: "l25",
+      worldId: "w4",
+      lessonNumber: 3,
+      title: "Superhuman AI",
+      toolName: "Superhuman AI",
+      toolUrl: "https://superhuman.com/",
+      toolCategory: "AI email triage and writing",
+      difficulty: "medium",
+      estimatedMinutes: 18,
+      heroLine: "The email client that makes inbox zero feel like a fair fight.",
+      warmUpChallenge: "Most adults spend 3 hours a day on email. The best operators spend 20 minutes total. The secret is not working harder, it is triaging smarter. Today you become faster than any adult you know.",
+      warmUpQuiz: {
+        question: "What is the biggest email trap?",
+        options: [
+          "Checking email every 5 minutes all day",
+          "Replying immediately to everything",
+          "Writing responses longer than they need to be"
+        ]
+      },
+      features: [
+        {
+          feature: "AI reply drafts",
+          description: "Superhuman drafts responses based on the email thread and your past replies.",
+          example: "Open an email, see 3 reply drafts ready before you type anything"
+        },
+        {
+          feature: "Triage keyboard shortcuts",
+          description: "Clear inbox 3x faster using single-key actions for archive, snooze, reply.",
+          example: "E to archive, H to snooze until tomorrow, R to reply. 100 emails in 10 minutes."
+        },
+        {
+          feature: "Split inbox",
+          description: "Separate VIP emails, newsletters, and team stuff into their own streams.",
+          example: "Only your top 5 senders appear in your main inbox, everything else waits"
+        }
+      ],
+      costInfo: "Superhuman is $30 per month. Free alternatives with similar AI features: Gmail with Copilot-like third-party extensions like Flowrite.",
+      parentTip: "Email triage is a lifelong skill. Start with Gmail and free AI tools first. Superhuman is a power upgrade for heavy users, not a starter tool.",
+      learningPoints: [
+        "Why batch email beats real-time email",
+        "Triage before writing",
+        "Short replies are a gift, not rudeness",
+        "Keyboard shortcuts as leverage"
+      ],
+      quiz: [
+        {
+          question: "What is the real cost of checking email all day?",
+          options: [
+            "There is no cost",
+            "Every interruption takes 20 minutes to recover focus",
+            "It saves time",
+            "Only the internet bill"
+          ],
+          correctAnswer: 1,
+          explainer: "Research shows it takes 15 to 25 minutes to fully regain focus after an interruption. Email 10 times a day kills 3 hours."
+        },
+        {
+          question: "Why does triage matter more than writing?",
+          options: [
+            "It does not",
+            "Most emails do not need a reply, and triage decides that fast",
+            "Only the reply matters",
+            "Triage is the same as writing"
+          ],
+          correctAnswer: 1,
+          explainer: "Most emails can be archived, snoozed, or forwarded in one second. Only 10% actually deserve your thoughtful reply."
+        },
+        {
+          question: "What makes a short reply a gift?",
+          options: [
+            "It respects both people's time",
+            "It means you do not care",
+            "It is lazy",
+            "Short replies are rude"
+          ],
+          correctAnswer: 0,
+          explainer: "Long emails signal you are disorganized. Tight emails signal respect for the reader's time."
+        }
+      ],
+      missions: [
+        {
+          id: "l25_m1",
+          title: "Inbox Zero Sprint",
+          objective: "Clear your inbox from current state to zero in one focused 45-minute sprint.",
+          instructions: [
+            "Set a 45-minute timer",
+            "For every email: archive, snooze, or reply in under 60 seconds",
+            "No writing over 3 sentences",
+            "Screenshot the empty inbox when done"
+          ],
+          sandboxPrompt: "I have [X] unread emails. Help me build a decision tree for the sprint: when to archive, when to snooze, when to reply.",
+          quackySystemPrompt: "You are Quacky helping a kid triage emails in a 45-minute sprint. Return a simple 3-branch decision tree: 1. Does it need me personally (no → archive); 2. Can it wait (yes → snooze, no → reply); 3. Can I reply in 3 sentences (yes → reply now, no → schedule). One trash emoji.",
+          reflectionQuestion: "What did you realize about your own inbox while triaging at speed?",
+          xpReward: 75
+        },
+        {
+          id: "l25_m2",
+          title: "The 3-Sentence Reply",
+          objective: "Reply to 5 real emails this week using only 3 sentences each.",
+          instructions: [
+            "Pick 5 recent emails you need to reply to",
+            "Draft each reply in exactly 3 sentences: acknowledge, answer, close",
+            "Use AI to tighten any that feel rough",
+            "Send them and notice how much time you saved"
+          ],
+          sandboxPrompt: "I need to reply to this email: [paste]. Help me draft a 3-sentence reply: acknowledge, answer, close.",
+          quackySystemPrompt: "You are Quacky helping a kid write 3-sentence email replies. Given the original email, write exactly 3 sentences: 1. acknowledge what they said, 2. give your answer or position, 3. close with next step or warm sign-off. No extra lines. One envelope emoji.",
+          reflectionQuestion: "Did anyone complain about your shorter replies? Or did they just move on?",
+          xpReward: 75
+        },
+        {
+          id: "l25_m3",
+          title: "Inbox Quiet Hours",
+          objective: "Batch all email into 2 fixed check-ins per day for 5 days.",
+          instructions: [
+            "Lock 2 email windows on your calendar: one morning, one afternoon, 30 minutes each",
+            "Close email outside those windows",
+            "Log how many times you felt the urge to check outside the windows",
+            "Compare your week to previous weeks"
+          ],
+          sandboxPrompt: "I am batching email to 2 windows per day for 5 days. Help me design a tracking sheet for urges and outcomes.",
+          quackySystemPrompt: "You are Quacky helping a kid track an email batching experiment. Return a 5-day tracking table template: columns for date, check-in times, emails handled, urge count, one observation. Simple text format. One clock emoji.",
+          reflectionQuestion: "Did the world actually end when you did not reply within an hour?",
+          xpReward: 100
+        }
+      ],
+      empireBuilderTip: "The highest-paid executives in the world all have assistants or systems that triage email before they see it. You are building that system for yourself decades earlier than they did.",
+      completionBadge: "power_grid_l3",
+      nextLesson: "l26"
+    },
+
+    // ─────────────────────────────────────────────────────────
+    // L26 : MEM.AI
+    // ─────────────────────────────────────────────────────────
+    {
+      id: "l26",
+      worldId: "w4",
+      lessonNumber: 4,
+      title: "Mem.ai",
+      toolName: "Mem.ai",
+      toolUrl: "https://mem.ai/",
+      toolCategory: "AI note-taking with connection discovery",
+      difficulty: "medium",
+      estimatedMinutes: 20,
+      heroLine: "Notes that connect themselves so you see patterns you did not know existed.",
+      warmUpChallenge: "Most people take notes and never look at them again. The genius is in connections. Mem surfaces the link between a note you wrote today and a thought you had 6 months ago. Today you become a pattern hunter.",
+      warmUpQuiz: {
+        question: "What kind of connection would blow your mind to find?",
+        options: [
+          "Two ideas I had months apart that form a real business",
+          "A pattern in my weekly reviews I never noticed",
+          "Things I keep forgetting I already learned"
+        ]
+      },
+      features: [
+        {
+          feature: "Auto-connections",
+          description: "Mem suggests related notes as you write, surfacing your past thinking.",
+          example: "Type 'pricing' and Mem shows every pricing thought you ever had"
+        },
+        {
+          feature: "Mem Chat",
+          description: "Ask questions about your own notes and Mem answers from your past self.",
+          example: "Ask: what did I learn from my last failed project? Mem tells you."
+        },
+        {
+          feature: "Automatic tagging",
+          description: "Mem reads your note and tags it without you doing any organizing.",
+          example: "Write about a class project, Mem tags it: school, project, specific-topic"
+        }
+      ],
+      costInfo: "Free plan covers personal capture. Mem X is $14.99 per month for full AI features.",
+      parentTip: "Mem is the lowest-friction capture tool. Install it on your kid's phone. The easier capture is, the more ideas survive.",
+      learningPoints: [
+        "Why capture beats organization",
+        "The connection principle: ideas compound",
+        "Your own past thinking as a resource",
+        "Low-friction capture as a daily habit"
+      ],
+      quiz: [
+        {
+          question: "What do most people do wrong with notes?",
+          options: [
+            "They take too many",
+            "They never look at them again after writing",
+            "They write them too fast",
+            "They use too many colors"
+          ],
+          correctAnswer: 1,
+          explainer: "Notes that never get revisited are dead weight. The value is in returning to them later when you need them."
+        },
+        {
+          question: "What is the connection principle?",
+          options: [
+            "Ideas are isolated",
+            "Two separate ideas often combine into something bigger",
+            "Ideas only work one at a time",
+            "Only new ideas matter"
+          ],
+          correctAnswer: 1,
+          explainer: "Your best work usually comes from connecting two ideas you had at different times. Mem surfaces those connections."
+        },
+        {
+          question: "What is low-friction capture?",
+          options: [
+            "Making notes take longer",
+            "Capturing thoughts so fast you barely stop thinking",
+            "Using the biggest notebook",
+            "Always typing, never voice"
+          ],
+          correctAnswer: 1,
+          explainer: "If capturing takes effort, you skip it. Mem's whole design is about removing friction so nothing is lost."
+        }
+      ],
+      missions: [
+        {
+          id: "l26_m1",
+          title: "Capture Sprint",
+          objective: "Capture every thought, idea, and observation for 3 days. No filtering.",
+          instructions: [
+            "Set up Mem on your phone's home screen",
+            "For 3 days, capture anything: ideas, complaints, observations, song lyrics",
+            "Do not organize, do not edit, just capture",
+            "On day 4, scroll through and count how many surprised you"
+          ],
+          sandboxPrompt: "I am doing a 3-day capture sprint. Help me set 5 capture triggers (moments or questions) that will remind me to save ideas.",
+          quackySystemPrompt: "You are Quacky helping a kid build capture triggers for a 3-day note sprint. Return 5 specific trigger moments (like 'right before falling asleep' or 'after every class') with one question to ask at each. Numbered. One pencil emoji.",
+          reflectionQuestion: "How many ideas from those 3 days would have been forgotten forever?",
+          xpReward: 75
+        },
+        {
+          id: "l26_m2",
+          title: "Ask Your Past Self",
+          objective: "Use Mem Chat to ask 5 questions that only your past self can answer.",
+          instructions: [
+            "Wait at least a week after your capture sprint",
+            "Write 5 questions like: 'What did I decide about X?' or 'What was I excited about in March?'",
+            "Let Mem Chat answer from your notes",
+            "Note which answers surprised you"
+          ],
+          sandboxPrompt: "I want to ask Mem 5 questions only my past self can answer. Help me phrase them to get real insights.",
+          quackySystemPrompt: "You are Quacky helping a kid phrase questions for Mem Chat. Return 5 numbered questions that probe past thinking (patterns, decisions, recurring worries, abandoned ideas, surprising wins). Each under 15 words. One mirror emoji.",
+          reflectionQuestion: "Which answer from your past self felt like advice from a different person?",
+          xpReward: 75
+        },
+        {
+          id: "l26_m3",
+          title: "Connection Hunt",
+          objective: "Find 3 real connections between notes from different months and turn them into something new.",
+          instructions: [
+            "Browse Mem's auto-connections view",
+            "Find 3 pairs of notes that seem unrelated but click when joined",
+            "For each pair, write a 2-sentence description of the new idea that emerges",
+            "Pick the strongest and turn it into a real project or post"
+          ],
+          sandboxPrompt: "I found 3 connected notes: [describe each pair]. Help me turn the strongest connection into one concrete project.",
+          quackySystemPrompt: "You are Quacky helping a kid extract a project from 2 connected notes. Given the pair, return a concrete project outline: what it is (1 sentence), why it matters (1 sentence), first 3 steps. Under 100 words. One link emoji.",
+          reflectionQuestion: "Would you have seen this connection without the tool? Or is this why you needed a second brain?",
+          xpReward: 100
+        }
+      ],
+      empireBuilderTip: "The best founders keep idea notebooks their whole lives. Richard Branson, Ray Dalio, Austin Kleon. Mem is that notebook on steroids, and you get it at 12.",
+      completionBadge: "power_grid_l4",
+      nextLesson: "l27"
+    },
+
+    // ─────────────────────────────────────────────────────────
+    // L27 : ZAPIER AI
+    // ─────────────────────────────────────────────────────────
+    {
+      id: "l27",
+      worldId: "w4",
+      lessonNumber: 5,
+      title: "Zapier AI",
+      toolName: "Zapier",
+      toolUrl: "https://zapier.com/",
+      toolCategory: "AI automation between apps",
+      difficulty: "hard",
+      estimatedMinutes: 25,
+      heroLine: "Make your tools talk to each other and do work while you sleep.",
+      warmUpChallenge: "Every boring repetitive task in your digital life can probably be automated. Zapier connects 7000 apps. You write the rule once. It runs forever. Today you stop doing busywork.",
+      warmUpQuiz: {
+        question: "What would you automate first if you could?",
+        options: [
+          "Every time I save a note, post a summary to my journal",
+          "Every new follower, send them a welcome DM",
+          "Every completed task, add the win to my weekly review"
+        ]
+      },
+      features: [
+        {
+          feature: "Zaps (if-this-then-that)",
+          description: "A trigger in one app starts an action in another.",
+          example: "When I get a new Calendly booking, create a Notion page for the meeting"
+        },
+        {
+          feature: "AI steps",
+          description: "Insert an AI step that transforms data before it moves to the next app.",
+          example: "Take a raw note, have AI summarize it, then save the summary to your journal"
+        },
+        {
+          feature: "Paths (if/else logic)",
+          description: "Different actions based on conditions you set.",
+          example: "If the email contains urgent → Slack me. If not → auto-file in Gmail."
+        }
+      ],
+      costInfo: "Free plan covers 100 tasks per month. Starter plan is $19.99 per month for 750 tasks and multi-step zaps.",
+      parentTip: "Zapier is a superpower but also a rabbit hole. Help your kid automate ONE real-life task completely before exploring more. Winning fast beats exploring endlessly.",
+      learningPoints: [
+        "Trigger-action thinking",
+        "AI as a middle layer between apps",
+        "When to automate vs do manually",
+        "Why automation compounds"
+      ],
+      quiz: [
+        {
+          question: "What is a trigger in Zapier?",
+          options: [
+            "A button you press",
+            "An event in one app that starts an automation",
+            "A type of password",
+            "A social media post"
+          ],
+          correctAnswer: 1,
+          explainer: "A trigger is the starting event: new email, new form submission, new calendar event. It fires the Zap."
+        },
+        {
+          question: "Why add an AI step?",
+          options: [
+            "To slow things down",
+            "To transform or decide on data between apps",
+            "AI steps cannot do anything",
+            "Just for decoration"
+          ],
+          correctAnswer: 1,
+          explainer: "AI steps summarize, categorize, or extract info from raw data before passing it to the next app. They are the smart middle."
+        },
+        {
+          question: "When should you NOT automate?",
+          options: [
+            "Always automate everything",
+            "When you only do the task once or twice",
+            "When you hate the task",
+            "Never question automation"
+          ],
+          correctAnswer: 1,
+          explainer: "Automation has setup cost. If a task happens once, just do it. If it happens weekly, automate it. Math wins."
+        }
+      ],
+      missions: [
+        {
+          id: "l27_m1",
+          title: "Note-to-Journal Zap",
+          objective: "Build a Zap that takes your Mem notes and adds a weekly AI summary to Notion.",
+          instructions: [
+            "Connect Mem and Notion to Zapier",
+            "Trigger: every Sunday at 6pm",
+            "Action: fetch all Mem notes from the week, AI-summarize, post to Notion journal",
+            "Let it run for a week and review the output"
+          ],
+          sandboxPrompt: "I want to build a Zap: every Sunday, summarize my Mem notes and post to Notion. Help me write the AI prompt for the summary step.",
+          quackySystemPrompt: "You are Quacky helping a kid design an AI summary prompt for a weekly notes-to-journal Zap. The AI step must output: 3 themes this week, 1 standout idea, 1 pattern worth watching. Each section 1-2 sentences. Keep output under 120 words. One loop emoji.",
+          reflectionQuestion: "When you read your own AI-summarized week, did you see yourself more clearly?",
+          xpReward: 100
+        },
+        {
+          id: "l27_m2",
+          title: "Follower Welcome Automation",
+          objective: "Set up a Zap that sends a warm DM to every new follower on your main platform.",
+          instructions: [
+            "Pick your main platform (from Crowd Plaza)",
+            "Trigger: new follower",
+            "Add AI step: generate a personalized welcome using their bio",
+            "Action: send the DM and log the new follower in a Notion database"
+          ],
+          sandboxPrompt: "I want a Zap that welcomes new followers with a personalized DM. Help me write the AI prompt that makes the DM feel personal, not spam.",
+          quackySystemPrompt: "You are Quacky helping a kid design an AI welcome DM that does not feel spammy. The AI step: read the new follower's bio, write a 2-sentence DM that references something specific from their profile, no emojis, no links. Output exactly 2 sentences. One wave emoji.",
+          reflectionQuestion: "What is the line between warm and creepy in an automated DM?",
+          xpReward: 100
+        },
+        {
+          id: "l27_m3",
+          title: "Win Tracker",
+          objective: "Automate adding every completed task to your weekly review automatically.",
+          instructions: [
+            "Trigger: task marked complete in your task manager",
+            "Add filter: only tasks tagged important or project",
+            "Action: add an entry to your Notion weekly review wins section",
+            "Include the task name, completion date, and any notes"
+          ],
+          sandboxPrompt: "I want a Zap that logs every important completed task to my weekly review. Help me design the filter rule so small tasks do not flood the review.",
+          quackySystemPrompt: "You are Quacky helping a kid design a task filter for an automation. Return 3 numbered filter rules that separate wins worth logging from routine tasks (priority level, tag match, time spent threshold). Each rule under 20 words. One filter emoji.",
+          reflectionQuestion: "Which routine tasks were you tempted to log as wins? Why?",
+          xpReward: 100
+        }
+      ],
+      empireBuilderTip: "Automation consultants earn $75 to $300 per hour building Zapier flows for businesses. Once you get the trigger-action mindset, you see automation opportunities everywhere.",
+      completionBadge: "power_grid_l5",
+      nextLesson: "l28"
+    },
+
+    // ─────────────────────────────────────────────────────────
+    // L28 : KRISP
+    // ─────────────────────────────────────────────────────────
+    {
+      id: "l28",
+      worldId: "w4",
+      lessonNumber: 6,
+      title: "Krisp",
+      toolName: "Krisp",
+      toolUrl: "https://krisp.ai/",
+      toolCategory: "AI noise cancellation and meeting assistant",
+      difficulty: "easy",
+      estimatedMinutes: 15,
+      heroLine: "Sound professional on every call, even if a lawnmower is running outside.",
+      warmUpChallenge: "Sound quality is the difference between being taken seriously and being muted. Most kids will lose opportunities because their room echoes or a sibling yells. Today you remove that excuse forever.",
+      warmUpQuiz: {
+        question: "Which call would you want to sound studio-quality on?",
+        options: [
+          "A real interview or pitch call with an adult",
+          "A live stream or podcast guest spot",
+          "A family call where grandparents actually hear you"
+        ]
+      },
+      features: [
+        {
+          feature: "Noise cancellation",
+          description: "Strips out background noise in real time on both sides of the call.",
+          example: "Lawn mower, dog barking, sibling yelling : all gone instantly"
+        },
+        {
+          feature: "Meeting notes",
+          description: "Krisp transcribes calls and auto-generates summaries with action items.",
+          example: "End a 30-minute meeting with a 5-bullet summary and 3 action items"
+        },
+        {
+          feature: "Echo and voice cancellation",
+          description: "Removes room echo and other people's voices leaking through speakers.",
+          example: "Work in a kitchen with siblings on a loud call, only your voice gets through"
+        }
+      ],
+      costInfo: "Free plan covers noise cancellation for personal calls. Pro plan is $16 per month with unlimited transcription and meeting notes.",
+      parentTip: "Krisp is one of those tools that feels invisible. Install it on your kid's laptop as a default for every video call. The sound upgrade alone opens more doors than any other single fix.",
+      learningPoints: [
+        "Why sound quality signals competence",
+        "Meeting notes as leverage",
+        "Showing up professionally at any age",
+        "Removing environmental excuses"
+      ],
+      quiz: [
+        {
+          question: "Why does sound quality matter so much?",
+          options: [
+            "It does not",
+            "It is the fastest signal of 'this person is serious'",
+            "Only video matters",
+            "Bad sound is cute"
+          ],
+          correctAnswer: 1,
+          explainer: "Adults subconsciously judge competence by sound clarity in the first 10 seconds. Good audio buys you trust."
+        },
+        {
+          question: "What is an AI meeting note good for?",
+          options: [
+            "Nothing",
+            "Turning a 30-minute call into a 5-bullet summary with action items",
+            "Only recording audio",
+            "Only for music"
+          ],
+          correctAnswer: 1,
+          explainer: "Instead of taking notes during a call (missing context), let AI. Your full attention stays on the conversation."
+        },
+        {
+          question: "Who benefits from noise cancellation?",
+          options: [
+            "Only adults in offices",
+            "Anyone who takes calls from imperfect environments (most of us)",
+            "Nobody",
+            "Only professional podcasters"
+          ],
+          correctAnswer: 1,
+          explainer: "Kitchen, car, noisy neighborhood, shared room. Krisp erases environment so your voice does the work."
+        }
+      ],
+      missions: [
+        {
+          id: "l28_m1",
+          title: "Before and After Call",
+          objective: "Record yourself once without Krisp and once with, then compare the difference.",
+          instructions: [
+            "Pick any call app (Zoom, Meet, Teams)",
+            "Record a 60-second sample speaking normally with ambient noise around you",
+            "Turn on Krisp and record the same passage again",
+            "Play both back and note the difference"
+          ],
+          sandboxPrompt: "I recorded myself without Krisp and with Krisp. Help me write a 5-point comparison checklist for judging the difference.",
+          quackySystemPrompt: "You are Quacky helping a kid compare audio recordings. Return a 5-point checklist: background noise, voice clarity, echo, consistency, overall polish. For each, a yes/no question under 10 words. Numbered. One sound emoji.",
+          reflectionQuestion: "Would you hire your pre-Krisp self for anything serious?",
+          xpReward: 50
+        },
+        {
+          id: "l28_m2",
+          title: "Real Interview Prep",
+          objective: "Use Krisp for one real call this week and send the AI meeting notes to the other person.",
+          instructions: [
+            "Schedule a call with someone (teacher, mentor, family member, collaborator)",
+            "Run Krisp on the full call",
+            "After the call, download the AI summary",
+            "Send the summary to the other person with a note: 'from my notes'"
+          ],
+          sandboxPrompt: "I just had a call with [person] about [topic]. Help me turn the Krisp transcript into a professional follow-up email with 3 action items.",
+          quackySystemPrompt: "You are Quacky helping a kid draft a follow-up email after a call. Given the transcript summary, write 4 short paragraphs: thank you line, 1-sentence recap, 3 bulleted action items with owners, warm close. Under 150 words. One clipboard emoji.",
+          reflectionQuestion: "How did the other person react when you sent them organized notes?",
+          xpReward: 100
+        },
+        {
+          id: "l28_m3",
+          title: "Podcast Guest Spot",
+          objective: "Record a mock podcast guest interview with a friend using Krisp-level audio.",
+          instructions: [
+            "Pair up with a friend playing interviewer",
+            "Have them ask you 5 questions about something you know",
+            "Record with Krisp active throughout",
+            "Export the audio and run it through Descript captions from Story Forge"
+          ],
+          sandboxPrompt: "I am doing a mock podcast interview about [topic]. Help my friend write 5 interviewer questions that get surprising answers out of me.",
+          quackySystemPrompt: "You are Quacky helping a friend prepare podcast interview questions. Given the guest topic, return 5 numbered questions that progress from easy warm-up to deep insight to surprising personal angle. Each question under 20 words. One microphone emoji.",
+          reflectionQuestion: "Which question pulled an answer out of you that surprised even you?",
+          xpReward: 100
+        }
+      ],
+      empireBuilderTip: "The kids who show up professionally on calls at 14 are the kids who get sponsorships, internships, and collaborations at 17. Sound quality is the cheapest professional upgrade available.",
+      completionBadge: "power_grid_l6",
+      nextLesson: "l29"
+    },
+
+    // ─────────────────────────────────────────────────────────
+    // L29 : OTTER.AI
+    // ─────────────────────────────────────────────────────────
+    {
+      id: "l29",
+      worldId: "w4",
+      lessonNumber: 7,
+      title: "Otter.ai",
+      toolName: "Otter.ai",
+      toolUrl: "https://otter.ai/",
+      toolCategory: "AI meeting transcription and search",
+      difficulty: "easy",
+      estimatedMinutes: 15,
+      heroLine: "Transcribe anything said anywhere, then search it like a document.",
+      warmUpChallenge: "Most of your learning is in things that get said once and never written down. Teacher explanations, family wisdom, friend advice. Otter captures it all so you can come back years later.",
+      warmUpQuiz: {
+        question: "What would you record if you knew you could search it later?",
+        options: [
+          "Every class so I can search what the teacher actually said",
+          "Family conversations about childhood stories and advice",
+          "My own brainstorms when I am thinking out loud"
+        ]
+      },
+      features: [
+        {
+          feature: "Live transcription",
+          description: "Otter turns speech into searchable text in real time.",
+          example: "Record a class, see words appearing on your phone as the teacher talks"
+        },
+        {
+          feature: "Speaker identification",
+          description: "Otter learns who is talking and labels each speaker separately.",
+          example: "Teacher, you, classmate, grandparent : each labeled so you can find who said what"
+        },
+        {
+          feature: "Smart summaries",
+          description: "Long conversations get auto-summarized with key takeaways and action items.",
+          example: "A 60-minute conversation becomes a 6-bullet summary you can scan in 30 seconds"
+        }
+      ],
+      costInfo: "Free plan includes 300 minutes per month. Pro plan is $8.33 per month for 1,200 minutes and advanced features.",
+      parentTip: "Otter is powerful but needs rules. Always get permission before recording anyone. Teach consent as part of using it. This becomes a habit your kid will carry forever.",
+      learningPoints: [
+        "Capture beats memory, every time",
+        "Consent as the foundation of recording",
+        "Search turns passive learning into active",
+        "Speaker labels as context"
+      ],
+      quiz: [
+        {
+          question: "What is the rule for recording conversations?",
+          options: [
+            "Record whatever you want",
+            "Always ask permission first",
+            "Only record family",
+            "Recording is illegal"
+          ],
+          correctAnswer: 1,
+          explainer: "Always, always ask permission. Consent is not optional. It is the foundation of being trustworthy."
+        },
+        {
+          question: "Why does search beat memory?",
+          options: [
+            "It does not",
+            "Memory loses details, search keeps everything exact",
+            "Only elders need search",
+            "Memory is unlimited"
+          ],
+          correctAnswer: 1,
+          explainer: "You forget 80% of what you hear within a week. Searchable transcripts make you able to reach back forever."
+        },
+        {
+          question: "What do speaker labels add?",
+          options: [
+            "Nothing useful",
+            "Context: who said what matters as much as what was said",
+            "Just color",
+            "They slow things down"
+          ],
+          correctAnswer: 1,
+          explainer: "Knowing who said what matters. Your grandmother's story hits different than a stranger's. Labels preserve that."
+        }
+      ],
+      missions: [
+        {
+          id: "l29_m1",
+          title: "Class Capture Experiment",
+          objective: "Record and search one class (with permission) to see what you actually retain vs miss.",
+          instructions: [
+            "Ask your teacher for permission to record for personal study",
+            "Record one full class with Otter",
+            "At the end of the day, write down what you remember",
+            "Search the transcript for 3 things you could not remember precisely"
+          ],
+          sandboxPrompt: "I recorded one class. Help me write 5 search queries that test my memory against the transcript.",
+          quackySystemPrompt: "You are Quacky helping a kid test memory against class recording. Return 5 specific search queries: key terms, examples the teacher used, questions from other students, specific dates or numbers, assigned homework. Each under 10 words. Numbered. One study emoji.",
+          reflectionQuestion: "What percentage of class details did you actually remember correctly?",
+          xpReward: 75
+        },
+        {
+          id: "l29_m2",
+          title: "Family Wisdom Archive",
+          objective: "Interview a family elder and build a searchable archive of their stories.",
+          instructions: [
+            "Ask permission to record a 30-minute conversation",
+            "Prepare 5 open questions about their life and lessons",
+            "Record with Otter",
+            "Send them the transcript with their favorite quote highlighted"
+          ],
+          sandboxPrompt: "I am interviewing my [grandparent/uncle/aunt] about their life. Help me write 5 open-ended questions that pull out real stories.",
+          quackySystemPrompt: "You are Quacky helping a kid interview a family elder. Return 5 numbered questions that invite stories rather than facts (use 'tell me about the time when' structure). Each under 20 words. One heart emoji.",
+          reflectionQuestion: "Which story did they tell that you would never have known to ask about?",
+          xpReward: 100
+        },
+        {
+          id: "l29_m3",
+          title: "Think Out Loud Journal",
+          objective: "Record 5 days of verbal journaling and extract patterns from the transcripts.",
+          instructions: [
+            "Each day, record 3 minutes of thinking out loud about the day",
+            "Let Otter transcribe and auto-summarize",
+            "On day 6, read all 5 transcripts back to back",
+            "Pick 3 themes that repeat across the week"
+          ],
+          sandboxPrompt: "I have 5 days of spoken journal transcripts. Help me design a pattern-hunting framework to find themes.",
+          quackySystemPrompt: "You are Quacky helping a kid find patterns in 5 days of spoken journals. Return a 4-step framework: 1. read cold, 2. highlight repeated phrases, 3. cluster into themes, 4. name top 3 themes. Each step under 20 words. Numbered. One compass emoji.",
+          reflectionQuestion: "Which theme showed up that you did not know was on your mind all week?",
+          xpReward: 100
+        }
+      ],
+      empireBuilderTip: "Journalists, researchers, lawyers, and therapists all use transcription tools to do their real work. You are learning the same habit decades earlier.",
+      completionBadge: "power_grid_l7",
+      nextLesson: "l30"
+    },
+
+    // ─────────────────────────────────────────────────────────
+    // L30 : TIMELY
+    // ─────────────────────────────────────────────────────────
+    {
+      id: "l30",
+      worldId: "w4",
+      lessonNumber: 8,
+      title: "Timely",
+      toolName: "Timely",
+      toolUrl: "https://timelyapp.com/",
+      toolCategory: "AI time tracking and insight",
+      difficulty: "medium",
+      estimatedMinutes: 20,
+      heroLine: "See where your time actually goes, not where you think it went.",
+      warmUpChallenge: "Ask any adult what they spent Tuesday doing. They will say 'work'. Timely shows the truth: 2 hours of email, 1 hour of real work, 5 hours of context switching. Today you get honest.",
+      warmUpQuiz: {
+        question: "Which time discovery would shake you most?",
+        options: [
+          "I spent 6 hours on social media when I thought it was 1",
+          "I only did 45 minutes of real deep work all week",
+          "My best work happens at a time I never block on calendar"
+        ]
+      },
+      features: [
+        {
+          feature: "Automatic tracking",
+          description: "Timely runs in the background, tracking every app and website you use.",
+          example: "No manual start/stop. End the week and see all 40 hours auto-mapped."
+        },
+        {
+          feature: "AI time grouping",
+          description: "AI groups similar activities into project categories automatically.",
+          example: "All Photoshop + Figma time becomes 'design work' with no manual tagging"
+        },
+        {
+          feature: "Insight reports",
+          description: "Weekly reports surface your real productivity patterns.",
+          example: "Your deep work peak is 10am-noon on Tuesdays and Thursdays"
+        }
+      ],
+      costInfo: "Starter plan is $9 per user per month. Premium plan is $16 per user per month with more insights.",
+      parentTip: "Time tracking feels heavy to kids. Frame it as an experiment, not surveillance. One honest week of tracking changes how they think about time forever.",
+      learningPoints: [
+        "The gap between perceived time and actual time",
+        "Deep work patterns are personal",
+        "What you measure, you improve",
+        "Context switching as the hidden cost"
+      ],
+      quiz: [
+        {
+          question: "Why is automatic tracking better than manual?",
+          options: [
+            "It is not",
+            "Manual tracking misses half of what happened",
+            "Manual is always more accurate",
+            "Only celebrities track time"
+          ],
+          correctAnswer: 1,
+          explainer: "Manual tracking is honest about big blocks but forgets small ones. Automatic captures everything."
+        },
+        {
+          question: "What is context switching?",
+          options: [
+            "A kind of computer game",
+            "Jumping between different types of work, which kills focus",
+            "Only a problem for adults",
+            "A type of learning"
+          ],
+          correctAnswer: 1,
+          explainer: "Every switch between types of work costs 15 minutes of focus. Ten switches a day equals 2.5 hours lost."
+        },
+        {
+          question: "Why should you track time?",
+          options: [
+            "For fun",
+            "Because awareness is the first step to improvement",
+            "Because adults do it",
+            "Only if someone tells you to"
+          ],
+          correctAnswer: 1,
+          explainer: "You cannot improve what you do not measure. One honest tracking week beats 10 guessing weeks."
+        }
+      ],
+      missions: [
+        {
+          id: "l30_m1",
+          title: "One Honest Week",
+          objective: "Track every minute for 7 days and compare actual time spent to your estimate.",
+          instructions: [
+            "Install Timely on your laptop and phone",
+            "Before starting, write down your estimate: how many hours on schoolwork, entertainment, creation, social",
+            "Let Timely track 7 days automatically",
+            "On day 8, compare the report to your estimate"
+          ],
+          sandboxPrompt: "I tracked 7 days. My estimate was [list] but actual was [list]. Help me interpret the gap honestly.",
+          quackySystemPrompt: "You are Quacky helping a kid interpret a time tracking gap. Given the estimate vs actual, return: 1 biggest surprise (1 sentence), 1 pattern of overestimation, 1 pattern of underestimation, 1 specific experiment for next week. Under 100 words. One mirror emoji.",
+          reflectionQuestion: "Which gap made you uncomfortable? That is where the real work lives.",
+          xpReward: 100
+        },
+        {
+          id: "l30_m2",
+          title: "Peak Hour Discovery",
+          objective: "Find your personal deep work peak hour by tracking 14 days.",
+          instructions: [
+            "Track 14 days with Timely",
+            "Review the heat map of when your deep work happens",
+            "Identify your top 2 productive time windows",
+            "Move your calendar habits (Reclaim) to defend those windows"
+          ],
+          sandboxPrompt: "After 14 days of tracking, my peak focus windows are [time A] and [time B]. Help me design a weekly schedule that protects those windows.",
+          quackySystemPrompt: "You are Quacky helping a kid redesign their week around peak hours. Given the 2 windows, return a weekly structure: Monday-Friday layout with peak hours locked for deep work, admin in non-peak, and 1 rule for emergencies. Under 100 words. One chart emoji.",
+          reflectionQuestion: "Did your peak hour surprise you? Was it different from when you thought you worked best?",
+          xpReward: 100
+        },
+        {
+          id: "l30_m3",
+          title: "Context Switch Reduction",
+          objective: "Run a 5-day experiment cutting context switches in half.",
+          instructions: [
+            "Review your Timely context switch count from the previous week",
+            "Set a target: half that number",
+            "Group similar tasks into blocks (all email in one, all writing in one)",
+            "Track the following week and compare"
+          ],
+          sandboxPrompt: "I am running a 5-day experiment to halve my context switches. Help me design 3 grouping rules to follow daily.",
+          quackySystemPrompt: "You are Quacky helping a kid reduce context switches. Return 3 numbered grouping rules: what gets batched together, when during the day, and how long per block. Each rule under 20 words. One puzzle emoji.",
+          reflectionQuestion: "Did cutting context switches feel peaceful, boring, or both?",
+          xpReward: 100
+        }
+      ],
+      empireBuilderTip: "Agencies and freelancers charge clients by the tracked hour. Consultants who know their real hours charge 3x more. Time awareness at 12 is a six-figure advantage at 25.",
+      completionBadge: "power_grid_l8",
+      nextLesson: null
+    }
+  ],
+  empireBuilderModule: {
+    id: "eb_w4",
+    worldId: "w4",
+    title: "Your First Operating System",
+    tagline: "Build a personal OS that makes you more productive than most adults you know.",
+    estimatedMinutes: 50,
+    businessArchetype: "Operations consultant for small businesses",
+    targetCustomer: "Busy parents, small business owners, overwhelmed creators, solopreneurs.",
+    realWorldExamples: [
+      "Tiago Forte built Building a Second Brain into a $10M+ education business teaching these exact systems.",
+      "Operations consultants charge small businesses $500 to $5000 to set up Notion and Zapier automations.",
+      "Young virtual assistants on Fiverr earn $25 to $100 per hour setting up systems for entrepreneurs."
+    ],
+    businessSteps: [
+      {
+        step: 1,
+        title: "Build your own OS first",
+        description: "Before selling systems, run one. Set up Notion + Reclaim + Zapier for yourself.",
+        usingTools: ["Notion AI", "Reclaim.ai", "Zapier AI", "Mem.ai"],
+        deliverable: "A working personal OS documented in one Notion page."
+      },
+      {
+        step: 2,
+        title: "Document what you built",
+        description: "Screenshot every key template and write a 1-sentence description of what it does.",
+        usingTools: ["Notion AI"],
+        deliverable: "A 'How I run my life' guide with 5 to 10 screenshots."
+      },
+      {
+        step: 3,
+        title: "Define your niche",
+        description: "Pick who you serve: overwhelmed parents, solo creators, or small local businesses.",
+        usingTools: ["Notion AI"],
+        deliverable: "Your one-line pitch: I help [who] build [what system] so they can [outcome]."
+      },
+      {
+        step: 4,
+        title: "Package 1 starter service",
+        description: "Offer one specific package: 'Notion weekly review setup' or 'email inbox zero system'.",
+        usingTools: ["Notion AI", "Copy.ai"],
+        deliverable: "A 1-page service description with price, scope, and deliverable."
+      },
+      {
+        step: 5,
+        title: "Land your first client",
+        description: "Offer your starter service free to 1 person in exchange for testimonial and case study.",
+        usingTools: ["ChatGPT", "Copy.ai"],
+        deliverable: "A completed setup for 1 real person plus their written testimonial."
+      }
+    ],
+    quackyPlaybook: "Productivity is not about doing more. It is about doing the right things easily and reliably. Most adults fight their tools every day. You are learning to make tools work for you. That is worth real money. The best operators in any field all share one habit: they systematize relentlessly.",
+    pricingLesson: {
+      yourFirstPrice: "$0 for your first client in exchange for a testimonial. $50 to $150 flat rate for a basic Notion setup. $100 to $500 per Zapier automation as you build skill.",
+      whyThisPrice: "Systems save time. Time has a dollar value. A business owner paying you $200 to save 10 hours a month is getting a bargain. Price the value, not the hour.",
+      scaleUp: "Every 5 clients, raise your price 50%. Move from flat rate to monthly retainer once you have a body of work ($300-$1000 per month to maintain and improve the system)."
+    },
+    firstCustomerExercise: {
+      task: "Offer a free 30-minute setup call to one busy adult you know (parent's friend, teacher, local shop owner).",
+      prompt: "Help me write a short message to [person] offering a free 30-minute Notion or automation setup call in exchange for their feedback.",
+      quackySystemPrompt: "You are Quacky helping a kid pitch a free systems consulting call. Write under 100 words: warm intro, what you noticed about their busy life, what you will offer (specific: 30 minutes, one specific setup), what you ask (feedback + testimonial if it works), soft close. One spark emoji."
+    },
+    xpReward: 500,
+    completionBadge: "power_grid_champion"
+  },
+  capstone: {
+    id: "cap_w4",
+    worldId: "w4",
+    title: "The Power Grid Playbook",
+    narrative: "Operators prove themselves by showing their systems running, not by talking about productivity. The Playbook is your evidence that you run a life most adults would envy.",
+    requiredMissions: ["l23_m1", "l24_m2", "l25_m1", "l26_m1", "l27_m1", "l30_m2"],
+    deliverableSpec: "Submit a Power Grid Playbook as a shared Notion page or PDF containing: your weekly review template (filled for 1 real week), 3 Reclaim habits with 14-day completion record, inbox zero screenshot, Mem capture sprint export, 1 live Zapier automation showing output, 14-day Timely tracking report with peak hours identified.",
+    submissionFormat: "portfolio",
+    parentReviewPrompt: "Your child just built a personal operating system most adults would struggle to maintain. Review the Playbook, pick the single element that surprised you most, and discuss how this discipline compounds over the next 10 years.",
+    xpReward: 1000,
+    unlocksWorld: "w5"
+  }
+};
+
 export const WORLDS: World[] = [
   CANVAS_KINGDOM,
   STORY_FORGE,
   CROWD_PLAZA,
-  // w4 Power Grid      : next session
+  POWER_GRID,
   // w5 Neural Nexus    : next session
 ];
