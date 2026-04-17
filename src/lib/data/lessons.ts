@@ -2466,10 +2466,915 @@ const STORY_FORGE: World = {
   }
 };
 
+// ═══════════════════════════════════════════════════════════
+// WORLD 3 : CROWD PLAZA
+// AI for audience building, personal brand, and social reach
+// Empire Builder: Audience and personal brand
+// ═══════════════════════════════════════════════════════════
+
+const CROWD_PLAZA: World = {
+  id: "w3",
+  name: "Crowd Plaza",
+  color: "#2E8CE6",
+  icon: "megaphone",
+  description: "Build a real audience online. Your voice, your story, your following.",
+  empireBuilderConcept: "Audience and personal brand : creators who own a following never need permission to launch anything.",
+  lessonCount: 6,
+  unlockRequirement: { previousWorld: "w2", minXP: 4500 },
+  capstoneProject: "Launch a real content channel with 10 published pieces and a defined niche.",
+  lessons: [
+    // ─────────────────────────────────────────────────────────
+    // L17 : SIMPLIFIED
+    // ─────────────────────────────────────────────────────────
+    {
+      id: "l17",
+      worldId: "w3",
+      lessonNumber: 1,
+      title: "Simplified",
+      toolName: "Simplified",
+      toolUrl: "https://simplified.com/",
+      toolCategory: "AI social content and brand studio",
+      difficulty: "easy",
+      estimatedMinutes: 20,
+      heroLine: "One tool that designs, writes, and schedules your whole social game.",
+      warmUpChallenge: "Most creators quit not because their ideas are bad, but because tools are scattered. Simplified puts design, writing, and scheduling in one place. Today you stop juggling.",
+      warmUpQuiz: {
+        question: "What breaks most creators before they grow?",
+        options: [
+          "Too many apps to manage one post",
+          "Not knowing what to post next",
+          "Fear nobody will see their work"
+        ]
+      },
+      features: [
+        {
+          feature: "AI content creator",
+          description: "Pick a platform and vibe, Simplified drafts the full post with image and caption.",
+          example: "Instagram carousel about your weekend coding project in 10 seconds"
+        },
+        {
+          feature: "Brand kit",
+          description: "Lock your colors, fonts, and logo so every post stays on-brand automatically.",
+          example: "One brand kit means 100 posts look like they came from one studio"
+        },
+        {
+          feature: "Cross-platform sizing",
+          description: "One design auto-resizes for Instagram, TikTok, YouTube, and LinkedIn.",
+          example: "Build once, publish everywhere, never resize manually"
+        }
+      ],
+      costInfo: "Free plan covers basic posts. Small team plan is $29 per month for unlimited AI content and scheduling.",
+      parentTip: "Simplified is like a training ground. Start with one platform only, master it for 30 days, then expand. Spreading thin early kills consistency.",
+      learningPoints: [
+        "Why consistency beats perfection",
+        "Brand kits as leverage",
+        "Building once and publishing many",
+        "Platform-native thinking vs copy-paste"
+      ],
+      quiz: [
+        {
+          question: "Why is a brand kit powerful?",
+          options: [
+            "It makes every post look like it came from one studio",
+            "It deletes your old posts",
+            "It costs nothing",
+            "It is only decoration"
+          ],
+          correctAnswer: 0,
+          explainer: "When 50 posts all share colors, fonts, and logo, people recognize you instantly. That is brand."
+        },
+        {
+          question: "One image for all platforms is:",
+          options: [
+            "Always fine",
+            "A problem because platforms need different sizes",
+            "Impossible",
+            "The same as good design"
+          ],
+          correctAnswer: 1,
+          explainer: "Each platform has its own size (9:16 for TikTok, 1:1 for Instagram feed, 16:9 for YouTube). Posting wrong sizes looks amateur."
+        },
+        {
+          question: "What does platform-native thinking mean?",
+          options: [
+            "Post the same thing everywhere",
+            "Shape each post for the platform it lives on",
+            "Only post to one platform",
+            "Never use AI"
+          ],
+          correctAnswer: 1,
+          explainer: "TikTok users watch in seconds. LinkedIn readers scroll slower. The same story needs a different shape on each."
+        }
+      ],
+      missions: [
+        {
+          id: "l17_m1",
+          title: "Brand Kit in a Day",
+          objective: "Design a full 10-post kit for an imaginary creator account you might actually start.",
+          instructions: [
+            "Define the account: what is the niche, who is it for, what is the tone",
+            "Build your brand kit in Simplified: colors, fonts, logo, voice",
+            "Generate 10 posts with consistent style but different topics",
+            "Export the kit as your starter pack"
+          ],
+          sandboxPrompt: "I want to start a creator account about [niche] for [audience]. Help me design the brand: colors, fonts, voice, and 10 post ideas.",
+          quackySystemPrompt: "You are Quacky helping a kid design a creator brand kit. Given the niche and audience, suggest 3 colors with hex codes, 1 font pair, a 3-word voice statement, and 10 post ideas for the first month. Numbered list. One spark emoji.",
+          reflectionQuestion: "Which post in your kit would you want to publish first? Why?",
+          xpReward: 75
+        },
+        {
+          id: "l17_m2",
+          title: "Cross-Platform Remix",
+          objective: "Take one content idea and reshape it for 3 platforms properly.",
+          instructions: [
+            "Pick ONE story or tip you actually care about",
+            "Use Simplified to design for Instagram (square + carousel)",
+            "Adapt for TikTok (vertical, fast hook)",
+            "Adapt for LinkedIn (paragraph format, professional tone)"
+          ],
+          sandboxPrompt: "My story or tip is: [paste idea]. Help me adapt it 3 ways: Instagram carousel, TikTok short, LinkedIn post.",
+          quackySystemPrompt: "You are Quacky helping a kid adapt one idea for 3 platforms. Return 3 labeled sections: Instagram carousel (5 slides), TikTok (15-second script with hook), LinkedIn (4 short paragraphs). Match platform norms. One share emoji.",
+          reflectionQuestion: "Which platform made your idea feel strongest? Why that one?",
+          xpReward: 75
+        },
+        {
+          id: "l17_m3",
+          title: "Launch Week Calendar",
+          objective: "Plan 7 posts for the launch week of an imaginary product or project.",
+          instructions: [
+            "Invent the launch: a new app, a class, a zine, a local meetup",
+            "Plan 7 posts: tease, reveal, story, behind-the-scenes, social proof, last-call, launch",
+            "Use Simplified to design and schedule all 7",
+            "Preview the week and pick the 1 post you would pay to boost"
+          ],
+          sandboxPrompt: "I am launching [product or project] next week. Help me plan 7 daily posts: tease, reveal, story, BTS, proof, last call, launch.",
+          quackySystemPrompt: "You are Quacky helping a kid plan a 7-day launch content calendar. Given the launch, return 7 numbered days: tease, reveal, story, behind-the-scenes, social proof, last call, launch. One hook line per day under 15 words. One rocket emoji.",
+          reflectionQuestion: "Which post would you boost with real money if you had $20 to spend?",
+          xpReward: 100
+        }
+      ],
+      empireBuilderTip: "Creators who post for 90 days straight beat creators who post sporadically for 3 years. Simplified makes 90-day consistency possible for one person. That is your unfair advantage.",
+      completionBadge: "crowd_plaza_l1",
+      nextLesson: "l18"
+    },
+
+    // ─────────────────────────────────────────────────────────
+    // L18 : OPUS CLIP
+    // ─────────────────────────────────────────────────────────
+    {
+      id: "l18",
+      worldId: "w3",
+      lessonNumber: 2,
+      title: "Opus Clip",
+      toolName: "Opus Clip",
+      toolUrl: "https://www.opus.pro/",
+      toolCategory: "AI long-video to viral shorts",
+      difficulty: "medium",
+      estimatedMinutes: 20,
+      heroLine: "Feed it a long video, get back the 10 best short clips.",
+      warmUpChallenge: "The best creators do not make more. They squeeze more out of what they already made. One 30-minute video becomes 10 shorts, 5 reels, and 3 memes. Today you stop wasting content.",
+      warmUpQuiz: {
+        question: "Why do clips go viral when full videos don't?",
+        options: [
+          "Clips start with the best moment, not the intro",
+          "Clips cost more to make",
+          "Clips are longer"
+        ]
+      },
+      features: [
+        {
+          feature: "Auto clip detection",
+          description: "Opus scans a long video and picks the 10 moments most likely to go viral.",
+          example: "A 30-minute podcast becomes 10 shareable 30-second clips in 5 minutes"
+        },
+        {
+          feature: "Virality score",
+          description: "Each clip gets a score predicting how well it will perform.",
+          example: "Post only the clips with 80+ score, archive the rest"
+        },
+        {
+          feature: "Auto captions and reframing",
+          description: "Clips get dynamic captions and automatic vertical reframing.",
+          example: "Landscape 16:9 video becomes 9:16 vertical with captions baked in"
+        }
+      ],
+      costInfo: "Free plan allows 60 minutes of processing per month. Starter plan is $19 per month for 150 minutes.",
+      parentTip: "Opus teaches your kid the most valuable skill in content: finding the best moment. Watch the score: clips with high scores usually open with surprise, tension, or humor.",
+      learningPoints: [
+        "Why the first 3 seconds decide everything",
+        "How to recognize viral moments",
+        "Repurposing one recording into many",
+        "Captions as retention tools"
+      ],
+      quiz: [
+        {
+          question: "What is Opus Clip's superpower?",
+          options: [
+            "It creates videos from text",
+            "It finds the 10 best short clips inside a long video",
+            "It only edits music",
+            "It generates images"
+          ],
+          correctAnswer: 1,
+          explainer: "Opus scans, picks, and reformats. Hours of editing become minutes."
+        },
+        {
+          question: "What makes a short clip go viral?",
+          options: [
+            "Length over 5 minutes",
+            "Starts with the hook, not the intro",
+            "No captions",
+            "Quiet opening"
+          ],
+          correctAnswer: 1,
+          explainer: "Viral clips open with the most interesting moment. Intros are for long-form. Shorts start mid-action."
+        },
+        {
+          question: "Why do shorts need captions?",
+          options: [
+            "They do not",
+            "80 percent of people watch with sound off",
+            "Captions slow videos down",
+            "Only for foreign languages"
+          ],
+          correctAnswer: 1,
+          explainer: "Most social scrolling happens with sound off. No captions means no retention."
+        }
+      ],
+      missions: [
+        {
+          id: "l18_m1",
+          title: "Clip Your Own Content",
+          objective: "Take a 5-10 minute video (yours or with permission) and find the 3 best shareable clips.",
+          instructions: [
+            "Pick your source: a family video, a school project, a tutorial you recorded",
+            "Upload to Opus Clip and wait for the auto-clip pass",
+            "Compare virality scores and pick the top 3",
+            "Write a caption for each that makes it clickable"
+          ],
+          sandboxPrompt: "I have a long video about [topic]. Help me write 3 punchy captions for the clips that would make people watch.",
+          quackySystemPrompt: "You are Quacky helping a kid write 3 short-form video captions. Given the topic, return 3 numbered captions under 120 characters each with a strong hook, a benefit, and a call to watch. One scissors emoji.",
+          reflectionQuestion: "Which clip surprised you with a high virality score?",
+          xpReward: 75
+        },
+        {
+          id: "l18_m2",
+          title: "Interview Clips Pack",
+          objective: "Turn a long interview (yours or a podcast you love, with permission) into 5 micro-lessons.",
+          instructions: [
+            "Grab a 20-minute interview source",
+            "Let Opus generate clips and filter for the top 5",
+            "Label each clip with the exact lesson it teaches",
+            "Arrange as a mini-series ready for a feed"
+          ],
+          sandboxPrompt: "I have a long interview about [topic]. Help me label 5 clips as mini-lessons a viewer would actually search for.",
+          quackySystemPrompt: "You are Quacky helping a kid label interview clips as micro-lessons. Given the interview topic, return 5 numbered lesson labels under 8 words each, each phrased like a viewer's search query. One speech bubble emoji.",
+          reflectionQuestion: "If all 5 clips had to survive as one show title, what would you call the show?",
+          xpReward: 75
+        },
+        {
+          id: "l18_m3",
+          title: "Viral Hook Study",
+          objective: "Analyze your own clips to learn what a winning hook looks like.",
+          instructions: [
+            "Generate 10 clips from any source video",
+            "Rank them by virality score",
+            "Study the top 2 and the bottom 2 side by side",
+            "Write 3 patterns you notice about what makes the top ones win"
+          ],
+          sandboxPrompt: "I have 2 high-score clips and 2 low-score clips from the same video. Help me write a 3-point pattern analysis of what makes hooks work.",
+          quackySystemPrompt: "You are Quacky helping a kid extract hook patterns from clip analysis. Given the observation, return 3 numbered patterns (each under 20 words) phrased as rules. One magnifying glass emoji.",
+          reflectionQuestion: "Which pattern surprised you? Which one confirmed what you already felt?",
+          xpReward: 100
+        }
+      ],
+      empireBuilderTip: "Content strategists charge $100 to $500 per hour to tell brands what to clip and repost. You are learning that skill on yourself first.",
+      completionBadge: "crowd_plaza_l2",
+      nextLesson: "l19"
+    },
+
+    // ─────────────────────────────────────────────────────────
+    // L19 : CAPCUT
+    // ─────────────────────────────────────────────────────────
+    {
+      id: "l19",
+      worldId: "w3",
+      lessonNumber: 3,
+      title: "CapCut",
+      toolName: "CapCut",
+      toolUrl: "https://www.capcut.com/",
+      toolCategory: "AI short-form video editing",
+      difficulty: "easy",
+      estimatedMinutes: 22,
+      heroLine: "The editor almost every viral video on your feed was made with.",
+      warmUpChallenge: "You have probably watched 10,000 videos made in CapCut without knowing it. Today you move from watcher to maker.",
+      warmUpQuiz: {
+        question: "What signature piece would you build first?",
+        options: [
+          "A 3-second intro I can slap on every video",
+          "A 30-second tutorial for something I am good at",
+          "A before-and-after story of a skill I learned"
+        ]
+      },
+      features: [
+        {
+          feature: "AI effects library",
+          description: "Trending effects, transitions, and filters updated weekly.",
+          example: "The glitch transition everyone uses this week is already in CapCut"
+        },
+        {
+          feature: "Auto captions",
+          description: "CapCut transcribes your voice and lays out captions with smart styling.",
+          example: "Speak, and stylish captions appear matching your tone automatically"
+        },
+        {
+          feature: "Templates",
+          description: "Thousands of trending templates you can remix with your own footage.",
+          example: "A viral birthday edit can be remade with your footage in 5 minutes"
+        }
+      ],
+      costInfo: "Free for most features. CapCut Pro is $7.99 per month for exclusive effects, cloud storage, and watermark removal.",
+      parentTip: "CapCut is free and massively popular with teens. Ground rule: review anything before it gets posted. Help your kid see editing as a craft, not just a vibe.",
+      learningPoints: [
+        "How a signature edit style builds recognition",
+        "Pacing, cuts, and rhythm in short form",
+        "Captions as storytelling, not just accessibility",
+        "When to use templates vs build from scratch"
+      ],
+      quiz: [
+        {
+          question: "What is CapCut known for?",
+          options: [
+            "3D animation",
+            "Short-form video editing with trending effects",
+            "Writing essays",
+            "Audio podcasts"
+          ],
+          correctAnswer: 1,
+          explainer: "CapCut is the editor behind a huge share of TikTok, Reels, and Shorts you see every day."
+        },
+        {
+          question: "Why have a signature opening?",
+          options: [
+            "It wastes time",
+            "It builds instant recognition across your videos",
+            "It has to be 10 minutes long",
+            "Only YouTubers need one"
+          ],
+          correctAnswer: 1,
+          explainer: "A 3-second signature means viewers recognize your channel before they see your face. Brand on autopilot."
+        },
+        {
+          question: "Auto captions matter because:",
+          options: [
+            "They are only for accessibility",
+            "They boost retention when people watch with sound off",
+            "They slow videos down",
+            "They make videos harder to understand"
+          ],
+          correctAnswer: 1,
+          explainer: "Retention is everything on shorts. Captions keep viewers watching even with sound off."
+        }
+      ],
+      missions: [
+        {
+          id: "l19_m1",
+          title: "Your Signature Opening",
+          objective: "Design a 3-second branded opening you can reuse on every video you make.",
+          instructions: [
+            "Pick one sound or catchphrase that feels like you",
+            "Match it to one visual: logo reveal, text animation, signature gesture",
+            "Build it in CapCut with a transition into normal footage",
+            "Save it as a reusable project for every future video"
+          ],
+          sandboxPrompt: "I want to design a 3-second signature opening for all my videos. My vibe is [describe]. Help me design it.",
+          quackySystemPrompt: "You are Quacky helping a kid design a 3-second signature video opening. Given the vibe, suggest one visual element, one sound cue, one transition style, and one text hook. Short numbered list. One film emoji.",
+          reflectionQuestion: "Would a stranger recognize this opening after watching 3 of your videos?",
+          xpReward: 75
+        },
+        {
+          id: "l19_m2",
+          title: "30-Second Tutorial Short",
+          objective: "Teach one thing you are genuinely good at in 30 seconds.",
+          instructions: [
+            "Pick your skill: a study trick, a game move, a craft step, a life hack",
+            "Record 3 takes and pick the cleanest",
+            "Edit in CapCut with auto captions and 3 quick cuts",
+            "Add a 1-second call-to-follow at the end"
+          ],
+          sandboxPrompt: "I want to teach [skill] in 30 seconds. Help me write a tight script with a 3-second hook and a clear payoff.",
+          quackySystemPrompt: "You are Quacky helping a kid write a 30-second tutorial script. Given the skill, return 3 labeled beats: hook (3 seconds, under 10 words), teach (20 seconds, 3 clear steps), payoff (7 seconds, one memorable closer). One lightning emoji.",
+          reflectionQuestion: "What was the hardest part of fitting a real teaching into 30 seconds?",
+          xpReward: 75
+        },
+        {
+          id: "l19_m3",
+          title: "Before and After Transformation",
+          objective: "Tell a transformation story about a skill you actually improved.",
+          instructions: [
+            "Pick something you got better at in the last year",
+            "Find or create a before clip and an after clip",
+            "Edit in CapCut with a bold title card, split screen or cut transition",
+            "Add one sentence in captions about what you did to improve"
+          ],
+          sandboxPrompt: "I got better at [skill]. Help me write a 20-second before-and-after transformation script.",
+          quackySystemPrompt: "You are Quacky helping a kid tell a before-and-after skill story. Given the skill, write 20 seconds across 3 beats: before state, one-line about practice, after state. Under 50 words total. One trophy emoji.",
+          reflectionQuestion: "Did watching your own transformation change how you feel about it?",
+          xpReward: 100
+        }
+      ],
+      empireBuilderTip: "Short-form video editors charge $50 to $500 per polished short. Kids who can edit better than their parents already have a freelance career waiting.",
+      completionBadge: "crowd_plaza_l3",
+      nextLesson: "l20"
+    },
+
+    // ─────────────────────────────────────────────────────────
+    // L20 : SUBMAGIC
+    // ─────────────────────────────────────────────────────────
+    {
+      id: "l20",
+      worldId: "w3",
+      lessonNumber: 4,
+      title: "Submagic",
+      toolName: "Submagic",
+      toolUrl: "https://www.submagic.co/",
+      toolCategory: "AI captions and viral short formatting",
+      difficulty: "easy",
+      estimatedMinutes: 18,
+      heroLine: "The invisible edge that makes short-form content actually get watched.",
+      warmUpChallenge: "You have scrolled past thousands of videos without sound. The ones that stopped you had a caption screaming your eye to the screen. Today you learn to be that caption.",
+      warmUpQuiz: {
+        question: "Which caption style grabs your attention first?",
+        options: [
+          "Bold words that pulse in time with speech",
+          "One color-coded emoji per keyword",
+          "Big highlighted phrases that pop one at a time"
+        ]
+      },
+      features: [
+        {
+          feature: "Dynamic captions",
+          description: "Submagic places captions word-by-word in sync with speech.",
+          example: "Each word lands on beat so viewers cannot look away"
+        },
+        {
+          feature: "Auto B-roll suggestions",
+          description: "Submagic suggests relevant stock footage for the words you say.",
+          example: "You say 'pizza' and a pizza shot auto-appears for that second"
+        },
+        {
+          feature: "Multi-language subtitles",
+          description: "Translate and subtitle into 20+ languages for global reach.",
+          example: "Your English short becomes Spanish, Arabic, and Japanese instantly"
+        }
+      ],
+      costInfo: "Starter plan is $10 per month. Pro plan is $25 per month with more languages and unlimited uploads.",
+      parentTip: "Submagic is where short-form retention actually lives. Watch your kid's caption choices: simpler and bigger usually wins over decorated and tiny.",
+      learningPoints: [
+        "Why sound-off viewing dominates social",
+        "Captions as storytelling, not translation",
+        "Retention math: first 3 seconds, first 10 seconds",
+        "Multi-language reach as leverage"
+      ],
+      quiz: [
+        {
+          question: "Why do dynamic captions boost retention?",
+          options: [
+            "They do not",
+            "They keep the viewer's eye engaged even with sound off",
+            "They make videos longer",
+            "They are only for translations"
+          ],
+          correctAnswer: 1,
+          explainer: "Dynamic captions keep visual interest. Viewers stay because their eyes have something to track."
+        },
+        {
+          question: "What fraction of scrolling happens with sound off?",
+          options: [
+            "Basically zero",
+            "Around 80 percent",
+            "Only on airplanes",
+            "Only on mute buttons"
+          ],
+          correctAnswer: 1,
+          explainer: "Roughly 80 percent of social scrolling is sound off. That is why captions win."
+        },
+        {
+          question: "What does Submagic do better than regular captions?",
+          options: [
+            "Nothing",
+            "Times word-by-word delivery to match speech rhythm",
+            "Adds music only",
+            "Deletes audio"
+          ],
+          correctAnswer: 1,
+          explainer: "Standard captions sit as blocks. Submagic delivers word-by-word in sync, which is why it feels viral."
+        }
+      ],
+      missions: [
+        {
+          id: "l20_m1",
+          title: "Retention Caption Test",
+          objective: "Take a short video and create 3 caption styles to see which feels strongest.",
+          instructions: [
+            "Pick one 30-second short you already made",
+            "Generate 3 Submagic versions: minimalist, maximalist, and emoji-heavy",
+            "Preview all 3 back to back with sound off",
+            "Pick a winner and note why"
+          ],
+          sandboxPrompt: "I have one 30-second video. Help me design 3 different caption styles: minimalist, maximalist, and emoji-heavy.",
+          quackySystemPrompt: "You are Quacky helping a kid design 3 caption styles for the same short. Return 3 numbered styles with: font weight, color pair, word-per-frame, and emoji use. Under 30 words each. One magnifier emoji.",
+          reflectionQuestion: "Which style made you want to keep watching even without sound?",
+          xpReward: 75
+        },
+        {
+          id: "l20_m2",
+          title: "Silent Mode Storytelling",
+          objective: "Make a 45-second video that works with zero sound.",
+          instructions: [
+            "Plan a story that does not need voiceover",
+            "Let captions carry the whole narrative",
+            "Use Submagic to style captions as the main visual",
+            "Test by watching it muted front to back"
+          ],
+          sandboxPrompt: "I want to tell a 45-second story that works with no sound. Topic: [pick one]. Help me outline the visual and caption script.",
+          quackySystemPrompt: "You are Quacky helping a kid script a silent-mode short. Given the topic, return a 3-beat structure with on-screen captions only: setup (10 seconds), tension (25 seconds), payoff (10 seconds). Each line under 8 words. One eye emoji.",
+          reflectionQuestion: "Was it harder or easier to tell a story without sound?",
+          xpReward: 75
+        },
+        {
+          id: "l20_m3",
+          title: "Global Reach Remix",
+          objective: "Subtitle one of your videos into 2 other languages for wider audiences.",
+          instructions: [
+            "Pick your best 30 to 60 second video",
+            "Use Submagic to translate into 2 non-native languages",
+            "Post all 3 versions as separate uploads with platform-matching captions",
+            "Note which version gets the most views after 48 hours"
+          ],
+          sandboxPrompt: "I want to translate my video into [language 2] and [language 3] for wider reach. Help me write platform-matching hooks for each version.",
+          quackySystemPrompt: "You are Quacky helping a kid localize a short video. Given the 2 target languages, return 2 platform-ready opening hooks (under 12 words each) in those languages with English translations in parentheses. One globe emoji.",
+          reflectionQuestion: "Which language version brought the biggest surprise audience?",
+          xpReward: 100
+        }
+      ],
+      empireBuilderTip: "Short-form retention specialists are the highest-paid editors in social right now. A 10% retention bump can double a brand's ad revenue. Submagic makes that bump routine.",
+      completionBadge: "crowd_plaza_l4",
+      nextLesson: "l21"
+    },
+
+    // ─────────────────────────────────────────────────────────
+    // L21 : LATER
+    // ─────────────────────────────────────────────────────────
+    {
+      id: "l21",
+      worldId: "w3",
+      lessonNumber: 5,
+      title: "Later",
+      toolName: "Later",
+      toolUrl: "https://later.com/",
+      toolCategory: "AI social scheduling and content calendar",
+      difficulty: "easy",
+      estimatedMinutes: 20,
+      heroLine: "Schedule a month of content in one afternoon, then go live your life.",
+      warmUpChallenge: "Most creators burn out because they post when inspiration hits. Real pros schedule when life is calm and auto-publish during the week. Today you stop letting chaos run your calendar.",
+      warmUpQuiz: {
+        question: "Which scheduling habit would change your content game the most?",
+        options: [
+          "Batching a month of posts in one sitting",
+          "Posting at the best time for my audience automatically",
+          "Reusing content across platforms with one click"
+        ]
+      },
+      features: [
+        {
+          feature: "Visual calendar",
+          description: "See a month of posts as a grid, drag and drop to reorder.",
+          example: "Swap Tuesday and Thursday posts by dragging, publish times auto-adjust"
+        },
+        {
+          feature: "Best time AI",
+          description: "Later learns when your audience is most active and auto-schedules for those windows.",
+          example: "Your 7pm Saturday post outperforms your 2pm Tuesday post automatically"
+        },
+        {
+          feature: "Cross-platform scheduling",
+          description: "Plan Instagram, TikTok, LinkedIn, Pinterest from one dashboard.",
+          example: "Schedule 4 platforms in 15 minutes instead of 4 separate apps"
+        }
+      ],
+      costInfo: "Starter plan is $25 per month for 1 social set. Growth plan is $45 per month for 3 social sets and team features.",
+      parentTip: "Scheduling is the secret weapon against burnout. Help your kid treat scheduling as part of creation, not an afterthought. One afternoon of planning beats 30 days of scrambling.",
+      learningPoints: [
+        "Why batch creation beats daily improvisation",
+        "Timing as a multiplier, not a detail",
+        "Calendar as strategy, not just a tool",
+        "Cross-platform leverage without burnout"
+      ],
+      quiz: [
+        {
+          question: "Why is batch creation powerful?",
+          options: [
+            "It lets you create consistently without daily pressure",
+            "It makes content worse",
+            "It is only for big brands",
+            "It takes more time"
+          ],
+          correctAnswer: 0,
+          explainer: "Creating 30 posts in one session is faster than 30 separate days. Plus you can plan themes better."
+        },
+        {
+          question: "What is a content calendar really for?",
+          options: [
+            "Tracking deadlines only",
+            "Showing you the big picture of your strategy before posts go live",
+            "Counting posts",
+            "Nothing important"
+          ],
+          correctAnswer: 1,
+          explainer: "A good calendar reveals gaps, repetition, and rhythm before posts are public. That is strategy."
+        },
+        {
+          question: "Why does the best time AI matter?",
+          options: [
+            "It does not",
+            "Posting when your audience is online can double views",
+            "It only works for celebrities",
+            "It makes videos longer"
+          ],
+          correctAnswer: 1,
+          explainer: "Same content, wrong time equals fewer views. Later's AI learns YOUR audience and nails the window."
+        }
+      ],
+      missions: [
+        {
+          id: "l21_m1",
+          title: "30-Day Content Calendar",
+          objective: "Plan and schedule 30 days of posts for one platform with clear themes.",
+          instructions: [
+            "Pick your single platform for this sprint",
+            "Define 3 content pillars (topics you will rotate)",
+            "Draft 30 post hooks: 10 per pillar",
+            "Schedule them in Later with best-time AI on"
+          ],
+          sandboxPrompt: "I want to plan 30 days of content for [platform] about [niche]. Help me define 3 pillars and draft 30 post hooks.",
+          quackySystemPrompt: "You are Quacky helping a kid plan a 30-day content calendar. Given the niche, return 3 numbered content pillars plus 30 post hooks (10 per pillar). Each hook under 15 words. Numbered. One calendar emoji.",
+          reflectionQuestion: "Which pillar felt easiest to fill? Which one stretched you?",
+          xpReward: 100
+        },
+        {
+          id: "l21_m2",
+          title: "Best Time Discovery",
+          objective: "Run a 14-day experiment to find your real best posting time.",
+          instructions: [
+            "Post the same content at 2 different times on alternating days for 14 days",
+            "Let Later track performance",
+            "Read the analytics at day 15 and identify the winning window",
+            "Commit to that window going forward"
+          ],
+          sandboxPrompt: "I want to test 2 posting times for 14 days: [time A] and [time B]. Help me design an experiment that gives a clean answer.",
+          quackySystemPrompt: "You are Quacky helping a kid design a 14-day posting-time experiment. Given the 2 time slots, return a 14-day schedule alternating slots with one metric to track (views, comments, or saves). Short numbered list. One clock emoji.",
+          reflectionQuestion: "Were you surprised by which time won?",
+          xpReward: 75
+        },
+        {
+          id: "l21_m3",
+          title: "Batch Creation Day",
+          objective: "Create a full week of content in one single 2-hour session.",
+          instructions: [
+            "Block 2 hours on a weekend",
+            "Generate 7 post ideas at once using your pillars",
+            "Design all 7 in Simplified or CapCut in one sitting",
+            "Schedule the whole week in Later before you close your laptop"
+          ],
+          sandboxPrompt: "I have 2 hours to batch 7 days of content about [niche]. Help me write a tight workflow for the session.",
+          quackySystemPrompt: "You are Quacky helping a kid batch 7 days of content in 2 hours. Given the niche, return a numbered workflow with time boxes: 15 minutes planning, 60 minutes creation, 30 minutes scheduling, 15 minutes buffer. Each step has 1-2 specific actions. One stopwatch emoji.",
+          reflectionQuestion: "How did it feel to end the session knowing next week was already done?",
+          xpReward: 100
+        }
+      ],
+      empireBuilderTip: "The top 1% of creators publish 3 to 5 times a week without burning out. Their secret is almost always batch and schedule. Later makes you a top-1% operator from week one.",
+      completionBadge: "crowd_plaza_l5",
+      nextLesson: "l22"
+    },
+
+    // ─────────────────────────────────────────────────────────
+    // L22 : PREDIS.AI
+    // ─────────────────────────────────────────────────────────
+    {
+      id: "l22",
+      worldId: "w3",
+      lessonNumber: 6,
+      title: "Predis.ai",
+      toolName: "Predis.ai",
+      toolUrl: "https://predis.ai/",
+      toolCategory: "AI social post generator and competitor analysis",
+      difficulty: "medium",
+      estimatedMinutes: 20,
+      heroLine: "Generate posts in your voice and read competitors at the same time.",
+      warmUpChallenge: "Most creators copy what is already working. Smart creators analyze what is working, then add what nobody else has. Predis does both. Today you become the smart one.",
+      warmUpQuiz: {
+        question: "Which move separates pros from beginners?",
+        options: [
+          "Studying competitors before creating anything",
+          "Never looking at other creators",
+          "Copying viral posts exactly"
+        ]
+      },
+      features: [
+        {
+          feature: "AI post generation",
+          description: "Describe a topic and get 10 post drafts with image, caption, and hashtags.",
+          example: "Type 'study tips for finals' and get 10 ready-to-publish posts"
+        },
+        {
+          feature: "Competitor analysis",
+          description: "Paste a competitor's social handle and see what is working for them.",
+          example: "Drop any creator's handle, see their top 10 posts of the month"
+        },
+        {
+          feature: "Brand voice training",
+          description: "Feed Predis your old posts and it matches your tone automatically.",
+          example: "Paste 5 samples, get new posts in your voice every time"
+        }
+      ],
+      costInfo: "Free plan covers 15 AI posts per month. Lite plan is $27 per month for 120 posts and competitor analysis.",
+      parentTip: "Competitor analysis is not stealing. It is the same thing top athletes do watching game tape. Help your kid frame it as study, not shortcut.",
+      learningPoints: [
+        "How to study competitors ethically",
+        "Voice training for consistent AI output",
+        "Post variation to find what works",
+        "Hooks and hashtags as hypotheses, not guesses"
+      ],
+      quiz: [
+        {
+          question: "Why study competitors?",
+          options: [
+            "To copy them exactly",
+            "To learn what your audience already responds to",
+            "To troll them",
+            "It has no value"
+          ],
+          correctAnswer: 1,
+          explainer: "Audiences reveal themselves through what they engage with. Competitor study shows you the proof."
+        },
+        {
+          question: "What does voice training do in Predis?",
+          options: [
+            "Changes your real voice",
+            "Teaches the AI to write in your actual tone",
+            "Deletes your posts",
+            "Adds music"
+          ],
+          correctAnswer: 1,
+          explainer: "You paste samples of your voice, Predis learns it, and every new post sounds like you wrote it."
+        },
+        {
+          question: "Why generate 10 variations instead of 1?",
+          options: [
+            "Variations are a test",
+            "One post is enough",
+            "Variations waste time",
+            "Quantity is always bad"
+          ],
+          correctAnswer: 0,
+          explainer: "Ten variations let you pick the strongest. Pros test, amateurs settle for the first idea."
+        }
+      ],
+      missions: [
+        {
+          id: "l22_m1",
+          title: "Content from Zero",
+          objective: "Generate 10 posts from a topic you know nothing about, then refine to 3 keepers.",
+          instructions: [
+            "Pick a topic outside your usual zone",
+            "Generate 10 posts in Predis",
+            "Kill the 7 weakest using honest criteria (hook, clarity, originality)",
+            "Refine the top 3 into publish-ready posts"
+          ],
+          sandboxPrompt: "My topic is [pick something unfamiliar]. Generate 10 post angles and help me score them on hook, clarity, and originality.",
+          quackySystemPrompt: "You are Quacky helping a kid score 10 social post drafts. Given the topic, return 10 numbered post angles (under 20 words each) then score each on hook/clarity/originality out of 10 and suggest the top 3. One clipboard emoji.",
+          reflectionQuestion: "Did scoring change your favorite? What did you notice?",
+          xpReward: 75
+        },
+        {
+          id: "l22_m2",
+          title: "Competitor Breakdown",
+          objective: "Analyze one creator in your space and extract 3 things that work for them.",
+          instructions: [
+            "Pick a creator whose content you admire (and is roughly your niche)",
+            "Drop their handle into Predis competitor analysis",
+            "Read their top 10 posts and write down what makes each work",
+            "Create 3 of your own posts that use what works without copying"
+          ],
+          sandboxPrompt: "I am analyzing [creator handle or style]. Help me extract 3 specific tactics they use I can adapt ethically.",
+          quackySystemPrompt: "You are Quacky helping a kid ethically analyze a competitor. Given the creator style, return 3 numbered tactics they use (format, hook style, visual treatment) and for each, a respectful way to adapt it. One binoculars emoji.",
+          reflectionQuestion: "What is one thing they do that you would never want to copy?",
+          xpReward: 75
+        },
+        {
+          id: "l22_m3",
+          title: "Voice Match",
+          objective: "Train Predis on your voice, then generate 5 posts that sound undeniably like you.",
+          instructions: [
+            "Paste 5 of your own best written posts into Predis voice training",
+            "Let Predis analyze your tone patterns",
+            "Generate 5 new posts on new topics",
+            "Blindly read them to a friend without telling them they are AI"
+          ],
+          sandboxPrompt: "I trained Predis on 5 of my own posts. Help me write 5 new post prompts on different topics that will test whether the AI captured my voice.",
+          quackySystemPrompt: "You are Quacky helping a kid test AI voice-matching. Given their niche, return 5 numbered topic prompts that would reveal voice mismatches if the AI is off. Each prompt under 15 words. One microphone emoji.",
+          reflectionQuestion: "Could your friend tell which posts were AI? What gave it away, or what didn't?",
+          xpReward: 100
+        }
+      ],
+      empireBuilderTip: "Social media strategists get paid $50 to $200 per hour to do exactly this work for brands. You just did it for yourself first, which is the better order.",
+      completionBadge: "crowd_plaza_l6",
+      nextLesson: null
+    }
+  ],
+  empireBuilderModule: {
+    id: "eb_w3",
+    worldId: "w3",
+    title: "Your First Audience",
+    tagline: "Build a real following by posting consistently in one niche for 30 days.",
+    estimatedMinutes: 45,
+    businessArchetype: "Personal brand creator",
+    targetCustomer: "Anyone in your niche: future collaborators, sponsors, students, customers.",
+    realWorldExamples: [
+      "Ryan Kaji launched a YouTube channel at age 3 and built a $250 million empire by age 11.",
+      "A 14-year-old in Egypt grew a book review TikTok to 100K followers in 6 months by posting daily.",
+      "Teen podcasters on Spotify go from 0 to 10K listeners in 90 days by niching down tight."
+    ],
+    businessSteps: [
+      {
+        step: 1,
+        title: "Pick your niche and platform",
+        description: "Choose ONE topic you love and ONE platform. Tight niche beats broad appeal every time.",
+        usingTools: ["Predis.ai", "Simplified"],
+        deliverable: "A one-sentence channel pitch: I help [who] [do what] on [platform]."
+      },
+      {
+        step: 2,
+        title: "Define your 3 content pillars",
+        description: "Pick 3 subtopics you will rotate through. All 90 future posts fall under these 3.",
+        usingTools: ["Simplified", "Predis.ai"],
+        deliverable: "3 pillar names plus 10 post ideas each (30 ideas total)."
+      },
+      {
+        step: 3,
+        title: "Build your first 10 posts",
+        description: "Create 10 posts using Simplified, CapCut, and Submagic. Consistent style throughout.",
+        usingTools: ["Simplified", "CapCut", "Submagic", "Opus Clip"],
+        deliverable: "10 finished posts, all on-brand, ready to schedule."
+      },
+      {
+        step: 4,
+        title: "Launch the 30-day calendar",
+        description: "Schedule all 10 plus draft 20 more in Later. Go live for 30 straight days.",
+        usingTools: ["Later"],
+        deliverable: "A fully populated Later calendar for the next 30 days."
+      },
+      {
+        step: 5,
+        title: "Make your first 100 followers",
+        description: "Focus on response quality over follower count. Reply to every comment. DM people who engage.",
+        usingTools: ["Simplified", "Later"],
+        deliverable: "A tracker of your first 100 followers with notes on how each found you."
+      }
+    ],
+    quackyPlaybook: "Audiences do not appear. They accumulate. One post today, another tomorrow, 90 more over the next 3 months. Ryan Kaji, MrBeast, and every creator you admire were all unknown on day 1. The only difference between them and 99% of people who quit is consistency. You are betting on yourself for 30 days.",
+    pricingLesson: {
+      yourFirstPrice: "Free content for 100 followers. Brand-curious followers at 1000. Real sponsor conversations at 5000. Paid partnerships start around $50 to $500 per post at 10,000 followers in a tight niche.",
+      whyThisPrice: "Audience size is only half the equation. Niche depth matters more. 2000 followers who care about one specific thing sell better than 20,000 followers who follow everyone.",
+      scaleUp: "Double your rate every 10,000 new followers. Triple if engagement rate is above 5%. Brands pay for reach AND trust. You build both by not selling out early."
+    },
+    firstCustomerExercise: {
+      task: "Post your first content piece in your niche today. Tag 3 real friends and ask them to share if they like it.",
+      prompt: "I am launching a [niche] content channel on [platform]. Help me write a launch post with a hook that makes my friends actually share it.",
+      quackySystemPrompt: "You are Quacky helping a kid write their channel launch post. Given the niche and platform, write a 3-part launch post: hook (1 line that makes the feed stop), story (why this niche, in 2 sentences), invite (ask for shares with specificity). Platform-appropriate length. One rocket emoji."
+    },
+    xpReward: 500,
+    completionBadge: "crowd_plaza_champion"
+  },
+  capstone: {
+    id: "cap_w3",
+    worldId: "w3",
+    title: "The Crowd Plaza Launch Kit",
+    narrative: "Creators prove themselves by launching, not by planning. The Launch Kit is real: a live channel with 10 published pieces and a defined audience strategy.",
+    requiredMissions: ["l17_m1", "l18_m1", "l19_m1", "l20_m2", "l21_m1", "l22_m3"],
+    deliverableSpec: "Submit one shareable folder or link containing: channel name and platform, brand kit (colors, fonts, logo), 10 published pieces with URLs, 3 content pillars documented, 30-day calendar exported from Later, first follower tracker with 10 entries minimum.",
+    submissionFormat: "portfolio",
+    parentReviewPrompt: "Your child just launched a real content channel. Review the 10 pieces, name which is strongest, and discuss what a steady 90-day commitment would mean. Creator discipline at 12 beats adult hustle at 30.",
+    xpReward: 1000,
+    unlocksWorld: "w4"
+  }
+};
+
 export const WORLDS: World[] = [
   CANVAS_KINGDOM,
   STORY_FORGE,
-  // w3 Crowd Plaza     : next session
+  CROWD_PLAZA,
   // w4 Power Grid      : next session
   // w5 Neural Nexus    : next session
 ];
