@@ -84,13 +84,34 @@ export function ProfileClient({ user, profile, totalXp, levelData, earnedBadges,
                ))}
              </div>
            ) : (
-             <div className="bg-card border border-border/50 border-dashed rounded-2xl p-6 text-center shadow-sm">
-               <p className="text-muted-foreground text-sm font-medium">Complete missions and quizzes to earn badges!</p>
+             <div className="bg-card border border-border/50 border-dashed rounded-2xl p-6 flex flex-col items-center justify-center text-center shadow-sm space-y-3">
+               <img src="/quacky-thinking.png" alt="Quacky thinking" className="w-16 h-16 object-contain opacity-80" />
+               <p className="text-muted-foreground text-sm font-medium">Keep learning to earn your first badge!</p>
              </div>
            )}
         </div>
 
-        <div className="pt-8">
+        <div className="pt-8 space-y-3">
+          <Button
+            variant="secondary"
+            className="w-full font-bold h-12 rounded-xl"
+            onClick={() => router.push("/settings")}
+          >
+            Settings
+          </Button>
+
+          <Button
+            variant="outline"
+            className="w-full font-bold h-12 rounded-xl border-2 border-primary text-primary hover:bg-primary/10"
+            onClick={() => {
+              const url = `${window.location.origin}/parent?childId=${user.id}`;
+              navigator.clipboard.writeText(url);
+              alert("Parent dashboard link copied to clipboard!");
+            }}
+          >
+            Share with Parent
+          </Button>
+
           <Button variant="destructive" className="w-full font-bold h-12 rounded-xl shadow-sm" onClick={handleLogout}>
             Log Out
           </Button>

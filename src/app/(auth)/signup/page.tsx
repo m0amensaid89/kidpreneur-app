@@ -40,7 +40,7 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="flex-1 flex items-center justify-center p-4 min-h-screen relative overflow-hidden">
+    <div className="flex-1 flex items-center justify-center p-4 min-h-[100dvh] relative overflow-hidden">
       {/* Decorative background elements */}
       <div className="absolute top-[-10%] right-[-10%] w-64 h-64 bg-accent/20 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-[-10%] left-[-10%] w-64 h-64 bg-primary/20 rounded-full blur-3xl pointer-events-none" />
