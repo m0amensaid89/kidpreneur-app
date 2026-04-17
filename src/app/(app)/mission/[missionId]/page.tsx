@@ -4,6 +4,9 @@ import { use, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { QuackyAvatar } from "@/components/ui/QuackyAvatar";
+import { XPCounter } from "@/components/ui/XPCounter";
+import { BadgeReveal } from "@/components/ui/BadgeReveal";
+import { BADGE_FIRST_MISSION, Badge } from "@/lib/badges";
 import { createClient } from "@/lib/supabase/client";
 import { Star } from "lucide-react";
 
@@ -13,6 +16,7 @@ export default function MissionCompletePage({ params }: { params: Promise<{ miss
   const supabase = createClient();
   const [hasAwarded, setHasAwarded] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [revealedBadge, setRevealedBadge] = useState<Badge | null>(null);
 
   // Hydration mismatch fix: render confetti only after mount
   useEffect(() => {
@@ -40,6 +44,23 @@ export default function MissionCompletePage({ params }: { params: Promise<{ miss
         stars: 3,
         completed_at: new Date().toISOString()
       }, { onConflict: 'user_id,mission_id' }); // Assuming composite key setup
+
+      // 3. Badge Check
+      const { data: firstMissionData } = await supabase
+        .from("user_badges")
+        .select("badge_id")
+        .eq("user_id", session.user.id)
+        .eq("badge_id", BADGE_FIRST_MISSION.id)
+        .single();
+
+      if (!firstMissionData) {
+        setRevealedBadge(BADGE_FIRST_MISSION);
+        await supabase.from("user_badges").upsert({
+          user_id: session.user.id,
+          badge_id: BADGE_FIRST_MISSION.id,
+          earned_at: new Date().toISOString()
+        }, { onConflict: "user_id,badge_id" });
+      }
 
       setHasAwarded(true);
     };
@@ -88,7 +109,9 @@ export default function MissionCompletePage({ params }: { params: Promise<{ miss
 
           <div className="bg-card/80 backdrop-blur-md border border-border/50 rounded-3xl p-6 shadow-xl">
             <p className="text-sm font-bold text-muted-foreground uppercase tracking-wider mb-1">XP Earned</p>
-            <p className="text-5xl font-black text-primary">+30</p>
+            <p className="text-5xl font-black text-primary">
+              <XPCounter from={0} to={30} duration={1000} />
+            </p>
           </div>
         </div>
       </div>
@@ -120,6 +143,10 @@ export default function MissionCompletePage({ params }: { params: Promise<{ miss
           animation-iteration-count: infinite;
         }
       `}} />
+
+      {revealedBadge && (
+        <BadgeReveal badge={revealedBadge} onDismiss={() => setRevealedBadge(null)} />
+      )}
     </div>
   );
 }

@@ -5,6 +5,9 @@ import { TopBar } from "@/components/ui/TopBar";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { QuackyAvatar } from "@/components/ui/QuackyAvatar";
+import { XPCounter } from "@/components/ui/XPCounter";
+import { BadgeReveal } from "@/components/ui/BadgeReveal";
+import { BADGE_FIRST_QUIZ, BADGE_PERFECT_QUIZ, Badge } from "@/lib/badges";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 
@@ -28,6 +31,8 @@ export function QuizClient({ lessonId, quizData, userId }: QuizClientProps) {
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [resultState, setResultState] = useState<"idle" | "correct" | "wrong">("idle");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [wrongAnswersCount, setWrongAnswersCount] = useState(0);
+  const [revealedBadge, setRevealedBadge] = useState<Badge | null>(null);
 
   const question = quizData[currentIndex];
   const progressValue = ((currentIndex) / quizData.length) * 100;
@@ -48,18 +53,73 @@ export function QuizClient({ lessonId, quizData, userId }: QuizClientProps) {
       });
     }
 
+    if (!isCorrect) {
+      setWrongAnswersCount(prev => prev + 1);
+    }
+
     // Move to next after delay
-    setTimeout(() => {
+    setTimeout(async () => {
       if (currentIndex < quizData.length - 1) {
         setCurrentIndex(currentIndex + 1);
         setSelectedOption(null);
         setResultState("idle");
       } else {
-        // Generate a mock missionId
-        const missionId = `m_${lessonId}`;
-        router.push(`/mission/${missionId}`);
+        // Quiz is over
+        if (userId) {
+           // Check for badges
+           let earnedBadge: Badge | null = null;
+
+           // First quiz badge check
+           const { data: firstQuizData } = await supabase
+             .from("user_badges")
+             .select("badge_id")
+             .eq("user_id", userId)
+             .eq("badge_id", BADGE_FIRST_QUIZ.id)
+             .single();
+
+           if (!firstQuizData) {
+             earnedBadge = BADGE_FIRST_QUIZ;
+             await supabase.from("user_badges").upsert({
+               user_id: userId,
+               badge_id: BADGE_FIRST_QUIZ.id,
+               earned_at: new Date().toISOString()
+             }, { onConflict: "user_id,badge_id" });
+           }
+
+           // Perfect quiz badge check
+           if (isCorrect && wrongAnswersCount === 0) {
+              const { data: perfectQuizData } = await supabase
+                .from("user_badges")
+                .select("badge_id")
+                .eq("user_id", userId)
+                .eq("badge_id", BADGE_PERFECT_QUIZ.id)
+                .single();
+
+              if (!perfectQuizData) {
+                 // Prioritize showing perfect quiz badge if both earned
+                 earnedBadge = BADGE_PERFECT_QUIZ;
+                 await supabase.from("user_badges").upsert({
+                   user_id: userId,
+                   badge_id: BADGE_PERFECT_QUIZ.id,
+                   earned_at: new Date().toISOString()
+                 }, { onConflict: "user_id,badge_id" });
+              }
+           }
+
+           if (earnedBadge) {
+             setRevealedBadge(earnedBadge);
+             return; // wait for badge dismiss
+           }
+        }
+
+        router.push(`/chat?lessonId=${lessonId}`);
       }
     }, 2000);
+  };
+
+  const handleBadgeDismiss = () => {
+    setRevealedBadge(null);
+    router.push(`/chat?lessonId=${lessonId}`);
   };
 
   return (
@@ -121,7 +181,7 @@ export function QuizClient({ lessonId, quizData, userId }: QuizClientProps) {
         {/* Toasts / Feedback messages */}
         {resultState === "correct" && (
           <div className="fixed bottom-24 bg-green-500 text-white px-6 py-3 rounded-full font-bold text-lg animate-in slide-in-from-bottom-5 fade-in shadow-lg shadow-green-500/20 flex items-center">
-            <span className="text-2xl mr-2">✨</span> Correct! +10 XP
+            <span className="text-2xl mr-2">✨</span> Correct! <XPCounter from={0} to={10} className="ml-1" /> XP
           </div>
         )}
 
@@ -131,6 +191,10 @@ export function QuizClient({ lessonId, quizData, userId }: QuizClientProps) {
           </div>
         )}
       </div>
+
+      {revealedBadge && (
+        <BadgeReveal badge={revealedBadge} onDismiss={handleBadgeDismiss} />
+      )}
     </div>
   );
 }
