@@ -6,7 +6,8 @@ import { Button } from "@/components/ui/button";
 import { QuackyAvatar } from "@/components/ui/QuackyAvatar";
 import { XPCounter } from "@/components/ui/XPCounter";
 import { BadgeReveal } from "@/components/ui/BadgeReveal";
-import { BADGE_FIRST_MISSION, Badge } from "@/lib/badges";
+import { Badge } from "@/lib/badges";
+import { awardBadge } from "@/lib/badgeDispatcher";
 import { createClient } from "@/lib/supabase/client";
 import { Star } from "lucide-react";
 
@@ -18,7 +19,6 @@ export default function MissionCompletePage({ params }: { params: Promise<{ miss
   const [mounted, setMounted] = useState(false);
   const [revealedBadge, setRevealedBadge] = useState<Badge | null>(null);
 
-  // Hydration mismatch fix: render confetti only after mount
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -30,36 +30,39 @@ export default function MissionCompletePage({ params }: { params: Promise<{ miss
       const { data: { session } } = await supabase.auth.getSession();
       if (!session) return;
 
+      const userId = session.user.id;
+      const missionId = unwrappedParams.missionId;
+      // Derive lessonId from missionId pattern l{n}_m{1|2|3}
+      const lessonId = missionId.split("_")[0];
+
       // 1. Award 30 XP
       await supabase.from("xp_log").insert({
-        user_id: session.user.id,
+        user_id: userId,
         xp_amount: 30,
-        source: `mission_complete_${unwrappedParams.missionId}`
+        source: `mission_complete_${missionId}`
       });
 
       // 2. Mark mission complete
-      await supabase.from("mission_completions").upsert({
-        user_id: session.user.id,
-        mission_id: unwrappedParams.missionId,
-        stars: 3,
-        completed_at: new Date().toISOString()
-      }, { onConflict: 'user_id,mission_id' }); // Assuming composite key setup
+      await supabase.from("mission_completions").upsert(
+        {
+          user_id: userId,
+          mission_id: missionId,
+          lesson_id: lessonId,
+          stars: 3,
+          completed_at: new Date().toISOString()
+        },
+        { onConflict: "user_id,mission_id" }
+      );
 
-      // 3. Badge Check
-      const { data: firstMissionData } = await supabase
-        .from("user_badges")
-        .select("badge_id")
-        .eq("user_id", session.user.id)
-        .eq("badge_id", BADGE_FIRST_MISSION.id)
-        .single();
+      // 3. Route badge check through the dispatcher
+      const badge = await awardBadge(supabase, userId, {
+        type: "mission_complete",
+        missionId,
+        lessonId
+      });
 
-      if (!firstMissionData) {
-        setRevealedBadge(BADGE_FIRST_MISSION);
-        await supabase.from("user_badges").upsert({
-          user_id: session.user.id,
-          badge_id: BADGE_FIRST_MISSION.id,
-          earned_at: new Date().toISOString()
-        }, { onConflict: "user_id,badge_id" });
+      if (badge) {
+        setRevealedBadge(badge);
       }
 
       setHasAwarded(true);
@@ -71,7 +74,6 @@ export default function MissionCompletePage({ params }: { params: Promise<{ miss
   return (
     <div className="flex flex-col items-center justify-center min-h-[100dvh] pb-16 bg-gradient-to-b from-primary/20 via-background to-background relative overflow-hidden">
 
-      {/* CSS Confetti */}
       {mounted && (
         <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
           {Array.from({ length: 50 }).map((_, i) => (
@@ -119,7 +121,7 @@ export default function MissionCompletePage({ params }: { params: Promise<{ miss
       <div className="w-full max-w-sm px-6 space-y-3 z-10 animate-in slide-in-from-bottom-10 fade-in duration-700 delay-500">
         <Button
           className="w-full h-16 rounded-2xl text-xl font-bold shadow-lg"
-          onClick={() => router.push("/world/w1")} // Mock going back to next mission/world
+          onClick={() => router.push("/home")}
         >
           Next Mission
         </Button>
