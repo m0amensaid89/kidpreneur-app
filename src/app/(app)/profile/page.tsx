@@ -5,6 +5,8 @@ import { getLevelData } from "@/lib/xp";
 import { ALL_BADGES } from "@/lib/badges";
 import { redirect } from "next/navigation";
 
+export const dynamic = "force-dynamic";
+
 export default async function ProfilePage() {
   const supabase = await createClient();
 
@@ -19,20 +21,23 @@ export default async function ProfilePage() {
   const totalXp = await getUserTotalXp(supabase, user.id);
   const levelData = getLevelData(totalXp);
 
-  // Fetch badges
+  // Which badges has this user earned
   const { data: earnedBadgesData } = await supabase
     .from("user_badges")
-    .select("badge_id")
+    .select("badge_id, earned_at")
     .eq("user_id", user.id);
 
-  const earnedBadgeIds = earnedBadgesData?.map(b => b.badge_id) || [];
+  const earnedBadgeIds = new Set(
+    (earnedBadgesData || []).map((b) => b.badge_id as string)
+  );
 
-  const earnedBadges = ALL_BADGES.filter(b => earnedBadgeIds.includes(b.id));
+  // Pass the FULL matrix + earned set. Client renders locked badges greyed.
+  const allBadges = ALL_BADGES;
 
-  // Fetch mission completions
+  // Mission count
   const { count: missionCount } = await supabase
     .from("mission_completions")
-    .select("*", { count: 'exact', head: true })
+    .select("*", { count: "exact", head: true })
     .eq("user_id", user.id);
 
   return (
@@ -41,7 +46,8 @@ export default async function ProfilePage() {
       profile={profile}
       totalXp={totalXp}
       levelData={levelData}
-      earnedBadges={earnedBadges}
+      allBadges={allBadges}
+      earnedBadgeIds={Array.from(earnedBadgeIds)}
       missionCount={missionCount || 0}
     />
   );
