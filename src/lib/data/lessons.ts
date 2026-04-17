@@ -1,5 +1,5 @@
 // src/lib/data/lessons.ts
-// KidPreneur Lesson Data — v1.0
+// KidPreneur Lesson Data : v1.0
 // Authored: NELLY + SAMI, April 17 2026
 // Schema locked by SAMI. Do not modify lesson shape without schema revision.
 
@@ -74,7 +74,7 @@ export interface World {
 }
 
 // ═══════════════════════════════════════════════════════════
-// WORLD 1 — CANVAS KINGDOM
+// WORLD 1 : CANVAS KINGDOM
 // AI art, design, and visual creation
 // Empire Builder: Portfolio & creative services
 // ═══════════════════════════════════════════════════════════
@@ -85,13 +85,13 @@ const CANVAS_KINGDOM: World = {
   color: "#FF6340",
   icon: "palette",
   description: "Turn words and sketches into stunning AI art. Your imagination becomes real.",
-  empireBuilderConcept: "Portfolio & creative services — designers, illustrators, and visual storytellers get paid to bring ideas to life.",
+  empireBuilderConcept: "Portfolio & creative services : designers, illustrators, and visual storytellers get paid to bring ideas to life.",
   lessonCount: 8,
   unlockRequirement: { previousWorld: null, minXP: 0 },
   capstoneProject: "Build a 5-piece visual portfolio using 3 different AI tools, then design a simple pitch poster that sells your portfolio as a service.",
   lessons: [
     // ─────────────────────────────────────────────────────────
-    // L1 — CANVA MAGIC STUDIO
+    // L1 : CANVA MAGIC STUDIO
     // ─────────────────────────────────────────────────────────
     {
       id: "l1",
@@ -226,7 +226,7 @@ const CANVAS_KINGDOM: World = {
     },
 
     // ─────────────────────────────────────────────────────────
-    // L2 — MIDJOURNEY
+    // L2 : MIDJOURNEY
     // ─────────────────────────────────────────────────────────
     {
       id: "l2",
@@ -356,7 +356,7 @@ const CANVAS_KINGDOM: World = {
     },
 
     // ─────────────────────────────────────────────────────────
-    // L3 — NIGHTCAFE STUDIO
+    // L3 : NIGHTCAFE STUDIO
     // ─────────────────────────────────────────────────────────
     {
       id: "l3",
@@ -486,7 +486,7 @@ const CANVAS_KINGDOM: World = {
     },
 
     // ─────────────────────────────────────────────────────────
-    // L4 — LEONARDO AI
+    // L4 : LEONARDO AI
     // ─────────────────────────────────────────────────────────
     {
       id: "l4",
@@ -621,7 +621,7 @@ const CANVAS_KINGDOM: World = {
     },
 
     // ─────────────────────────────────────────────────────────
-    // L5 — DALL-E via ChatGPT
+    // L5 : DALL-E via ChatGPT
     // ─────────────────────────────────────────────────────────
     {
       id: "l5",
@@ -756,7 +756,7 @@ const CANVAS_KINGDOM: World = {
     },
 
     // ─────────────────────────────────────────────────────────
-    // L6 — RUNWAY
+    // L6 : RUNWAY
     // ─────────────────────────────────────────────────────────
     {
       id: "l6",
@@ -891,7 +891,7 @@ const CANVAS_KINGDOM: World = {
     },
 
     // ─────────────────────────────────────────────────────────
-    // L7 — GALILEO AI
+    // L7 : GALILEO AI
     // ─────────────────────────────────────────────────────────
     {
       id: "l7",
@@ -1026,7 +1026,7 @@ const CANVAS_KINGDOM: World = {
     },
 
     // ─────────────────────────────────────────────────────────
-    // L8 — IDEOGRAM (Text in Images)
+    // L8 : IDEOGRAM (Text in Images)
     // ─────────────────────────────────────────────────────────
     {
       id: "l8",
@@ -1157,7 +1157,7 @@ const CANVAS_KINGDOM: World = {
       ],
       empireBuilderTip: "Every brand you know (Nike, Apple, Coca-Cola) started as a logo design. Graphic designers get $500 to $5,000 for a single logo. You just did it yourself. Repeat this 10 times and you have a portfolio.",
       completionBadge: "canvas_kingdom_l8",
-      nextLesson: null // End of world — next lesson unlocks Capstone
+      nextLesson: null // End of world : next lesson unlocks Capstone
     }
   ]
 };
@@ -1168,8 +1168,8 @@ const CANVAS_KINGDOM: World = {
 
 export const WORLDS: World[] = [
   CANVAS_KINGDOM,
-  // w2 Story Forge     — next session
-  // w3 Crowd Plaza     — next session
-  // w4 Power Grid      — next session
-  // w5 Neural Nexus    — next session
+  // w2 Story Forge     : next session
+  // w3 Crowd Plaza     : next session
+  // w4 Power Grid      : next session
+  // w5 Neural Nexus    : next session
 ];
