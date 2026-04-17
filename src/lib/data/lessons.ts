@@ -71,6 +71,55 @@ export interface World {
   };
   capstoneProject: string;
   lessons: Lesson[];
+  empireBuilderModule: EmpireBuilderModule;
+  capstone: Capstone;
+}
+
+// ─── Schema v2 additions: Empire Builder + Capstone ───
+// Empire Builder : 1 per world. Kid turns world skills into a mini-business.
+export interface EmpireBuilderModule {
+  id: string;
+  worldId: WorldId;
+  title: string;
+  tagline: string;
+  estimatedMinutes: number;
+  businessArchetype: string;
+  targetCustomer: string;
+  realWorldExamples: string[];
+  businessSteps: {
+    step: number;
+    title: string;
+    description: string;
+    usingTools: string[];
+    deliverable: string;
+  }[];
+  quackyPlaybook: string;
+  pricingLesson: {
+    yourFirstPrice: string;
+    whyThisPrice: string;
+    scaleUp: string;
+  };
+  firstCustomerExercise: {
+    task: string;
+    prompt: string;
+    quackySystemPrompt: string;
+  };
+  xpReward: number;
+  completionBadge: string;
+}
+
+// Capstone : 1 per world. Portfolio-grade deliverable that unlocks next world.
+export interface Capstone {
+  id: string;
+  worldId: WorldId;
+  title: string;
+  narrative: string;
+  requiredMissions: string[];
+  deliverableSpec: string;
+  submissionFormat: "image" | "video" | "document" | "portfolio" | "pitch";
+  parentReviewPrompt: string;
+  xpReward: number;
+  unlocksWorld: WorldId | null;
 }
 
 // ═══════════════════════════════════════════════════════════
@@ -132,7 +181,7 @@ const CANVAS_KINGDOM: World = {
         {
           feature: "Magic Design",
           description: "Type a theme and Canva builds a whole layout for you.",
-          example: "Type winter wonderland and get a full themed template"
+          example: "Type beach party and get a full themed template"
         }
       ],
       costInfo: "Free plan includes limited magic credits per day. Canva Pro is $14.99 per month with way more magic credits and features.",
@@ -206,17 +255,17 @@ const CANVAS_KINGDOM: World = {
         },
         {
           id: "l1_m3",
-          title: "Winter Wonderland Remix",
-          objective: "Use Magic Design and Magic Expand to build a full winter scene.",
+          title: "Event Brand Kit",
+          objective: "Design a 3-piece visual kit for an imaginary event: a hero poster, an invite card, a social post.",
           instructions: [
-            "Search Magic Design for winter wonderland",
-            "Pick a template that speaks to you",
-            "Add sparkling details with Magic Media",
-            "Use Magic Expand to make the image wider"
+            "Invent an event: a birthday bash, a talent show, a local gaming tournament, a bake sale",
+            "Use Magic Design to build a poster around that theme",
+            "Use Magic Media to create a matching invite card",
+            "Use Magic Expand to turn one of them into a wide social post"
           ],
-          sandboxPrompt: "I am building a winter wonderland in Canva. What magical details should I add to make it feel alive?",
-          quackySystemPrompt: "You are Quacky helping a kid decorate a winter wonderland scene. Suggest 5 magical details (creatures, weather, lights, sounds, secret spots). Short numbered list. One snowflake emoji.",
-          reflectionQuestion: "If you could step inside your winter wonderland, what would you do first?",
+          sandboxPrompt: "I am designing a brand kit for an imaginary event: [event type and theme]. Help me describe the 3 pieces.",
+          quackySystemPrompt: "You are Quacky helping a kid design a 3-piece event brand kit in Canva Magic Studio. Given the event, suggest a theme, a color pair, and describe 3 pieces (poster, invite, social post) with ONE visual through-line. Short numbered list. One party emoji.",
+          reflectionQuestion: "If this event was real, who would sign up just from seeing your poster?",
           xpReward: 75
         }
       ],
@@ -239,13 +288,13 @@ const CANVAS_KINGDOM: World = {
       difficulty: "medium",
       estimatedMinutes: 20,
       heroLine: "Turn any idea into stunning art in 40 seconds.",
-      warmUpChallenge: "Grab paper and a pencil. Sketch something wild. Maybe a superhero cat saving a city or a garden where flowers sing. Your sketch is about to come alive.",
+      warmUpChallenge: "Every movie, game, and book starts with one image that makes someone say yes. Today your frame is the one that sells the idea. Pick a story beat: a chase, a discovery, a reveal. That is your scene.",
       warmUpQuiz: {
-        question: "If you could design an extraordinary scene, which would you pick?",
+        question: "Which story beat would you build the hero image for?",
         options: [
-          "A dragon playing chess with a knight",
-          "A pirate ship sailing through jellybean seas",
-          "A phoenix soaring over a crystal lake"
+          "The exact moment a secret door opens for the first time",
+          "A rooftop chase at sunset in a city where gravity is broken",
+          "The portrait of someone who just discovered they have powers"
         ]
       },
       features: [
@@ -306,51 +355,51 @@ const CANVAS_KINGDOM: World = {
       missions: [
         {
           id: "l2_m1",
-          title: "Superhero Showdown",
-          objective: "Design an epic scene featuring your own superhero in action.",
+          title: "Concept Art Commission",
+          objective: "Pretend a game studio hired you. Design 3 enemy characters with one shared style.",
           instructions: [
-            "Invent your superhero: name, power, and costume",
-            "Sketch the hero in action on paper",
-            "Write a detailed Midjourney prompt from your sketch",
-            "Generate, upscale your favorite, and save it"
+            "Invent the game: horror, sci-fi, fantasy, or something new",
+            "Write 3 Midjourney prompts, one per enemy, with the SAME style keyword",
+            "Upscale your favorite of each set",
+            "Put all 3 side by side so the shared style is obvious"
           ],
-          sandboxPrompt: "Help me write a Midjourney prompt for my superhero: [name, power, costume]",
-          quackySystemPrompt: "You are Quacky helping a kid write a Midjourney prompt for their superhero. Expand their hero idea with action, setting, and style keyword (cartoon, cinematic, comic book). Return ONE prompt under 50 words, starting with /imagine. One emoji.",
-          reflectionQuestion: "If your superhero had a nemesis, what would they look like?",
-          xpReward: 50
+          sandboxPrompt: "Help me design 3 enemy characters for a [game genre] game that share the same art style.",
+          quackySystemPrompt: "You are Quacky helping a kid design 3 enemy characters with ONE shared style. Given the game genre, suggest one style keyword (cinematic, dark anime, stylized 3D, low-poly, watercolor horror) and 3 distinct enemy prompts that ALL use that same style keyword. Return as 3 numbered /imagine prompts. One sword emoji.",
+          reflectionQuestion: "If a studio actually saw your 3 enemies, which one would they green-light first?",
+          xpReward: 75
         },
         {
           id: "l2_m2",
-          title: "Magical Creature Encounter",
-          objective: "Bring a magical creature to life in its enchanted home.",
+          title: "Book Cover Commission",
+          objective: "Design the cover for a fantasy book that does not exist yet. Pitch the book in 3 words first.",
           instructions: [
-            "Pick your creature: unicorn, dragon, phoenix, or invent one",
-            "Describe its magical setting: forest, cave, cloud city",
-            "Add sparkling or glowing details to your prompt",
-            "Generate 4 versions and pick your favorite"
+            "Write a 3-word book pitch (ex: 'a sunken library', 'last dragon flies')",
+            "Turn the pitch into a Midjourney prompt with mood, lighting, and style",
+            "Upscale your favorite version",
+            "Write a fake author name and title across the top of the cover using a design tool"
           ],
-          sandboxPrompt: "Help me describe a magical creature for Midjourney: [creature type], in a [setting].",
-          quackySystemPrompt: "You are Quacky helping a kid describe a magical creature. Add sensory details: glowing eyes, shimmering scales, magical mist. Return ONE /imagine prompt under 50 words. One sparkle emoji.",
-          reflectionQuestion: "What magical power would your creature have if it were real?",
-          xpReward: 50
+          sandboxPrompt: "My imaginary fantasy book is about [3-word pitch]. Help me write a Midjourney prompt for the cover.",
+          quackySystemPrompt: "You are Quacky helping a kid design a fantasy book cover in Midjourney. Given the 3-word pitch, expand it into ONE /imagine prompt under 60 words with atmosphere, lighting, and style (oil painting, epic fantasy, cinematic). End with --ar 2:3 for book format. One book emoji.",
+          reflectionQuestion: "What line would you put on the back cover to make someone buy it?",
+          xpReward: 75
         },
         {
           id: "l2_m3",
-          title: "Time-Travel Adventure",
-          objective: "Design a scene from a different time period or future world.",
+          title: "Album Art Pitch",
+          objective: "A musician friend drops their first song. Design 3 different cover options in 3 different moods.",
           instructions: [
-            "Pick your era: ancient Egypt, medieval, future, or prehistoric",
-            "Sketch what makes this world unique",
-            "Write a detailed prompt with era-specific details",
-            "Upscale and share your time-travel scene"
+            "Pick a song title (real or invented) and write one line about the song's mood",
+            "Generate 3 Midjourney covers: one bold, one quiet, one strange",
+            "Upscale each and line them up as a pitch sheet",
+            "Pick your personal favorite and say why in one sentence"
           ],
-          sandboxPrompt: "I want to make a Midjourney picture of [time period or future world]. What details should I include?",
-          quackySystemPrompt: "You are Quacky helping a kid describe a time period for Midjourney. Suggest 4 era-specific details (clothing, buildings, transport, atmosphere) they should add to their prompt. Short numbered list. One time emoji.",
-          reflectionQuestion: "If you could actually visit this time period, what would you do first?",
-          xpReward: 75
+          sandboxPrompt: "My song is called [title] and feels like [mood]. Help me pitch 3 different album cover directions in Midjourney.",
+          quackySystemPrompt: "You are Quacky helping a kid pitch 3 album cover directions. Given the song title and mood, return 3 numbered /imagine prompts in 3 distinct moods (bold/quiet/strange) keeping the SAME subject. Each under 40 words. One music emoji.",
+          reflectionQuestion: "Which of your 3 covers tells the story of the song best?",
+          xpReward: 100
         }
       ],
-      empireBuilderTip: "Movie concept artists, book illustrators, and game studios use Midjourney to sketch ideas fast. You are learning the same professional workflow used in Hollywood and game design studios.",
+      empireBuilderTip: "Concept artists, book cover designers, and album art freelancers charge $200 to $2000 per commission. You just did three commissions in one sitting. Studios pay for speed.",
       completionBadge: "canvas_kingdom_l2",
       nextLesson: "l3"
     },
@@ -369,20 +418,20 @@ const CANVAS_KINGDOM: World = {
       difficulty: "easy",
       estimatedMinutes: 18,
       heroLine: "Paint with words and make your art move.",
-      warmUpChallenge: "Grab a pencil and paper. Draw the coolest thing you can imagine. A dragon with rainbow scales? A fluffy cloud unicorn? Your sketch is our secret weapon.",
+      warmUpChallenge: "Most AI art looks the same because most people ask for the same things. Your edge is style. Today you pick a look that feels like you, and everything you make becomes instantly recognizable.",
       warmUpQuiz: {
-        question: "Which magical creature would you most want to create?",
+        question: "Which signature style would you build your whole portfolio around?",
         options: [
-          "A dragon with mood-ring rainbow scales",
-          "A cloud unicorn leaving cotton candy trails",
-          "A phoenix made of exploding fireworks"
+          "Pixar 3D with oil painting textures",
+          "Watercolor storybook come to life",
+          "Retro 90s anime with glowing neon edges"
         ]
       },
       features: [
         {
           feature: "Text to Image",
           description: "Describe your vision and NightCafe paints it in seconds.",
-          example: "A magical forest with glowing mushrooms and fairy lights"
+          example: "A coral reef filled with bioluminescent creatures"
         },
         {
           feature: "Animate Your Art",
@@ -436,51 +485,51 @@ const CANVAS_KINGDOM: World = {
       missions: [
         {
           id: "l3_m1",
-          title: "Magical Forest Adventure",
-          objective: "Create a magical forest scene using NightCafe Studio.",
+          title: "Brand Mascot Design",
+          objective: "Design a cute mascot character for a made-up business. Same character, 3 poses.",
           instructions: [
-            "Brainstorm what makes a forest magical: glowing plants, fairies, talking animals",
-            "Sketch your forest on paper with special features",
-            "Describe your scene in NightCafe and generate",
-            "Animate your favorite image to make it come alive"
+            "Invent a business: a bakery, a sports team, a tutoring service, an app",
+            "Describe the mascot in NightCafe and generate with your signature style",
+            "Generate 3 poses keeping the same look: waving, cheering, thinking",
+            "Save the 3-pose sheet as your mascot kit"
           ],
-          sandboxPrompt: "Help me describe a magical forest for NightCafe Studio with [your special elements].",
-          quackySystemPrompt: "You are Quacky helping a kid describe a magical forest scene. Suggest 3 enchanted details (creatures, lights, weather) and one art style (watercolor, comic, realistic). Return ONE prompt under 60 words. One forest emoji.",
-          reflectionQuestion: "If you lived in your magical forest, what would you see every morning?",
+          sandboxPrompt: "I am designing a mascot for [imaginary business name]. Help me describe the mascot for NightCafe.",
+          quackySystemPrompt: "You are Quacky helping a kid design a mascot for an imaginary business. Given the business, suggest the mascot (animal, object, or character), personality, and signature color. Return ONE NightCafe prompt under 50 words plus a 'make 3 poses' note. One star emoji.",
+          reflectionQuestion: "If this business was real, would your mascot work on a t-shirt?",
           xpReward: 50
         },
         {
           id: "l3_m2",
-          title: "Outer Space Explorer",
-          objective: "Design a picture of your own outer space adventure.",
+          title: "Editorial Illustration",
+          objective: "An online magazine needs hero art for an article. Design 3 options they can pick from.",
           instructions: [
-            "Plan your space journey: planets, stars, aliens, spaceships",
-            "Sketch your scene, including at least one hero element",
-            "Describe and create the scene in NightCafe",
-            "Use the animate feature to make parts of your scene move"
+            "Invent a headline (ex: 'Why Teenagers Sleep Too Much', 'The Kid Who Invented a Language')",
+            "Describe 3 different illustration directions for the same headline",
+            "Generate each in NightCafe using the same art style",
+            "Enhance your favorite so it is publication-ready"
           ],
-          sandboxPrompt: "I want to create a space adventure scene in NightCafe. Include [planets, aliens, ships, etc].",
-          quackySystemPrompt: "You are Quacky helping a kid design a space adventure scene. Suggest 3 cosmic elements (weird planet, friendly alien, cool spaceship) and one style keyword. Return ONE prompt under 60 words. One rocket emoji.",
-          reflectionQuestion: "What would your space explorer be most excited to discover?",
+          sandboxPrompt: "My fake magazine article is called [headline]. Help me describe 3 NightCafe illustration directions.",
+          quackySystemPrompt: "You are Quacky helping a kid pitch editorial illustrations. Given a headline, return 3 numbered NightCafe prompts in 3 different visual metaphors (literal, symbolic, abstract) sharing one style. Each under 40 words. One newspaper emoji.",
+          reflectionQuestion: "Which of your 3 illustrations would actually make a reader stop scrolling?",
           xpReward: 50
         },
         {
           id: "l3_m3",
-          title: "Future Robot Design",
-          objective: "Create a futuristic robot with NightCafe Studio.",
+          title: "Menu Hero Images",
+          objective: "A local restaurant needs 4 hero images for their menu, one per section.",
           instructions: [
-            "Think about what a future robot looks like: gadgets, glowing parts, unique shape",
-            "Sketch your robot with special details like laser eyes or jet packs",
-            "Describe and create your robot in NightCafe",
-            "Enhance the image to make it poster-ready"
+            "Invent the restaurant: cuisine, name, vibe (cozy, futuristic, cartoon)",
+            "Design 4 NightCafe images: starters, mains, desserts, drinks",
+            "Keep the SAME art style across all four",
+            "Animate one of them as a bonus for social media"
           ],
-          sandboxPrompt: "Help me describe a futuristic robot for NightCafe Studio. It has [features].",
-          quackySystemPrompt: "You are Quacky helping a kid describe a futuristic robot. Suggest 4 cool robot features (weapons, transport, sensors, purpose) and one style keyword. Return ONE prompt under 60 words. One robot emoji.",
-          reflectionQuestion: "What job would your robot do in the future?",
+          sandboxPrompt: "I am designing 4 menu hero images for [restaurant name, cuisine]. Help me describe them.",
+          quackySystemPrompt: "You are Quacky helping a kid design 4 menu illustrations. Given the cuisine and vibe, return 4 numbered NightCafe prompts (starters, mains, desserts, drinks) all sharing ONE style keyword. Under 35 words each. One fork emoji.",
+          reflectionQuestion: "If your menu art was hanging in a real cafe, what would the cafe name be?",
           xpReward: 75
         }
       ],
-      empireBuilderTip: "Animators, game studios, and ad agencies use NightCafe's style to pitch visual concepts to clients. Your animated art is a storytelling skill people pay real money for.",
+      empireBuilderTip: "Local cafes, magazines, and small brands all need illustrations but cannot afford agencies. Freelancers with a signature style earn $40 to $200 per illustration. You just built a 4-piece portfolio.",
       completionBadge: "canvas_kingdom_l3",
       nextLesson: "l4"
     },
@@ -782,7 +831,7 @@ const CANVAS_KINGDOM: World = {
         {
           feature: "AI Image Generation",
           description: "Create brand-new images from descriptions.",
-          example: "A magical castle floating over clouds"
+          example: "A neon city skyline at midnight with flying cars"
         },
         {
           feature: "Expand Images",
@@ -841,17 +890,17 @@ const CANVAS_KINGDOM: World = {
       missions: [
         {
           id: "l6_m1",
-          title: "Magical Castle Image",
-          objective: "Create a magical castle image using Runway.",
+          title: "Listing Glow-Up",
+          objective: "Take an ordinary room photo and stage it with AI so it looks like a real estate listing.",
           instructions: [
-            "Describe your dream castle: materials, location, style",
-            "Generate the image in Runway",
-            "Use image expansion to add surroundings: mountains, clouds, dragons",
-            "Save both the original and the expanded version"
+            "Take a photo of a real room with permission (or use a public photo)",
+            "Use Runway inpainting to tidy clutter, add furniture, or fix lighting",
+            "Use image expansion to reveal more of the room than the original shot",
+            "Save before and after side by side"
           ],
-          sandboxPrompt: "Help me describe a magical castle for Runway: made of [materials], in [location], with [special features].",
-          quackySystemPrompt: "You are Quacky helping a kid design a magical castle. Suggest unusual building materials, a dramatic setting, and 2 magical features. Return ONE Runway prompt under 60 words. One castle emoji.",
-          reflectionQuestion: "Who lives in your castle, and what are they guarding?",
+          sandboxPrompt: "I want to stage a room photo for a real estate listing using Runway. Help me plan what to add, remove, and expand.",
+          quackySystemPrompt: "You are Quacky helping a kid stage a room photo for a listing. Given the room type, suggest 2 things to remove (clutter), 2 to add (warm light, one accent piece), and 1 to expand. Short numbered list. One house emoji.",
+          reflectionQuestion: "Would you actually rent or buy your staged version over the original?",
           xpReward: 50
         },
         {
@@ -909,7 +958,7 @@ const CANVAS_KINGDOM: World = {
         question: "Which app design would you start with?",
         options: [
           "A magical pet tracker app",
-          "A hobby website for baking or gaming",
+          "A portfolio site for a creative friend"
           "A design that turns your drawings into real layouts"
         ]
       },
@@ -976,33 +1025,33 @@ const CANVAS_KINGDOM: World = {
       missions: [
         {
           id: "l7_m1",
-          title: "Design Your Dream App",
-          objective: "Pick something you love and design an app about it.",
+          title: "Startup Pitch Screens",
+          objective: "Design the 3 key screens for a startup idea you would actually invest in: landing, signup, dashboard.",
           instructions: [
-            "Pick your passion: magic, sports, cooking, gaming",
-            "Write a description of what the app does",
-            "Use Galileo's Text to Design feature",
-            "Pick your favorite design and save it"
+            "Pick a startup idea (solving a problem you actually have)",
+            "Write a 1-sentence pitch: 'I help [who] [do what] so they [outcome]'",
+            "Use Galileo to design 3 screens: landing page, signup flow, main dashboard",
+            "Keep colors and fonts consistent across all 3"
           ],
-          sandboxPrompt: "Help me describe an app for [your passion] to design in Galileo AI: what screens it needs, what it does.",
-          quackySystemPrompt: "You are Quacky helping a kid design an app. Ask what the app does, then suggest 3 key screens (home, feature, profile) and one bold color theme. Return a short description under 80 words. One phone emoji.",
-          reflectionQuestion: "What part of your app would you actually use the most?",
-          xpReward: 50
+          sandboxPrompt: "My startup idea is [one sentence]. Help me describe the 3 key screens to design in Galileo AI.",
+          quackySystemPrompt: "You are Quacky helping a kid design a startup pitch deck in Galileo. Given the pitch, describe 3 screens (landing hook, signup flow, dashboard view) with specific elements for each. Short numbered list under 80 words total. One rocket emoji.",
+          reflectionQuestion: "If an investor saw these 3 screens, what is the FIRST question they would ask?",
+          xpReward: 75
         },
         {
           id: "l7_m2",
-          title: "Hobby Website Launch",
-          objective: "Design a website about your favorite hobby.",
+          title: "Portfolio Site for a Friend",
+          objective: "Pick a creative friend (or family member). Design a 3-page portfolio site that shows off their work.",
           instructions: [
-            "Pick your hobby: baking, gaming, skateboarding, art",
-            "List 3 sections the website needs (gallery, tips, about)",
-            "Describe your site to Galileo and generate",
-            "Pick the design that matches the vibe you imagined"
+            "Pick your friend: photographer, musician, writer, baker, gamer",
+            "List what their 3 pages should be: home, gallery, contact",
+            "Use Galileo to design all 3 pages with one consistent style",
+            "Show them the mockup and ask what they would change"
           ],
-          sandboxPrompt: "Help me describe a website about my favorite hobby [hobby] for Galileo AI. I need [sections].",
-          quackySystemPrompt: "You are Quacky helping a kid design a hobby website. Suggest 3 sections for their hobby and a color theme that matches the vibe. Return under 80 words. One rocket emoji.",
-          reflectionQuestion: "If this website was real, who would be the first person you would show it to?",
-          xpReward: 50
+          sandboxPrompt: "My friend is a [what they do]. Help me describe a 3-page portfolio site for them in Galileo.",
+          quackySystemPrompt: "You are Quacky helping a kid design a portfolio site for a friend. Given the friend's craft, describe 3 pages (hero introduction, work gallery, get-in-touch) with style suggestions that match the craft. Short numbered list under 80 words. One palette emoji.",
+          reflectionQuestion: "What would your friend actually use this site for if it were real?",
+          xpReward: 75
         },
         {
           id: "l7_m3",
@@ -1159,7 +1208,83 @@ const CANVAS_KINGDOM: World = {
       completionBadge: "canvas_kingdom_l8",
       nextLesson: null // End of world : next lesson unlocks Capstone
     }
-  ]
+  ],
+  empireBuilderModule: {
+    id: "eb_w1",
+    worldId: "w1",
+    title: "Your First Creative Studio",
+    tagline: "Turn your AI art skills into a real service that people will pay for.",
+    estimatedMinutes: 40,
+    businessArchetype: "Freelance creative designer",
+    targetCustomer: "Friends, family, small local businesses, youth-led organizations, indie creators.",
+    realWorldExamples: [
+      "14-year-old Zoe makes $200 a month designing custom pet portraits with DALL-E.",
+      "A 12-year-old in Dubai runs an Instagram shop selling AI-generated sticker packs.",
+      "Kid creators on Fiverr charge $5 to $50 for AI logos for small businesses."
+    ],
+    businessSteps: [
+      {
+        step: 1,
+        title: "Pick your lane",
+        description: "Choose ONE thing you will design. Specialists win over generalists.",
+        usingTools: ["Leonardo AI", "Ideogram", "Canva Magic Studio"],
+        deliverable: "A one-sentence pitch: I design [thing] for [who] using AI."
+      },
+      {
+        step: 2,
+        title: "Build your first 3 samples",
+        description: "Make 3 examples of your service. These are your portfolio.",
+        usingTools: ["Leonardo AI", "Midjourney", "Canva Magic Studio"],
+        deliverable: "3 finished pieces saved in a folder you control."
+      },
+      {
+        step: 3,
+        title: "Design your own brand",
+        description: "Use Ideogram to create a logo for your studio. Pick a name, a color, and a style.",
+        usingTools: ["Ideogram"],
+        deliverable: "One logo plus one banner with your studio name."
+      },
+      {
+        step: 4,
+        title: "Build your pitch page",
+        description: "Use Galileo AI to design a simple one-page site showing your 3 samples, logo, and contact.",
+        usingTools: ["Galileo AI"],
+        deliverable: "One mockup of your studio page."
+      },
+      {
+        step: 5,
+        title: "Make your first offer",
+        description: "Write a short message you can send to 5 people asking if they want one piece from you.",
+        usingTools: ["DALL-E via ChatGPT"],
+        deliverable: "A sendable pitch message in your notes app."
+      }
+    ],
+    quackyPlaybook: "You built skills. Now build a business. No one starts big. Zoe started with one pet portrait for her aunt. Your first customer will be someone you already know. Your first price will be small. That is the point.",
+    pricingLesson: {
+      yourFirstPrice: "$0 for your first piece (trade for feedback). $5 to $10 for pieces 2 through 5. $15 to $25 once you have five happy clients.",
+      whyThisPrice: "Free work builds a portfolio. Cheap work builds confidence. Real prices build a business. Kids skip steps. Empire builders do all three.",
+      scaleUp: "Every 10 happy clients, double your price. If people say no, your work is not bad. Your audience is wrong. Change lanes."
+    },
+    firstCustomerExercise: {
+      task: "Pick ONE person in your life. Design a message asking if they want free art in exchange for feedback. Send it.",
+      prompt: "Help me write a short friendly message to [person] offering to make them one [thing] for free in exchange for honest feedback.",
+      quackySystemPrompt: "You are Quacky helping a kid write a first-customer pitch. Keep it friendly, short, under 80 words. Structure: warm opener, what you built, what you offer (one free piece), what you want (feedback only), soft close. One encouraging emoji."
+    },
+    xpReward: 500,
+    completionBadge: "canvas_kingdom_champion"
+  },
+  capstone: {
+    id: "cap_w1",
+    worldId: "w1",
+    title: "The Canvas Kingdom Portfolio",
+    narrative: "A real portfolio beats any certificate. By the end of Canvas Kingdom, you have earned the right to call yourself a designer. This is your graduation piece.",
+    requiredMissions: ["l1_m1", "l2_m2", "l4_m3", "l7_m1", "l8_m2"],
+    deliverableSpec: "Submit ONE portfolio document (PDF or slide deck) with: your studio name and logo, 5 best pieces from Canvas Kingdom (one per tool), a one-line description of each piece, and your services-and-prices page.",
+    submissionFormat: "portfolio",
+    parentReviewPrompt: "Your child has just built a designer portfolio. Please review it together, pick their strongest piece, and discuss who in your network might be their first real client.",
+    xpReward: 1000,
+    unlocksWorld: "w2"
+  }
 };
 
 // ═══════════════════════════════════════════════════════════
