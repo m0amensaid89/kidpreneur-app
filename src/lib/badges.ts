@@ -21,6 +21,10 @@ export interface Badge {
   category: BadgeCategory;
   rarity: BadgeRarity;
   xpBonus: number;
+  // Optional art (PNG/SVG) — falls back to emoji when absent.
+  // Populated as the Quacky PNG waves ship (1, 2, 3).
+  artUrl?: string;
+  artUrlLocked?: string;
 }
 
 // ═════════════════════════════════════════════
