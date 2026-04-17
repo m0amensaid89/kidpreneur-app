@@ -5,18 +5,48 @@ import { TopBar } from "@/components/ui/TopBar";
 import { LessonCard } from "@/components/ui/LessonCard";
 import { WORLDS } from "@/lib/data/lessons";
 import { useRouter } from "next/navigation";
+import { createClient } from "@/lib/supabase/client";
+
+type LessonStatus = "available" | "locked" | "completed";
 
 export default function WorldDetailPage({ params }: { params: Promise<{ worldId: string }> }) {
   const router = useRouter();
   const unwrappedParams = use(params);
+  const supabase = createClient();
   const world = WORLDS.find(w => w.id === unwrappedParams.worldId);
+
+  const [completedLessonIds, setCompletedLessonIds] = useState<Set<string>>(new Set());
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadProgress = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        setLoading(false);
+        return;
+      }
+
+      // A lesson is considered COMPLETE when the user has submitted at least one mission for it.
+      // The dispatcher writes lesson_id on every mission_completions upsert (commit 67514bc).
+      const { data } = await supabase
+        .from("mission_completions")
+        .select("lesson_id")
+        .eq("user_id", session.user.id);
+
+      if (data) {
+        setCompletedLessonIds(new Set(data.map(r => r.lesson_id).filter(Boolean) as string[]));
+      }
+      setLoading(false);
+    };
+    loadProgress();
+  }, [supabase]);
 
   if (!world) {
     return (
       <div className="flex flex-col min-h-full">
         <TopBar title="World Not Found" />
         <div className="flex-1 flex items-center justify-center p-4">
-          <p className="text-muted-foreground">This world doesn't exist.</p>
+          <p className="text-muted-foreground">This world doesn&apos;t exist.</p>
         </div>
       </div>
     );
@@ -31,7 +61,6 @@ export default function WorldDetailPage({ params }: { params: Promise<{ worldId:
         className="w-full pt-8 pb-12 px-6 flex flex-col items-center justify-center text-center text-white relative overflow-hidden"
         style={{ backgroundColor: world.color }}
       >
-        {/* Simple decorative pattern overlay */}
         <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '20px 20px' }} />
 
         <h1 className="text-3xl font-black mb-2 relative z-10 drop-shadow-md">{world.name}</h1>
@@ -44,10 +73,22 @@ export default function WorldDetailPage({ params }: { params: Promise<{ worldId:
       <div className="p-4 flex-1 space-y-4 -mt-6 relative z-20">
         {world.lessons.length > 0 ? (
           world.lessons.map((lesson, index) => {
-            // As requested: Lesson 1 always available, others unlock sequentially
-            // Since we are mocking progress, we just make lesson 1 available and rest locked
-            const isAvailable = index === 0;
-            const status = isAvailable ? "available" : "locked";
+            // Sequential unlock rule :
+            // - Lesson 1 is always available.
+            // - Lesson N is available when Lesson N-1 is completed.
+            // - A completed lesson stays visible as completed.
+            const isCompleted = completedLessonIds.has(lesson.id);
+            const prevLesson = index > 0 ? world.lessons[index - 1] : null;
+            const prevCompleted = prevLesson ? completedLessonIds.has(prevLesson.id) : true;
+
+            let status: LessonStatus;
+            if (isCompleted) {
+              status = "completed";
+            } else if (index === 0 || prevCompleted) {
+              status = "available";
+            } else {
+              status = "locked";
+            }
 
             return (
               <LessonCard
@@ -55,9 +96,13 @@ export default function WorldDetailPage({ params }: { params: Promise<{ worldId:
                 id={lesson.id}
                 title={lesson.title}
                 type="lesson"
-                status={status}
+                status={loading ? "locked" : status}
                 xpReward={10}
-                onClick={() => router.push(`/lesson/${lesson.id}`)}
+                onClick={() => {
+                  if (status !== "locked") {
+                    router.push(`/lesson/${lesson.id}`);
+                  }
+                }}
               />
             );
           })

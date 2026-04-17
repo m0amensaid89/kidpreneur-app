@@ -22,12 +22,18 @@ export async function POST(req: Request) {
       finalPrompt = `Context: ${lessonContext}\n\nUser: ${prompt}`;
     }
 
+    // Derive the origin from the incoming request (production or local).
+    // OpenRouter uses HTTP-Referer and X-Title to attribute traffic.
+    const origin =
+      req.headers.get("origin") ||
+      (req.headers.get("host") ? `https://${req.headers.get("host")}` : "https://kidpreneur.i-gamify.net");
+
     const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${openrouterKey}`,
-        "HTTP-Referer": "http://localhost:3000",
+        "HTTP-Referer": origin,
         "X-Title": "KidPreneur Sandbox"
       },
       body: JSON.stringify({
@@ -48,9 +54,8 @@ export async function POST(req: Request) {
     const reply = data.choices[0]?.message?.content || "Quack! I couldn't think of anything to say.";
 
     return NextResponse.json({ response: reply });
-
   } catch (error) {
-    console.error("Sandbox API Error:", error);
+    console.error("Sandbox API error:", error);
     return NextResponse.json({ error: "Quacky is thinking... try again!" }, { status: 500 });
   }
 }

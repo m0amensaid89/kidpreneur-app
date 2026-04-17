@@ -28,8 +28,8 @@ export default function OnboardingPage() {
       const { data: { session } } = await supabase.auth.getSession();
 
       if (!session) {
-        // If no auth session, just redirect to home for now (mock flow)
-        router.push("/home");
+        // No session : send to login, not home.
+        router.push("/login");
         return;
       }
 
