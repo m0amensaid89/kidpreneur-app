@@ -1,52 +1,49 @@
-"use client";
+import { createClient } from "@/lib/supabase/server";
+import { getUserProfile, getUserTotalXp, updateStreakAndActivity } from "@/lib/user";
+import { HomeClient } from "./HomeClient";
+import { redirect } from "next/navigation";
+import { getLevelData } from "@/lib/xp";
 
-import { TopBar } from "@/components/ui/TopBar";
-import { XPBar } from "@/components/ui/XPBar";
-import { WorldCard } from "@/components/ui/WorldCard";
-import { QuackyAvatar } from "@/components/ui/QuackyAvatar";
-import { useRouter } from "next/navigation";
+export default async function HomePage() {
+  const supabase = await createClient();
+  const { data: { session } } = await supabase.auth.getSession();
 
-// Mock data for worlds since Supabase tables aren't set up yet
-const MOCK_WORLDS = [
-  { id: 1, name: "Idea Island", description: "Discover your first big idea", progress: 60, isLocked: false },
-  { id: 2, name: "Market Mountain", description: "Learn who needs your idea", progress: 0, isLocked: true },
-  { id: 3, name: "Product Plateau", description: "Build your first prototype", progress: 0, isLocked: true },
-  { id: 4, name: "Sales Savannah", description: "Make your first sale", progress: 0, isLocked: true },
-  { id: 5, name: "Growth Galaxy", description: "Scale your business to the stars", progress: 0, isLocked: true },
-];
+  // If no auth, we'll provide mock data for the visual build, or redirect.
+  // Assuming middleware handles hard auth redirects if needed.
+  let userProfile = null;
+  let totalXp = 0;
+  let currentStreak = 0;
+  let levelData = { level: 1, currentLevelXpStart: 0, nextLevelXpStart: 100 };
 
-export default function HomePage() {
-  const router = useRouter();
+  if (session) {
+    userProfile = await getUserProfile(supabase, session.user.id);
+
+    // If profile exists but name is null, they haven't finished onboarding
+    if (userProfile && !userProfile.name) {
+      redirect("/onboarding");
+    } else if (!userProfile) {
+      redirect("/onboarding");
+    }
+
+    totalXp = await getUserTotalXp(supabase, session.user.id);
+    currentStreak = await updateStreakAndActivity(supabase, session.user.id, userProfile?.streak || 0, userProfile?.last_active || null);
+    levelData = getLevelData(totalXp);
+  } else {
+    // Mock data for unauthenticated visual testing during build
+    userProfile = { name: "KidPreneur" };
+    totalXp = 450;
+    currentStreak = 3;
+    levelData = getLevelData(totalXp);
+  }
 
   return (
-    <div className="flex flex-col min-h-full pb-8">
-      <TopBar
-        title="World Map"
-        showBack={false}
-        rightElement={<QuackyAvatar state="happy" size="sm" className="w-8 h-8 rounded-full bg-accent/20 border border-accent/50" />}
-      />
-
-      <div className="p-4 space-y-6 flex-1">
-        <XPBar xp={450} levelXP={1000} level={2} />
-
-        <div className="space-y-4 pt-2 relative">
-          {/* Path connecting worlds */}
-          <div className="absolute left-12 top-0 bottom-0 w-2 bg-muted-foreground/20 rounded-full z-0 translate-x-[-4px]" />
-
-          {MOCK_WORLDS.map((world) => (
-            <div key={world.id} className="relative z-10">
-              <WorldCard
-                id={world.id}
-                name={world.name}
-                description={world.description}
-                progress={world.progress}
-                isLocked={world.isLocked}
-                onClick={() => router.push(`/world/${world.id}`)}
-              />
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
+    <HomeClient
+      name={userProfile?.name || "Friend"}
+      totalXp={totalXp}
+      currentStreak={currentStreak}
+      level={levelData.level}
+      levelXpStart={levelData.currentLevelXpStart}
+      nextLevelXpStart={levelData.nextLevelXpStart}
+    />
   );
 }
