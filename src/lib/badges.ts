@@ -126,8 +126,9 @@ export const BADGE_MISSION_TRIO: Badge = {
   emoji: "🎖️",
   description: "All three missions of a single lesson. Completionist mode.",
   category: "mastery",
-  rarity: "common",
-  xpBonus: 100
+  rarity: "rare",
+  xpBonus: 100,
+  artUrl: "/badges/quacky_mission_trio_1024.png"
 };
 
 export const BADGE_PROMPT_WIZARD: Badge = {
