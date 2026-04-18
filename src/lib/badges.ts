@@ -105,8 +105,9 @@ export const BADGE_PERFECT_QUIZ: Badge = {
   emoji: "⭐",
   description: "Three out of three. Flawless.",
   category: "mastery",
-  rarity: "common",
-  xpBonus: 50
+  rarity: "rare",
+  xpBonus: 50,
+  artUrl: "/badges/quacky_perfect_quiz_1024.png"
 };
 
 export const BADGE_PERFECT_QUIZ_5: Badge = {
