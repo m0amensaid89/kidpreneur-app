@@ -2,6 +2,7 @@
 
 import type { User } from "@supabase/supabase-js";
 import { QuackyAvatar } from "@/components/ui/QuackyAvatar";
+import { BadgeFrame } from "@/components/ui/BadgeFrame";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import { Badge } from "@/lib/badges";
@@ -265,7 +266,6 @@ function StatCard({
 /* ─────────────────────────────────────────────── */
 function BadgeTile({ badge, earned }: { badge: Badge; earned: boolean }) {
   const rarityColor = RARITY_COLOR[badge.rarity] || RARITY_COLOR.common;
-  const hasArt = !!badge.artUrl;
 
   return (
     <div
@@ -279,21 +279,7 @@ function BadgeTile({ badge, earned }: { badge: Badge; earned: boolean }) {
       title={badge.description}
     >
       <div className="relative flex items-center justify-center">
-        {hasArt ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={earned ? badge.artUrl! : (badge.artUrlLocked || badge.artUrl!)}
-            alt={badge.name}
-            className="w-12 h-12 object-contain"
-          />
-        ) : (
-          <span
-            className="text-3xl leading-none"
-            aria-hidden="true"
-          >
-            {badge.emoji}
-          </span>
-        )}
+        <BadgeFrame badge={badge} size="sm" showText={false} />
         {!earned && (
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="bg-background/80 rounded-full p-1">

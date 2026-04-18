@@ -37,7 +37,8 @@ export const BADGE_FIRST_LOGIN: Badge = {
   description: "Welcome to KidPreneur. Your empire starts here.",
   category: "first_time",
   rarity: "common",
-  xpBonus: 25
+  xpBonus: 25,
+  artUrl: "/badges/quacky_first_login_1024.png",
 };
 
 export const BADGE_FIRST_QUIZ: Badge = {
