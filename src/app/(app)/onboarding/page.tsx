@@ -97,7 +97,7 @@ export default function OnboardingPage() {
   return (
     <div
       className="flex flex-col min-h-[100dvh] relative overflow-hidden"
-      style={{ backgroundColor: "#FFF8E7", color: "#2C2C2A" }}
+      style={{ color: "#2C2C2A" }}
     >
       {/* Decorative floating circles */}
       <div className="absolute top-12 right-8 w-16 h-16 rounded-full pointer-events-none"

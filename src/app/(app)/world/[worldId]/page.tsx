@@ -47,7 +47,6 @@ export default function WorldDetailPage({ params }: { params: Promise<{ worldId:
     return (
       <div
         className="flex flex-col min-h-full items-center justify-center p-6 text-center"
-        style={{ backgroundColor: "#FFF8E7" }}
       >
         <div className="text-5xl mb-3">🤔</div>
         <h1 style={{ color: "#1a6fc4", fontWeight: 900, fontSize: 22 }}>World not found!</h1>
@@ -78,7 +77,7 @@ export default function WorldDetailPage({ params }: { params: Promise<{ worldId:
   return (
     <div
       className="flex flex-col min-h-full relative overflow-hidden pb-10 animate-in fade-in duration-500"
-      style={{ backgroundColor: "#FFF8E7", color: "#2C2C2A" }}
+      style={{ color: "#2C2C2A" }}
     >
       {/* World hero — flat world color */}
       <div

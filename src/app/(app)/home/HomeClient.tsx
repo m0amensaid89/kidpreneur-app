@@ -76,7 +76,7 @@ export function HomeClient({
   return (
     <div
       className="flex flex-col min-h-full relative overflow-hidden pb-10 animate-in fade-in duration-500"
-      style={{ backgroundColor: "#FFF8E7", color: "#2C2C2A" }}
+      style={{ color: "#2C2C2A" }}
     >
       {/* Decorative floating circles — Quacky's world */}
       <div className="absolute top-10 right-6 w-14 h-14 rounded-full pointer-events-none"

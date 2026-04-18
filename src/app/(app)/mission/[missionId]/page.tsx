@@ -175,7 +175,7 @@ export default function MissionCompletePage({ params }: { params: Promise<{ miss
   return (
     <div
       className="flex flex-col items-center justify-between min-h-[100dvh] pb-10 relative overflow-hidden animate-in fade-in duration-500"
-      style={{ backgroundColor: "#FFF8E7", color: "#2C2C2A" }}
+      style={{ color: "#2C2C2A" }}
     >
       {/* Confetti particles */}
       {mounted && (

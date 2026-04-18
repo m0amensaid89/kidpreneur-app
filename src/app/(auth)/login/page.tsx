@@ -43,7 +43,6 @@ export default function LoginPage() {
     <div
       className="flex flex-col min-h-[100dvh] relative overflow-hidden"
       style={{
-        backgroundColor: "#FFF8E7",
         color: "#2C2C2A",
       }}
     >

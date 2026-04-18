@@ -76,7 +76,7 @@ export function ProfileClient({
   return (
     <div
       className="flex flex-col min-h-full relative overflow-hidden pb-10 animate-in fade-in duration-500"
-      style={{ backgroundColor: "#FFF8E7", color: "#2C2C2A" }}
+      style={{ color: "#2C2C2A" }}
     >
       {/* Decorative circles */}
       <div className="absolute top-20 right-4 w-16 h-16 rounded-full pointer-events-none"

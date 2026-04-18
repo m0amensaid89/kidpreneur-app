@@ -10,7 +10,7 @@ export default async function ParentPage({
   return (
     <div
       className="flex flex-col min-h-[100dvh]"
-      style={{ backgroundColor: "#FFF8E7", color: "#2C2C2A" }}
+      style={{ color: "#2C2C2A" }}
     >
       {!childId ? (
         <div className="flex-1 flex flex-col items-center justify-center p-6 text-center">

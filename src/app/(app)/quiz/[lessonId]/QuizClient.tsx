@@ -127,7 +127,7 @@ export function QuizClient({ lessonId, worldId, lessonTitle, quizData, userId }:
   return (
     <div
       className="flex flex-col min-h-screen relative animate-in fade-in duration-300"
-      style={{ backgroundColor: "#FFF8E7", color: "#2C2C2A" }}
+      style={{ color: "#2C2C2A" }}
     >
       {/* Top bar — back + chunky progress bar + counter */}
       <div className="flex items-center gap-3 px-4 py-3 pt-5">

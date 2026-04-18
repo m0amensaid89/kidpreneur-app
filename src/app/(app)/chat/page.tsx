@@ -206,7 +206,7 @@ function ChatInterface() {
   return (
     <div
       className="flex flex-col min-h-full relative pb-16"
-      style={{ backgroundColor: "#FFF8E7", color: "#2C2C2A" }}
+      style={{ color: "#2C2C2A" }}
     >
       {/* Top bar */}
       <div
@@ -393,7 +393,6 @@ function ChatInterface() {
         {!showReflection && (
           <div
             className="pt-3 pb-safe flex items-center gap-2"
-            style={{ backgroundColor: "#FFF8E7" }}
           >
             <input
               value={prompt}
