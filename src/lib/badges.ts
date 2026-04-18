@@ -161,7 +161,8 @@ export const BADGE_STREAK_3: Badge = {
   description: "3 days straight. Consistency beats intensity.",
   category: "streak",
   rarity: "common",
-  xpBonus: 50
+  xpBonus: 50,
+  artUrl: "/badges/quacky_streak_3_1024.png"
 };
 
 export const BADGE_STREAK_7: Badge = {
