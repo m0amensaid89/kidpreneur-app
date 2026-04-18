@@ -10,6 +10,19 @@ import { awardBadge } from "@/lib/badgeDispatcher";
 import { BadgeReveal } from "@/components/ui/BadgeReveal";
 import { Badge } from "@/lib/badges";
 
+// Resolve the first mission ID for a given lesson.
+// Lessons have ids like "l1" and contain missions like [{id:"l1_m1"}, {id:"l1_m2"}, {id:"l1_m3"}].
+// We route to the FIRST unstarted mission after chat+reflection.
+function getNextMissionIdForLesson(lessonId: string): string | null {
+  for (const world of WORLDS) {
+    const lesson = world.lessons.find((l) => l.id === lessonId);
+    if (lesson && lesson.missions.length > 0) {
+      return lesson.missions[0].id;
+    }
+  }
+  return null;
+}
+
 type Message = {
   role: "user" | "quacky";
   content: string;
@@ -143,7 +156,7 @@ function ChatInterface() {
         const badge = await awardBadge(supabase, userId, { type: "reflection_submitted" });
         if (badge) {
           setRevealedBadge(badge);
-          // Hold here — user dismissing the badge will then route to mission complete
+          // Hold here — user dismissing the badge will then route to first mission
           return;
         }
       }
@@ -151,16 +164,26 @@ function ChatInterface() {
       console.warn("[chat] reflection dispatch failed (non-fatal):", err);
     }
 
-    const missionId = `m_${lessonId}`;
-    router.push(`/mission/${missionId}`);
+    // Route to the FIRST mission of the lesson (fixes the broken m_${lessonId} pattern)
+    const firstMissionId = lessonId ? getNextMissionIdForLesson(lessonId) : null;
+    if (firstMissionId) {
+      router.push(`/mission/${firstMissionId}`);
+    } else {
+      // Fallback — no lesson context, just go home
+      router.push("/home");
+    }
   };
 
   const handleBadgeDismissFromChat = () => {
     setRevealedBadge(null);
-    // If we were holding a reflection, continue to mission complete now
+    // If we were holding a reflection, continue to first mission now
     if (reflection.trim()) {
-      const missionId = `m_${lessonId}`;
-      router.push(`/mission/${missionId}`);
+      const firstMissionId = lessonId ? getNextMissionIdForLesson(lessonId) : null;
+      if (firstMissionId) {
+        router.push(`/mission/${firstMissionId}`);
+      } else {
+        router.push("/home");
+      }
     }
   };
 
