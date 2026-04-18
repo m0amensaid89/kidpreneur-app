@@ -117,7 +117,8 @@ export const BADGE_PERFECT_QUIZ_5: Badge = {
   description: "Five perfect quizzes. Consistency is greatness.",
   category: "mastery",
   rarity: "rare",
-  xpBonus: 200
+  xpBonus: 200,
+  artUrl: "/badges/quacky_perfect_quiz_5_1024.png",
 };
 
 export const BADGE_MISSION_TRIO: Badge = {
@@ -138,7 +139,8 @@ export const BADGE_PROMPT_WIZARD: Badge = {
   description: "25 AI prompts sent. You speak fluent AI now.",
   category: "mastery",
   rarity: "rare",
-  xpBonus: 150
+  xpBonus: 150,
+  artUrl: "/badges/quacky_prompt_wizard_1024.png",
 };
 
 export const BADGE_REFLECTION_SAGE: Badge = {
@@ -148,7 +150,8 @@ export const BADGE_REFLECTION_SAGE: Badge = {
   description: "25 reflections written. Your wisdom is compounding.",
   category: "mastery",
   rarity: "rare",
-  xpBonus: 150
+  xpBonus: 150,
+  artUrl: "/badges/quacky_reflection_sage_1024.png",
 };
 
 // ═════════════════════════════════════════════
@@ -172,7 +175,8 @@ export const BADGE_STREAK_7: Badge = {
   description: "7 straight days. This is how real operators work.",
   category: "streak",
   rarity: "rare",
-  xpBonus: 150
+  xpBonus: 150,
+  artUrl: "/badges/quacky_streak_7_1024.png",
 };
 
 export const BADGE_STREAK_14: Badge = {
@@ -182,7 +186,8 @@ export const BADGE_STREAK_14: Badge = {
   description: "14 days. Most adults cannot do this.",
   category: "streak",
   rarity: "rare",
-  xpBonus: 300
+  xpBonus: 300,
+  artUrl: "/badges/quacky_streak_14_1024.png",
 };
 
 export const BADGE_STREAK_30: Badge = {
