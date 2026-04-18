@@ -1,9 +1,6 @@
 "use client";
 
-import { TopBar } from "@/components/ui/TopBar";
-import { QuackyAvatar } from "@/components/ui/QuackyAvatar";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import Image from "next/image";
 import { Send } from "lucide-react";
 import { useState, useEffect, useRef, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -24,7 +21,7 @@ function ChatInterface() {
   const [isWaiting, setIsWaiting] = useState(false);
   const [showReflection, setShowReflection] = useState(false);
   const [reflection, setReflection] = useState("");
-  const [quackyState, setQuackyState] = useState<"happy" | "thinking" | "amazed">("happy");
+  const [quackyPose, setQuackyPose] = useState<"quacky-happy" | "quacky-thinking" | "quacky-amazed">("quacky-happy");
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -63,19 +60,19 @@ function ChatInterface() {
     setMessages((prev) => [...prev, { role: "user", content: userMessage }]);
     setPrompt("");
     setIsWaiting(true);
-    setQuackyState("thinking");
+    setQuackyPose("quacky-thinking");
     setShowReflection(false);
 
     try {
       let lessonContext = "";
       if (lessonId) {
-          for (const world of WORLDS) {
-            const lesson = world.lessons.find((l) => l.id === lessonId);
-            if (lesson && lesson.toolName) {
-              lessonContext = `The user is learning about ${lesson.toolName}.`;
-              break;
-            }
+        for (const world of WORLDS) {
+          const lesson = world.lessons.find((l) => l.id === lessonId);
+          if (lesson && lesson.toolName) {
+            lessonContext = `The user is learning about ${lesson.toolName}.`;
+            break;
           }
+        }
       }
 
       const res = await fetch("/api/sandbox", {
@@ -87,19 +84,16 @@ function ChatInterface() {
       const data = await res.json();
 
       if (data.error) {
-         setMessages((prev) => [...prev, { role: "quacky", content: data.error }]);
-         setQuackyState("happy");
+        setMessages((prev) => [...prev, { role: "quacky", content: data.error }]);
+        setQuackyPose("quacky-happy");
       } else {
-         setMessages((prev) => [...prev, { role: "quacky", content: data.response }]);
-         setQuackyState("amazed");
-         if (lessonId) {
-           setShowReflection(true);
-         }
+        setMessages((prev) => [...prev, { role: "quacky", content: data.response }]);
+        setQuackyPose("quacky-amazed");
+        if (lessonId) setShowReflection(true);
       }
-
-    } catch (error) {
+    } catch {
       setMessages((prev) => [...prev, { role: "quacky", content: "Quacky is thinking... try again!" }]);
-      setQuackyState("happy");
+      setQuackyPose("quacky-happy");
     } finally {
       setIsWaiting(false);
     }
@@ -107,92 +101,231 @@ function ChatInterface() {
 
   const handleReflectionSubmit = () => {
     if (!reflection.trim()) return;
-    // Assuming missionId follows this pattern based on lessonId from QuizClient
     const missionId = `m_${lessonId}`;
     router.push(`/mission/${missionId}`);
   };
 
   return (
-    <div className="flex flex-col min-h-full pb-16">
-      <TopBar title="Chat with Quacky" showBack={false} />
+    <div
+      className="flex flex-col min-h-full relative pb-16"
+      style={{ backgroundColor: "#FFF8E7", color: "#2C2C2A" }}
+    >
+      {/* Top bar */}
+      <div
+        className="sticky top-0 z-40 flex items-center gap-3 px-4 py-3"
+        style={{
+          backgroundColor: "#FFF8E7",
+          borderBottom: "3px solid #FFE066",
+        }}
+      >
+        <button
+          onClick={() => router.back()}
+          className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 transition active:scale-95"
+          style={{ backgroundColor: "#FFFFFF", boxShadow: "0 3px 0 #E6D5A8" }}
+          aria-label="Back"
+        >
+          <span style={{ fontSize: 20, color: "#854F0B", lineHeight: 1, fontWeight: 900 }}>‹</span>
+        </button>
+
+        <div className="flex items-center gap-2.5 flex-1">
+          <div
+            className="w-10 h-10 rounded-full flex items-center justify-center"
+            style={{
+              backgroundColor: "#FFFFFF",
+              border: "2.5px solid #2E8CE6",
+              boxShadow: "0 2px 0 #1a6fc4",
+            }}
+          >
+            <Image
+              src="/quacky/quacky-happy.png"
+              alt="Quacky"
+              width={28}
+              height={28}
+              className="object-contain"
+            />
+          </div>
+          <div>
+            <p style={{ fontSize: 10, fontWeight: 900, color: "#378ADD", letterSpacing: "1px" }}>CHATTING WITH</p>
+            <h1 style={{ fontSize: 16, fontWeight: 900, color: "#1a6fc4", lineHeight: 1 }}>Quacky 🦆</h1>
+          </div>
+        </div>
+      </div>
 
       <div className="flex-1 p-4 flex flex-col overflow-hidden">
-        {/* Messages area */}
-        <div className="flex-1 space-y-4 overflow-y-auto pb-4 pr-2 scrollbar-hide">
-          {messages.map((msg, idx) => (
-            <div
-              key={idx}
-              className={`flex items-end space-x-2 ${msg.role === "user" ? "justify-end" : ""}`}
-            >
-              {msg.role === "quacky" && (
-                 <QuackyAvatar state={idx === messages.length - 1 ? quackyState : "happy"} size="sm" />
-              )}
+        {/* Messages */}
+        <div className="flex-1 space-y-3 overflow-y-auto pb-4 pr-1">
+          {messages.map((msg, idx) => {
+            const isUser = msg.role === "user";
+            const pose = idx === messages.length - 1 ? quackyPose : "quacky-happy";
+
+            return (
               <div
-                className={`${
-                  msg.role === "user"
-                    ? "bg-primary text-primary-foreground rounded-br-none shadow-primary/20"
-                    : "bg-card border border-border/50 rounded-bl-none"
-                } rounded-2xl px-4 py-3 max-w-[80%] shadow-sm`}
+                key={idx}
+                className={`flex items-end gap-2 ${isUser ? "justify-end" : ""}`}
               >
-                <p className="text-sm font-medium whitespace-pre-wrap">{msg.content}</p>
+                {!isUser && (
+                  <div
+                    className="w-9 h-9 rounded-full flex items-center justify-center shrink-0"
+                    style={{
+                      backgroundColor: "#FFFFFF",
+                      border: "2.5px solid #2E8CE6",
+                    }}
+                  >
+                    <Image
+                      src={`/quacky/${pose}.png`}
+                      alt="Quacky"
+                      width={26}
+                      height={26}
+                      className="object-contain"
+                    />
+                  </div>
+                )}
+
+                <div
+                  className="max-w-[78%] px-4 py-3"
+                  style={{
+                    backgroundColor: isUser ? "#2E8CE6" : "#FFFFFF",
+                    color: isUser ? "#FFFFFF" : "#2C2C2A",
+                    borderRadius: 20,
+                    borderBottomRightRadius: isUser ? 6 : 20,
+                    borderBottomLeftRadius: isUser ? 20 : 6,
+                    border: isUser ? "none" : "2.5px solid #E6F1FB",
+                    boxShadow: isUser ? "0 3px 0 #1a6fc4" : "0 2px 0 #C4D8EC",
+                    fontSize: 14,
+                    fontWeight: 600,
+                    lineHeight: 1.45,
+                    whiteSpace: "pre-wrap",
+                  }}
+                >
+                  {msg.content}
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
 
           {isWaiting && (
-             <div className="flex items-end space-x-2">
-               <QuackyAvatar state="thinking" size="sm" />
-               <div className="bg-card border border-border/50 rounded-2xl rounded-bl-none px-4 py-3 max-w-[80%] shadow-sm flex items-center space-x-1">
-                 <div className="w-2 h-2 rounded-full bg-muted-foreground animate-bounce" style={{ animationDelay: '0ms' }} />
-                 <div className="w-2 h-2 rounded-full bg-muted-foreground animate-bounce" style={{ animationDelay: '150ms' }} />
-                 <div className="w-2 h-2 rounded-full bg-muted-foreground animate-bounce" style={{ animationDelay: '300ms' }} />
-               </div>
-             </div>
+            <div className="flex items-end gap-2">
+              <div
+                className="w-9 h-9 rounded-full flex items-center justify-center shrink-0"
+                style={{ backgroundColor: "#FFFFFF", border: "2.5px solid #2E8CE6" }}
+              >
+                <Image
+                  src="/quacky/quacky-thinking.png"
+                  alt="Quacky thinking"
+                  width={26}
+                  height={26}
+                  className="object-contain"
+                />
+              </div>
+              <div
+                className="px-4 py-3 flex items-center gap-1.5"
+                style={{
+                  backgroundColor: "#FFFFFF",
+                  borderRadius: 20,
+                  borderBottomLeftRadius: 6,
+                  border: "2.5px solid #E6F1FB",
+                  boxShadow: "0 2px 0 #C4D8EC",
+                }}
+              >
+                <span className="w-2 h-2 rounded-full animate-bounce" style={{ backgroundColor: "#2E8CE6", animationDelay: "0ms" }} />
+                <span className="w-2 h-2 rounded-full animate-bounce" style={{ backgroundColor: "#2E8CE6", animationDelay: "150ms" }} />
+                <span className="w-2 h-2 rounded-full animate-bounce" style={{ backgroundColor: "#2E8CE6", animationDelay: "300ms" }} />
+              </div>
+            </div>
           )}
 
           {showReflection && (
-            <div className="bg-accent/20 border-2 border-accent/50 rounded-2xl p-4 mt-4 animate-in slide-in-from-bottom-4 fade-in duration-500">
-               <p className="font-bold text-foreground mb-3">How did that make you feel?</p>
-               <div className="flex flex-col space-y-2">
-                 <Input
-                   value={reflection}
-                   onChange={(e) => setReflection(e.target.value)}
-                   placeholder="Type your reflection here..."
-                   className="bg-card border-border/50 h-12 rounded-xl"
-                   onKeyDown={(e) => {
-                     if (e.key === "Enter") handleReflectionSubmit();
-                   }}
-                 />
-                 <Button onClick={handleReflectionSubmit} className="rounded-xl h-12 font-bold shadow-sm">
-                   Submit Reflection
-                 </Button>
-               </div>
+            <div
+              className="mt-4 p-4 animate-in slide-in-from-bottom-4 fade-in duration-500"
+              style={{
+                backgroundColor: "#FFC43D",
+                border: "3px solid #BA7517",
+                borderRadius: 24,
+                boxShadow: "0 5px 0 #854F0B",
+              }}
+            >
+              <p style={{ fontSize: 14, fontWeight: 900, color: "#854F0B", marginBottom: 10 }}>
+                💭 How did that make you feel?
+              </p>
+              <input
+                value={reflection}
+                onChange={(e) => setReflection(e.target.value)}
+                placeholder="Type your thoughts..."
+                onKeyDown={(e) => { if (e.key === "Enter") handleReflectionSubmit(); }}
+                className="w-full mb-3 outline-none"
+                style={{
+                  backgroundColor: "#FFFFFF",
+                  borderRadius: 16,
+                  border: "2.5px solid #854F0B",
+                  padding: "12px 16px",
+                  fontSize: 14,
+                  fontWeight: 600,
+                  color: "#2C2C2A",
+                }}
+              />
+              <button
+                onClick={handleReflectionSubmit}
+                className="w-full transition-transform active:translate-y-0.5"
+                style={{
+                  height: 52,
+                  backgroundColor: "#FFFFFF",
+                  color: "#854F0B",
+                  borderRadius: 16,
+                  fontSize: 15,
+                  fontWeight: 900,
+                  boxShadow: "0 3px 0 #BA7517",
+                  border: "2px solid #854F0B",
+                }}
+              >
+                Submit reflection ✨
+              </button>
             </div>
           )}
+
           <div ref={messagesEndRef} />
         </div>
 
-        {/* Input area */}
+        {/* Input bar */}
         {!showReflection && (
-          <div className="pt-2 flex items-center space-x-2 bg-background pb-safe">
-            <Input
+          <div
+            className="pt-3 pb-safe flex items-center gap-2"
+            style={{ backgroundColor: "#FFF8E7" }}
+          >
+            <input
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
               placeholder="Type your message..."
-              className="flex-1 bg-card border-border/50 h-12 rounded-xl"
-              onKeyDown={(e) => {
-                 if (e.key === "Enter") handleSend();
-              }}
+              onKeyDown={(e) => { if (e.key === "Enter") handleSend(); }}
               disabled={isWaiting}
+              className="flex-1 outline-none"
+              style={{
+                backgroundColor: "#FFFFFF",
+                border: "3px solid #E6F1FB",
+                borderRadius: 20,
+                height: 52,
+                padding: "0 18px",
+                fontSize: 14,
+                fontWeight: 600,
+                color: "#2C2C2A",
+              }}
             />
-            <Button
-               size="icon"
-               className="h-12 w-12 rounded-xl shrink-0 shadow-sm shadow-primary/20"
-               onClick={handleSend}
-               disabled={isWaiting || !prompt.trim()}
+            <button
+              onClick={handleSend}
+              disabled={isWaiting || !prompt.trim()}
+              className="shrink-0 transition-transform active:translate-y-0.5 disabled:opacity-50 flex items-center justify-center"
+              style={{
+                width: 52,
+                height: 52,
+                backgroundColor: "#FFC43D",
+                color: "#854F0B",
+                borderRadius: 20,
+                boxShadow: "0 4px 0 #BA7517",
+                border: "none",
+                cursor: (isWaiting || !prompt.trim()) ? "not-allowed" : "pointer",
+              }}
             >
-              <Send className="h-5 w-5 ml-1" />
-            </Button>
+              <Send className="w-5 h-5" strokeWidth={2.5} />
+            </button>
           </div>
         )}
       </div>
@@ -202,7 +335,7 @@ function ChatInterface() {
 
 export default function ChatPage() {
   return (
-    <Suspense fallback={<div>Loading chat...</div>}>
+    <Suspense fallback={<div style={{ backgroundColor: "#FFF8E7", minHeight: "100vh" }} />}>
       <ChatInterface />
     </Suspense>
   );
