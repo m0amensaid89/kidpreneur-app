@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Flame } from "lucide-react";
+import Image from "next/image";
 import { WORLDS } from "@/lib/data/lessons";
 import { WorldCard } from "@/components/ui/WorldCard";
 import { createClient } from "@/lib/supabase/client";
@@ -17,15 +17,13 @@ interface HomeClientProps {
 }
 
 // KidPreneur brand colors — mapped to each world's locked identity.
-const WORLD_COLORS: Record<string, { color: string; emoji: string; number: number }> = {
-  w1: { color: "#FF6340", emoji: "🎨", number: 1 },
-  w2: { color: "#7B52EE", emoji: "✍️", number: 2 },
-  w3: { color: "#2E8CE6", emoji: "📣", number: 3 },
-  w4: { color: "#00A878", emoji: "⚡", number: 4 },
-  w5: { color: "#6B35FF", emoji: "🧠", number: 5 },
+const WORLD_COLORS: Record<string, { color: string; dark: string; emoji: string; number: number }> = {
+  w1: { color: "#FF6340", dark: "#D85A30", emoji: "🎨", number: 1 },
+  w2: { color: "#7B52EE", dark: "#534AB7", emoji: "✍️", number: 2 },
+  w3: { color: "#2E8CE6", dark: "#1a6fc4", emoji: "📣", number: 3 },
+  w4: { color: "#00A878", dark: "#0F6E56", emoji: "⚡", number: 4 },
+  w5: { color: "#6B35FF", dark: "#3C3489", emoji: "🧠", number: 5 },
 };
-
-const QUACKY_BLUE = "#2E8CE6";
 
 export function HomeClient({
   name,
@@ -38,8 +36,6 @@ export function HomeClient({
   const router = useRouter();
   const supabase = createClient();
 
-  // Real per-world progress pulled from mission_completions (lesson_id).
-  // Shape : { w1: Set<lessonId>, w2: Set<lessonId>, ... }
   const [completedByWorld, setCompletedByWorld] = useState<Record<string, Set<string>>>({});
 
   useEffect(() => {
@@ -71,7 +67,6 @@ export function HomeClient({
     loadProgress();
   }, [supabase]);
 
-  // XP bar math relative to current level bracket.
   const currentBracketXp = totalXp - levelXpStart;
   const bracketTotalXp = nextLevelXpStart - levelXpStart;
   const progressPct = bracketTotalXp > 0
@@ -79,50 +74,102 @@ export function HomeClient({
     : 100;
 
   return (
-    <div className="flex flex-col min-h-full pb-24 animate-in fade-in duration-500">
+    <div
+      className="flex flex-col min-h-full relative overflow-hidden pb-10 animate-in fade-in duration-500"
+      style={{ backgroundColor: "#FFF8E7", color: "#2C2C2A" }}
+    >
+      {/* Decorative floating circles — Quacky's world */}
+      <div className="absolute top-10 right-6 w-14 h-14 rounded-full pointer-events-none"
+        style={{ backgroundColor: "#FFE066", opacity: 0.5 }} aria-hidden="true" />
+      <div className="absolute top-44 left-4 w-10 h-10 rounded-full pointer-events-none"
+        style={{ backgroundColor: "#FFB3BA", opacity: 0.4 }} aria-hidden="true" />
+      <div className="absolute top-80 right-10 w-12 h-12 rounded-full pointer-events-none"
+        style={{ backgroundColor: "#B3E5FC", opacity: 0.45 }} aria-hidden="true" />
 
-      {/* Header : greeting + streak badge */}
-      <div className="flex items-center justify-between px-5 pt-6 pb-4">
-        <div>
-          <p className="text-xs text-muted-foreground font-semibold">Hey there</p>
-          <h1 className="text-2xl font-black mt-0.5 flex items-center gap-2">
-            {name}
-            <span className="inline-block" aria-hidden>👋</span>
-          </h1>
+      {/* Header : greeting + streak bubble */}
+      <div className="relative z-10 flex items-center justify-between px-5 pt-6 pb-3">
+        <div className="flex items-center gap-3">
+          <div
+            className="w-12 h-12 rounded-full flex items-center justify-center"
+            style={{
+              backgroundColor: "#FFFFFF",
+              border: "3px solid #2E8CE6",
+              boxShadow: "0 3px 0 #1a6fc4",
+            }}
+          >
+            <Image
+              src="/quacky/quacky-happy.png"
+              alt="Quacky"
+              width={36}
+              height={36}
+              className="object-contain"
+            />
+          </div>
+          <div>
+            <p className="text-xs" style={{ color: "#5F5E5A", fontWeight: 700 }}>
+              Hey there,
+            </p>
+            <h1 className="text-xl leading-tight" style={{ color: "#1a6fc4", fontWeight: 900 }}>
+              {name}!
+            </h1>
+          </div>
         </div>
-        <div className="flex items-center gap-1.5 bg-orange-500/15 border border-orange-500/30 px-3 py-2 rounded-full">
-          <Flame className="w-4 h-4 text-orange-500 fill-orange-500" />
-          <span className="text-sm font-black text-orange-500">{currentStreak}</span>
+
+        {/* Streak flame bubble */}
+        <div
+          className="flex items-center gap-1.5 px-3.5 py-2 rounded-full"
+          style={{
+            backgroundColor: "#FFFFFF",
+            border: "3px solid #FFC43D",
+            boxShadow: "0 3px 0 #BA7517",
+          }}
+        >
+          <span style={{ fontSize: 16 }}>🔥</span>
+          <span style={{ color: "#854F0B", fontWeight: 900, fontSize: 14 }}>
+            {currentStreak}
+          </span>
         </div>
       </div>
 
-      {/* Hero XP card : Quacky-blue gradient, level badge inline, XP progress */}
+      {/* Hero XP Card : yellow chunky badge */}
       <div
-        className="mx-5 rounded-3xl p-5 shadow-lg"
+        className="relative z-10 mx-5 mt-2 p-5"
         style={{
-          background: `linear-gradient(135deg, ${QUACKY_BLUE} 0%, #1a6fc4 100%)`,
+          backgroundColor: "#FFC43D",
+          borderRadius: "28px",
+          boxShadow: "0 6px 0 #BA7517",
         }}
       >
         <div className="flex items-center gap-3">
           <div
-            className="w-14 h-14 rounded-full flex items-center justify-center border-[3px] border-white/90 shadow-sm shrink-0"
-            style={{ backgroundColor: "#FFD700" }}
+            className="w-14 h-14 rounded-full flex items-center justify-center shrink-0"
+            style={{
+              backgroundColor: "#FFFFFF",
+              border: "3px solid #854F0B",
+            }}
           >
-            <span className="text-xl font-black" style={{ color: "#854F0B" }}>
+            <span style={{ fontSize: 22, color: "#854F0B", fontWeight: 900 }}>
               {level}
             </span>
           </div>
           <div className="flex-1 min-w-0">
-            <div className="flex justify-between items-center text-xs font-bold mb-1.5 text-white/90">
-              <span className="tracking-wider">LEVEL {level}</span>
-              <span>{currentBracketXp} / {bracketTotalXp > 0 ? bracketTotalXp : totalXp} XP</span>
+            <div className="flex justify-between items-center mb-1.5">
+              <span style={{ fontSize: 11, color: "#854F0B", fontWeight: 900, letterSpacing: "1.5px" }}>
+                LEVEL {level}
+              </span>
+              <span style={{ fontSize: 12, color: "#854F0B", fontWeight: 800 }}>
+                {currentBracketXp} / {bracketTotalXp > 0 ? bracketTotalXp : totalXp} XP
+              </span>
             </div>
-            <div className="h-2.5 rounded-full overflow-hidden bg-white/25">
+            <div
+              className="h-3 rounded-full overflow-hidden"
+              style={{ backgroundColor: "#FFFFFF", border: "2px solid #854F0B" }}
+            >
               <div
-                className="h-full rounded-full transition-all duration-700 ease-out"
+                className="h-full transition-all duration-700 ease-out"
                 style={{
                   width: `${progressPct}%`,
-                  backgroundColor: "#FFD700",
+                  backgroundColor: "#2E8CE6",
                 }}
               />
             </div>
@@ -130,20 +177,26 @@ export function HomeClient({
         </div>
       </div>
 
-      {/* Journey section */}
-      <p className="text-xs font-bold tracking-widest text-muted-foreground mt-6 mb-3 px-5">
-        YOUR JOURNEY
-      </p>
+      {/* Journey section label */}
+      <div className="relative z-10 mt-7 mb-3 px-5">
+        <p style={{ fontSize: 12, fontWeight: 900, color: "#378ADD", letterSpacing: "2px" }}>
+          YOUR JOURNEY ✨
+        </p>
+        <p style={{ fontSize: 13, color: "#5F5E5A", fontWeight: 600, marginTop: 2 }}>
+          Pick a world and let&apos;s go!
+        </p>
+      </div>
 
-      <div className="px-5 space-y-3">
+      {/* World cards */}
+      <div className="relative z-10 px-5 space-y-3">
         {WORLDS.map((world, index) => {
           const meta = WORLD_COLORS[world.id] || {
-            color: QUACKY_BLUE,
+            color: "#2E8CE6",
+            dark: "#1a6fc4",
             emoji: "✦",
             number: index + 1,
           };
 
-          // World 1 always unlocked. Subsequent worlds use the data file's XP threshold.
           const xpThreshold = world.unlockRequirement?.minXP ?? 0;
           const isLocked = index > 0 && totalXp < xpThreshold;
 
@@ -167,6 +220,7 @@ export function HomeClient({
               completedLessons={completedCount}
               isLocked={isLocked}
               color={meta.color}
+              darkColor={meta.dark}
               emoji={meta.emoji}
               worldNumber={meta.number}
               unlockLabel={unlockLabel}

@@ -1,7 +1,6 @@
 "use client";
 
 import { Lock, Play } from "lucide-react";
-import { cn } from "@/lib/utils";
 
 interface WorldCardProps {
   id: string | number;
@@ -11,98 +10,109 @@ interface WorldCardProps {
   lessonCount?: number;
   completedLessons?: number;
   isLocked: boolean;
-  color: string;          // hex hero color for this world
-  emoji?: string;         // temporary visual identity until Quacky world badges land
-  unlockLabel?: string;   // e.g. "Unlocks at 2,000 XP"
+  color: string;          // hero color for this world
+  darkColor?: string;     // darker shade for depth shadow
+  emoji?: string;
+  unlockLabel?: string;
   worldNumber?: number;
   onClick?: () => void;
 }
 
-/**
- * Helpers to derive soft bg + dark text from the world's hero color.
- * We use the hero color for the icon tile and accent stroke, and
- * apply an 18% alpha wash behind the card for active states.
- */
-function hexWithAlpha(hex: string, alpha: number): string {
-  const h = hex.replace("#", "");
-  const r = parseInt(h.substring(0, 2), 16);
-  const g = parseInt(h.substring(2, 4), 16);
-  const b = parseInt(h.substring(4, 6), 16);
-  return `rgba(${r},${g},${b},${alpha})`;
-}
-
 export function WorldCard({
   name,
-  description,
   progress,
   lessonCount,
   completedLessons,
   isLocked,
   color,
+  darkColor,
   emoji = "✦",
   unlockLabel,
   worldNumber,
   onClick,
+  description,
 }: WorldCardProps) {
   const isActive = !isLocked;
-
-  // Card styling depends on state
-  const cardStyle: React.CSSProperties = isActive
-    ? {
-        backgroundColor: hexWithAlpha(color, 0.08),
-        borderColor: color,
-      }
-    : {
-        backgroundColor: "hsl(var(--card))",
-        borderColor: "hsl(var(--border))",
-      };
+  const shadowColor = darkColor || "#E6D5A8";
 
   return (
     <button
       onClick={isLocked ? undefined : onClick}
       disabled={isLocked}
-      className={cn(
-        "w-full flex items-center gap-4 rounded-3xl border-2 p-4 transition-all duration-300 text-left",
-        isActive
-          ? "cursor-pointer hover:scale-[1.02] active:scale-[0.98]"
-          : "cursor-not-allowed opacity-70",
-      )}
-      style={cardStyle}
+      className="w-full flex items-center gap-4 text-left transition-transform active:translate-y-1 disabled:cursor-not-allowed"
+      style={{
+        backgroundColor: "#FFFFFF",
+        borderRadius: "24px",
+        padding: "16px",
+        border: isActive ? `3px solid ${color}` : "3px solid #E6D5A8",
+        boxShadow: isActive ? `0 5px 0 ${shadowColor}` : "0 3px 0 #E6D5A8",
+        opacity: isLocked ? 0.65 : 1,
+        cursor: isLocked ? "not-allowed" : "pointer",
+      }}
     >
-      {/* Colored icon tile */}
+      {/* Colored icon bubble — the world identity */}
       <div
-        className="flex items-center justify-center w-14 h-14 rounded-2xl text-2xl shrink-0 shadow-sm"
+        className="flex items-center justify-center shrink-0 rounded-2xl"
         style={{
-          backgroundColor: isActive ? color : "hsl(var(--muted))",
-          filter: isLocked ? "grayscale(60%)" : "none",
+          width: 56,
+          height: 56,
+          backgroundColor: isActive ? color : "#E6D5A8",
+          border: isActive ? `3px solid ${shadowColor}` : "3px solid #C4C2B9",
+          filter: isLocked ? "grayscale(40%)" : "none",
         }}
       >
-        <span>{emoji}</span>
+        <span style={{ fontSize: 26 }} aria-hidden="true">{emoji}</span>
       </div>
 
       {/* Main content */}
       <div className="flex-1 min-w-0">
         {worldNumber !== undefined && (
           <p
-            className="text-[10px] font-bold tracking-widest mb-0.5"
-            style={{ color: isActive ? color : "hsl(var(--muted-foreground))" }}
+            style={{
+              fontSize: 10,
+              fontWeight: 900,
+              letterSpacing: "1.5px",
+              color: isActive ? color : "#888780",
+              marginBottom: 2,
+            }}
           >
             WORLD {worldNumber}
           </p>
         )}
-        <h3 className="text-base font-bold leading-tight text-foreground truncate">
+        <h3
+          className="truncate leading-tight"
+          style={{
+            fontSize: 16,
+            fontWeight: 900,
+            color: "#2C2C2A",
+          }}
+        >
           {name}
         </h3>
 
         {isLocked ? (
-          <p className="text-xs text-muted-foreground font-semibold mt-1">
-            {unlockLabel || "Locked"}
+          <p
+            className="mt-1"
+            style={{
+              fontSize: 12,
+              fontWeight: 700,
+              color: "#888780",
+            }}
+          >
+            🔒 {unlockLabel || "Locked"}
           </p>
         ) : (
           <div className="flex items-center gap-2 mt-2">
-            <div className="flex-1 h-1.5 rounded-full overflow-hidden bg-black/20">
+            <div
+              className="flex-1 rounded-full overflow-hidden"
+              style={{
+                height: 8,
+                backgroundColor: "#F4F4EC",
+                border: `2px solid ${shadowColor}`,
+              }}
+            >
               <div
-                className="h-full rounded-full transition-all duration-500 ease-out"
+                className="h-full transition-all duration-500 ease-out"
                 style={{
                   width: `${Math.min(100, Math.max(0, progress))}%`,
                   backgroundColor: color,
@@ -111,22 +121,29 @@ export function WorldCard({
             </div>
             {lessonCount !== undefined && (
               <span
-                className="text-[11px] font-bold shrink-0"
-                style={{ color }}
+                className="shrink-0"
+                style={{
+                  fontSize: 12,
+                  fontWeight: 900,
+                  color: color,
+                }}
               >
-                {completedLessons ?? 0} / {lessonCount}
+                {completedLessons ?? 0}/{lessonCount}
               </span>
             )}
           </div>
         )}
       </div>
 
-      {/* Right-side action indicator */}
+      {/* Play / lock circle button */}
       <div
-        className="flex items-center justify-center w-9 h-9 rounded-full shrink-0"
+        className="flex items-center justify-center shrink-0 rounded-full"
         style={{
-          backgroundColor: isActive ? color : "hsl(var(--muted))",
-          color: isActive ? "white" : "hsl(var(--muted-foreground))",
+          width: 40,
+          height: 40,
+          backgroundColor: isActive ? color : "#C4C2B9",
+          color: "white",
+          boxShadow: isActive ? `0 3px 0 ${shadowColor}` : "none",
         }}
       >
         {isLocked ? (
@@ -136,7 +153,6 @@ export function WorldCard({
         )}
       </div>
 
-      {/* Suppress unused `description` warning; kept in API for backwards compat */}
       <span className="sr-only">{description}</span>
     </button>
   );
