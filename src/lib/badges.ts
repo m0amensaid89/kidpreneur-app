@@ -86,6 +86,7 @@ export const BADGE_FIRST_REFLECTION: Badge = {
 };
 
 export const BADGE_FIRST_LESSON: Badge = {
+  artUrl: "/badges/quacky_first_lesson_1024.png",
   id: "first_lesson",
   name: "Lesson One",
   emoji: "📚",
