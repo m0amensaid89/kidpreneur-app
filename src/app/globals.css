@@ -48,25 +48,29 @@
 }
 
 :root {
-  /* Dark mode as default since forcing dark in html */
-  --background: #0D1117;
-  --foreground: #FFFFFF;
-  --card: #1E293B;
-  --card-foreground: #FFFFFF;
-  --popover: #1E293B;
-  --popover-foreground: #FFFFFF;
-  --primary: #10B981;
+  /*
+   * KIDS UI LIGHT THEME — cream + brand blue accents.
+   * Replaces the old dark theme. All child screens use cream bg #FFF8E7.
+   * Accent = Quacky blue #2E8CE6. Warning = yellow #FFC43D.
+   */
+  --background: #FFF8E7;
+  --foreground: #2C2C2A;
+  --card: #FFFFFF;
+  --card-foreground: #2C2C2A;
+  --popover: #FFFFFF;
+  --popover-foreground: #2C2C2A;
+  --primary: #2E8CE6;
   --primary-foreground: #FFFFFF;
-  --secondary: #334155;
-  --secondary-foreground: #FFFFFF;
-  --muted: #1E293B;
-  --muted-foreground: #94A3B8;
-  --accent: #FBBF24;
-  --accent-foreground: #000000;
-  --destructive: #EF4444;
-  --border: #334155;
-  --input: #1E293B;
-  --ring: #10B981;
+  --secondary: #F4F8FD;
+  --secondary-foreground: #1a6fc4;
+  --muted: #F4F8FD;
+  --muted-foreground: #5F5E5A;
+  --accent: #FFC43D;
+  --accent-foreground: #854F0B;
+  --destructive: #DC2626;
+  --border: #E6F1FB;
+  --input: #F4F8FD;
+  --ring: #2E8CE6;
   --radius: 12px;
 }
 
@@ -75,7 +79,8 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-[#000000] text-foreground; /* Make outer background pure black to highlight mobile frame */
+    background-color: #FFF8E7;
+    color: #2C2C2A;
   }
   html {
     @apply font-sans;

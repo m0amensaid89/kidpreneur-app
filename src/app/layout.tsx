@@ -37,17 +37,21 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${nunito.variable} h-full antialiased dark`}
+      className={`${nunito.variable} h-full antialiased`}
     >
       <head>
         <link rel="manifest" href="/manifest.json" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="theme-color" content="#FFF8E7" />
       </head>
-      <body className="min-h-full flex flex-col font-sans bg-background text-foreground selection:bg-primary/30">
+      <body className="min-h-full flex flex-col font-sans selection:bg-primary/30" style={{ backgroundColor: "#FFF8E7", color: "#2C2C2A" }}>
         <ErrorBoundary>
           <SessionProvider>
-            <div className="flex-1 w-full max-w-[430px] mx-auto relative bg-background shadow-2xl flex flex-col min-h-[100dvh] border-x border-border/10 overflow-hidden animate-in fade-in duration-300">
+            <div
+              className="flex-1 w-full max-w-[430px] mx-auto relative shadow-2xl flex flex-col min-h-[100dvh] overflow-hidden animate-in fade-in duration-300"
+              style={{ backgroundColor: "#FFF8E7" }}
+            >
               {children}
             </div>
           </SessionProvider>
