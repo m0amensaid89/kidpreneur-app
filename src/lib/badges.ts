@@ -59,7 +59,8 @@ export const BADGE_FIRST_MISSION: Badge = {
   description: "Your first mission is in the books.",
   category: "first_time",
   rarity: "common",
-  xpBonus: 50
+  xpBonus: 50,
+  artUrl: "/badges/quacky_first_mission_1024.png"
 };
 
 export const BADGE_FIRST_SANDBOX: Badge = {
