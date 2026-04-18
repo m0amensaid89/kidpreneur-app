@@ -210,7 +210,8 @@ export const BADGE_CANVAS_KINGDOM_CHAMPION: Badge = {
   description: "All 8 Canvas Kingdom lessons mastered.",
   category: "world_completion",
   rarity: "rare",
-  xpBonus: 500
+  xpBonus: 500,
+  artUrl: "/badges/quacky_canvas_kingdom_champion_1024.png",
 };
 
 export const BADGE_STORY_FORGE_CHAMPION: Badge = {
@@ -220,7 +221,8 @@ export const BADGE_STORY_FORGE_CHAMPION: Badge = {
   description: "All 8 Story Forge lessons mastered.",
   category: "world_completion",
   rarity: "rare",
-  xpBonus: 500
+  xpBonus: 500,
+  artUrl: "/badges/quacky_story_forge_champion_1024.png",
 };
 
 export const BADGE_CROWD_PLAZA_CHAMPION: Badge = {
@@ -230,7 +232,8 @@ export const BADGE_CROWD_PLAZA_CHAMPION: Badge = {
   description: "All 6 Crowd Plaza lessons mastered.",
   category: "world_completion",
   rarity: "rare",
-  xpBonus: 500
+  xpBonus: 500,
+  artUrl: "/badges/quacky_crowd_plaza_champion_1024.png",
 };
 
 export const BADGE_POWER_GRID_CHAMPION: Badge = {
@@ -240,7 +243,8 @@ export const BADGE_POWER_GRID_CHAMPION: Badge = {
   description: "All 8 Power Grid lessons mastered.",
   category: "world_completion",
   rarity: "rare",
-  xpBonus: 500
+  xpBonus: 500,
+  artUrl: "/badges/quacky_power_grid_champion_1024.png",
 };
 
 export const BADGE_NEURAL_NEXUS_CHAMPION: Badge = {
@@ -250,7 +254,8 @@ export const BADGE_NEURAL_NEXUS_CHAMPION: Badge = {
   description: "All 8 Neural Nexus lessons mastered.",
   category: "world_completion",
   rarity: "rare",
-  xpBonus: 500
+  xpBonus: 500,
+  artUrl: "/badges/quacky_neural_nexus_champion_1024.png",
 };
 
 export const BADGE_CANVAS_KINGDOM_CAPSTONE: Badge = {
@@ -260,7 +265,8 @@ export const BADGE_CANVAS_KINGDOM_CAPSTONE: Badge = {
   description: "Canvas Kingdom capstone shipped. Designer unlocked.",
   category: "world_completion",
   rarity: "legendary",
-  xpBonus: 1000
+  xpBonus: 1000,
+  artUrl: "/badges/quacky_canvas_kingdom_capstone_1024.png",
 };
 
 export const BADGE_STORY_FORGE_CAPSTONE: Badge = {
@@ -270,7 +276,8 @@ export const BADGE_STORY_FORGE_CAPSTONE: Badge = {
   description: "Story Forge capstone shipped. Storyteller unlocked.",
   category: "world_completion",
   rarity: "legendary",
-  xpBonus: 1000
+  xpBonus: 1000,
+  artUrl: "/badges/quacky_story_forge_capstone_1024.png",
 };
 
 export const BADGE_CROWD_PLAZA_CAPSTONE: Badge = {
@@ -280,7 +287,8 @@ export const BADGE_CROWD_PLAZA_CAPSTONE: Badge = {
   description: "Crowd Plaza capstone shipped. Creator unlocked.",
   category: "world_completion",
   rarity: "legendary",
-  xpBonus: 1000
+  xpBonus: 1000,
+  artUrl: "/badges/quacky_crowd_plaza_capstone_1024.png",
 };
 
 export const BADGE_POWER_GRID_CAPSTONE: Badge = {
@@ -290,7 +298,8 @@ export const BADGE_POWER_GRID_CAPSTONE: Badge = {
   description: "Power Grid capstone shipped. Operator unlocked.",
   category: "world_completion",
   rarity: "legendary",
-  xpBonus: 1000
+  xpBonus: 1000,
+  artUrl: "/badges/quacky_power_grid_capstone_1024.png",
 };
 
 export const BADGE_NEURAL_NEXUS_CAPSTONE: Badge = {
@@ -300,7 +309,8 @@ export const BADGE_NEURAL_NEXUS_CAPSTONE: Badge = {
   description: "Neural Nexus capstone published. Analyst unlocked.",
   category: "world_completion",
   rarity: "legendary",
-  xpBonus: 2000
+  xpBonus: 2000,
+  artUrl: "/badges/quacky_neural_nexus_capstone_1024.png",
 };
 
 // ═════════════════════════════════════════════
