@@ -75,6 +75,7 @@ export const BADGE_FIRST_SANDBOX: Badge = {
 };
 
 export const BADGE_FIRST_REFLECTION: Badge = {
+  artUrl: "/badges/quacky_first_reflection_1024.png",
   id: "first_reflection",
   name: "Deep Thinker",
   emoji: "🤔",
