@@ -197,7 +197,8 @@ export const BADGE_STREAK_30: Badge = {
   description: "30 days. You are officially unstoppable.",
   category: "streak",
   rarity: "legendary",
-  xpBonus: 1000
+  xpBonus: 1000,
+  artUrl: "/badges/quacky_streak_30_1024.png",
 };
 
 // ═════════════════════════════════════════════
@@ -323,7 +324,8 @@ export const BADGE_EMPIRE_BUILDER_W1: Badge = {
   description: "You launched your first creative studio business.",
   category: "empire",
   rarity: "rare",
-  xpBonus: 500
+  xpBonus: 500,
+  artUrl: "/badges/quacky_empire_builder_w1_1024.png",
 };
 
 export const BADGE_EMPIRE_BUILDER_W2: Badge = {
@@ -333,7 +335,8 @@ export const BADGE_EMPIRE_BUILDER_W2: Badge = {
   description: "You launched your first storytelling business.",
   category: "empire",
   rarity: "rare",
-  xpBonus: 500
+  xpBonus: 500,
+  artUrl: "/badges/quacky_empire_builder_w2_1024.png",
 };
 
 export const BADGE_EMPIRE_BUILDER_W3: Badge = {
@@ -343,7 +346,8 @@ export const BADGE_EMPIRE_BUILDER_W3: Badge = {
   description: "You launched your first real content channel.",
   category: "empire",
   rarity: "rare",
-  xpBonus: 500
+  xpBonus: 500,
+  artUrl: "/badges/quacky_empire_builder_w3_1024.png",
 };
 
 export const BADGE_EMPIRE_BUILDER_W4: Badge = {
@@ -353,7 +357,8 @@ export const BADGE_EMPIRE_BUILDER_W4: Badge = {
   description: "You built your first productivity consulting offer.",
   category: "empire",
   rarity: "rare",
-  xpBonus: 500
+  xpBonus: 500,
+  artUrl: "/badges/quacky_empire_builder_w4_1024.png",
 };
 
 export const BADGE_EMPIRE_BUILDER_W5: Badge = {
@@ -363,7 +368,8 @@ export const BADGE_EMPIRE_BUILDER_W5: Badge = {
   description: "You launched your first AI consulting agency.",
   category: "empire",
   rarity: "rare",
-  xpBonus: 500
+  xpBonus: 500,
+  artUrl: "/badges/quacky_empire_builder_w5_1024.png",
 };
 
 export const BADGE_XP_1000: Badge = {
@@ -373,7 +379,8 @@ export const BADGE_XP_1000: Badge = {
   description: "1,000 XP earned. The foundation is real.",
   category: "empire",
   rarity: "common",
-  xpBonus: 100
+  xpBonus: 100,
+  artUrl: "/badges/quacky_xp_1000_1024.png",
 };
 
 export const BADGE_XP_10000: Badge = {
@@ -383,7 +390,8 @@ export const BADGE_XP_10000: Badge = {
   description: "10,000 XP earned. You are running now.",
   category: "empire",
   rarity: "rare",
-  xpBonus: 500
+  xpBonus: 500,
+  artUrl: "/badges/quacky_xp_10000_1024.png",
 };
 
 export const BADGE_KIDPRENEUR_FOUNDER: Badge = {
@@ -393,7 +401,8 @@ export const BADGE_KIDPRENEUR_FOUNDER: Badge = {
   description: "All 5 worlds plus 5 capstones. Empire complete.",
   category: "empire",
   rarity: "legendary",
-  xpBonus: 5000
+  xpBonus: 5000,
+  artUrl: "/badges/quacky_kidpreneur_founder_1024.png",
 };
 
 // ═════════════════════════════════════════════
