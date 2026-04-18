@@ -48,7 +48,8 @@ export const BADGE_FIRST_QUIZ: Badge = {
   description: "You finished your first quiz. Many more to come.",
   category: "first_time",
   rarity: "common",
-  xpBonus: 25
+  xpBonus: 25,
+  artUrl: "/badges/quacky_first_quiz_1024.png",
 };
 
 export const BADGE_FIRST_MISSION: Badge = {
