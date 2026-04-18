@@ -32,6 +32,7 @@ function ChatInterface() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const lessonId = searchParams.get("lessonId");
+  const missionIdParam = searchParams.get("missionId");
   const supabase = createClient();
 
   const [prompt, setPrompt] = useState("");
@@ -44,20 +45,31 @@ function ChatInterface() {
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (lessonId) {
-      let foundTool = "";
-      for (const world of WORLDS) {
-        const lesson = world.lessons.find((l) => l.id === lessonId);
-        if (lesson && lesson.toolName) {
-          foundTool = lesson.toolName;
-          break;
-        }
-      }
+  // Resolve world + lesson + mission from URL params.
+  // Missing missionId → default to the lesson's first mission (m1).
+  // Missing lessonId → generic chat (no mission context).
+  const resolved = (() => {
+    if (!lessonId) return null;
+    for (const world of WORLDS) {
+      const lesson = world.lessons.find((l) => l.id === lessonId);
+      if (!lesson) continue;
+      const targetMissionId = missionIdParam ?? lesson.missions[0]?.id;
+      const mission = lesson.missions.find((m) => m.id === targetMissionId) ?? lesson.missions[0] ?? null;
+      const missionIndex = mission ? lesson.missions.findIndex((m) => m.id === mission.id) : -1;
+      return { world, lesson, mission, missionIndex };
+    }
+    return null;
+  })();
 
-      if (foundTool) {
-        setPrompt(`Ask Quacky how could a kid use ${foundTool} to start a business?`);
-      }
+  const activeMissionId = resolved?.mission?.id ?? null;
+
+  useEffect(() => {
+    if (resolved?.mission) {
+      // Use the mission's specific sandboxPrompt — authored by the content team per-mission
+      setPrompt(resolved.mission.sandboxPrompt);
+    } else if (resolved?.lesson) {
+      // Fallback: lesson known but no mission — use a warm generic prompt for the tool
+      setPrompt(`Ask Quacky how could a kid use ${resolved.lesson.toolName} to start a business?`);
     } else {
       setMessages([
         {
@@ -66,7 +78,9 @@ function ChatInterface() {
         },
       ]);
     }
-  }, [lessonId]);
+    // We intentionally depend only on lessonId + missionIdParam so this re-runs on URL changes
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lessonId, missionIdParam]);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -83,21 +97,22 @@ function ChatInterface() {
     setShowReflection(false);
 
     try {
-      let lessonContext = "";
-      if (lessonId) {
-        for (const world of WORLDS) {
-          const lesson = world.lessons.find((l) => l.id === lessonId);
-          if (lesson && lesson.toolName) {
-            lessonContext = `The user is learning about ${lesson.toolName}.`;
-            break;
+      // Build rich context — the sandbox API will use this to pick a per-mission
+      // system prompt if available, otherwise fall back to generic Quacky.
+      const context = resolved
+        ? {
+            toolName: resolved.lesson.toolName,
+            worldName: resolved.world.name,
+            missionTitle: resolved.mission?.title,
+            missionObjective: resolved.mission?.objective,
+            quackySystemPrompt: resolved.mission?.quackySystemPrompt,
           }
-        }
-      }
+        : undefined;
 
       const res = await fetch("/api/sandbox", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt: userMessage, lessonContext }),
+        body: JSON.stringify({ prompt: userMessage, context }),
       });
 
       const data = await res.json();
@@ -164,10 +179,11 @@ function ChatInterface() {
       console.warn("[chat] reflection dispatch failed (non-fatal):", err);
     }
 
-    // Route to the FIRST mission of the lesson (fixes the broken m_${lessonId} pattern)
-    const firstMissionId = lessonId ? getNextMissionIdForLesson(lessonId) : null;
-    if (firstMissionId) {
-      router.push(`/mission/${firstMissionId}`);
+    // Route to the specific mission this chat was preparing for (from URL param),
+    // or fall back to the lesson's first mission if no missionId was provided.
+    const targetMissionId = activeMissionId ?? (lessonId ? getNextMissionIdForLesson(lessonId) : null);
+    if (targetMissionId) {
+      router.push(`/mission/${targetMissionId}`);
     } else {
       // Fallback — no lesson context, just go home
       router.push("/home");
@@ -176,11 +192,11 @@ function ChatInterface() {
 
   const handleBadgeDismissFromChat = () => {
     setRevealedBadge(null);
-    // If we were holding a reflection, continue to first mission now
+    // If we were holding a reflection, continue to the specific mission now
     if (reflection.trim()) {
-      const firstMissionId = lessonId ? getNextMissionIdForLesson(lessonId) : null;
-      if (firstMissionId) {
-        router.push(`/mission/${firstMissionId}`);
+      const targetMissionId = activeMissionId ?? (lessonId ? getNextMissionIdForLesson(lessonId) : null);
+      if (targetMissionId) {
+        router.push(`/mission/${targetMissionId}`);
       } else {
         router.push("/home");
       }
@@ -227,8 +243,14 @@ function ChatInterface() {
             />
           </div>
           <div>
-            <p style={{ fontSize: 10, fontWeight: 900, color: "#378ADD", letterSpacing: "1px" }}>CHATTING WITH</p>
-            <h1 style={{ fontSize: 16, fontWeight: 900, color: "#1a6fc4", lineHeight: 1 }}>Quacky 🦆</h1>
+            <p style={{ fontSize: 10, fontWeight: 900, color: "#378ADD", letterSpacing: "1px" }}>
+              {resolved?.mission
+                ? `MISSION ${resolved.missionIndex + 1} OF ${resolved.lesson.missions.length}`
+                : "CHATTING WITH"}
+            </p>
+            <h1 style={{ fontSize: 16, fontWeight: 900, color: "#1a6fc4", lineHeight: 1 }}>
+              {resolved?.lesson?.toolName ?? "Quacky 🦆"}
+            </h1>
           </div>
         </div>
       </div>
@@ -327,7 +349,7 @@ function ChatInterface() {
               }}
             >
               <p style={{ fontSize: 14, fontWeight: 900, color: "#854F0B", marginBottom: 10 }}>
-                💭 How did that make you feel?
+                💭 {resolved?.mission?.reflectionQuestion ?? "How did that make you feel?"}
               </p>
               <input
                 value={reflection}

@@ -158,7 +158,11 @@ export default function MissionCompletePage({ params }: { params: Promise<{ miss
     }
     const currentIndex = lesson.missions.findIndex((m) => m.id === missionId);
     if (currentIndex >= 0 && currentIndex < lesson.missions.length - 1) {
-      router.push(`/chat?lessonId=${lessonId}`);
+      // Route to chat preparing for the NEXT mission, not the first.
+      // This lets Quacky use mission-specific coaching (quackySystemPrompt)
+      // tailored to whichever mission the kid is about to attempt.
+      const nextMission = lesson.missions[currentIndex + 1];
+      router.push(`/chat?lessonId=${lessonId}&missionId=${nextMission.id}`);
       return;
     }
     if (lesson.nextLesson) {
