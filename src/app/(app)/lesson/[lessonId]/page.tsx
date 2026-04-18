@@ -1,32 +1,20 @@
 "use client";
 
 import { use } from "react";
-import { Button } from "@/components/ui/button";
-import { QuackyAvatar } from "@/components/ui/QuackyAvatar";
+import Image from "next/image";
 import { WORLDS } from "@/lib/data/lessons";
 import { useRouter } from "next/navigation";
-import {
-  ChevronLeft,
-  Zap,
-  Clock,
-  Award,
-  Target,
-  MessageCircle,
-  Trophy,
-  ExternalLink,
-  Lightbulb,
-} from "lucide-react";
 
-// Per-world identity (same mapping as HomeClient Phase 1)
+// Per-world identity with kids-UI palette
 const WORLD_COLORS: Record<
   string,
-  { color: string; colorDark: string; bg: string; emoji: string; number: number; textDark: string; chipBg: string }
+  { color: string; colorDark: string; softBg: string; emoji: string; number: number }
 > = {
-  w1: { color: "#FF6340", colorDark: "#D85A30", bg: "#FFF7F2", emoji: "🎨", number: 1, textDark: "#4A1B0C", chipBg: "rgba(216,90,48,0.15)" },
-  w2: { color: "#7B52EE", colorDark: "#534AB7", bg: "#F3F0FF", emoji: "✍️", number: 2, textDark: "#26215C", chipBg: "rgba(123,82,238,0.15)" },
-  w3: { color: "#2E8CE6", colorDark: "#185FA5", bg: "#E6F1FB", emoji: "📣", number: 3, textDark: "#042C53", chipBg: "rgba(46,140,230,0.15)" },
-  w4: { color: "#00A878", colorDark: "#0F6E56", bg: "#E6F6F0", emoji: "⚡", number: 4, textDark: "#04342C", chipBg: "rgba(0,168,120,0.15)" },
-  w5: { color: "#6B35FF", colorDark: "#3C3489", bg: "#EEEBFF", emoji: "🧠", number: 5, textDark: "#26215C", chipBg: "rgba(107,53,255,0.15)" },
+  w1: { color: "#FF6340", colorDark: "#D85A30", softBg: "#FFE4DC", emoji: "🎨", number: 1 },
+  w2: { color: "#7B52EE", colorDark: "#534AB7", softBg: "#E8E2FF", emoji: "✍️", number: 2 },
+  w3: { color: "#2E8CE6", colorDark: "#1a6fc4", softBg: "#D6EAFB", emoji: "📣", number: 3 },
+  w4: { color: "#00A878", colorDark: "#0F6E56", softBg: "#D3F0E3", emoji: "⚡", number: 4 },
+  w5: { color: "#6B35FF", colorDark: "#3C3489", softBg: "#DFD4FF", emoji: "🧠", number: 5 },
 };
 
 const DIFFICULTY_LABEL: Record<string, string> = {
@@ -39,7 +27,6 @@ export default function LessonIntroPage({ params }: { params: Promise<{ lessonId
   const router = useRouter();
   const unwrappedParams = use(params);
 
-  // Find the lesson and its world
   let currentLesson = null;
   let currentWorld = null;
   for (const world of WORLDS) {
@@ -53,139 +40,161 @@ export default function LessonIntroPage({ params }: { params: Promise<{ lessonId
 
   if (!currentLesson || !currentWorld) {
     return (
-      <div className="flex flex-col min-h-full">
-        <div className="flex items-center gap-2 px-4 py-3 border-b border-border/50">
-          <button
-            onClick={() => router.back()}
-            className="w-9 h-9 rounded-full bg-muted flex items-center justify-center hover:bg-muted/70"
-          >
-            <ChevronLeft className="w-5 h-5" />
-          </button>
-          <h1 className="font-bold">Lesson Not Found</h1>
-        </div>
-        <div className="flex-1 flex items-center justify-center p-4">
-          <p className="text-muted-foreground">This lesson doesn&apos;t exist.</p>
-        </div>
+      <div
+        className="flex flex-col min-h-full items-center justify-center p-6 text-center"
+        style={{ backgroundColor: "#FFF8E7" }}
+      >
+        <div className="text-5xl mb-3">🤔</div>
+        <h1 style={{ color: "#1a6fc4", fontWeight: 900, fontSize: 22 }}>Hmm, this lesson is missing!</h1>
+        <p className="mt-2" style={{ color: "#5F5E5A", fontWeight: 600 }}>
+          Let&apos;s go back and try another one.
+        </p>
+        <button
+          onClick={() => router.back()}
+          className="mt-5 px-6"
+          style={{
+            height: 56,
+            backgroundColor: "#FFC43D",
+            color: "#854F0B",
+            borderRadius: 20,
+            fontWeight: 900,
+            fontSize: 16,
+            boxShadow: "0 4px 0 #BA7517",
+            border: "none",
+          }}
+        >
+          ← Go back
+        </button>
       </div>
     );
   }
 
   const meta = WORLD_COLORS[currentWorld.id] || WORLD_COLORS.w1;
-
-  // Compute total XP available in this lesson (quiz + 3 missions)
   const totalXp = 30 + currentLesson.missions.reduce((sum, m) => sum + (m.xpReward || 0), 0);
 
   return (
-    <div className="flex flex-col min-h-full pb-24 animate-in fade-in duration-500">
-
-      {/* === HERO HEADER : world-color gradient === */}
+    <div
+      className="flex flex-col min-h-full relative overflow-hidden pb-10 animate-in fade-in duration-500"
+      style={{ backgroundColor: "#FFF8E7", color: "#2C2C2A" }}
+    >
+      {/* HERO — world color block, NOT gradient. Kids UI = flat bold */}
       <div
-        className="text-white relative"
-        style={{
-          background: `linear-gradient(135deg, ${meta.color} 0%, ${meta.colorDark} 100%)`,
-          padding: "20px 20px 28px",
-        }}
+        className="relative px-5 pt-4 pb-8"
+        style={{ backgroundColor: meta.color, color: "#FFFFFF" }}
       >
         {/* Back button + breadcrumb */}
         <div className="flex items-center gap-2 mb-3">
           <button
             onClick={() => router.back()}
-            className="w-8 h-8 rounded-full bg-white/25 hover:bg-white/35 flex items-center justify-center transition"
+            className="w-10 h-10 rounded-full flex items-center justify-center transition active:scale-95"
+            style={{
+              backgroundColor: "#FFFFFF",
+              boxShadow: `0 3px 0 ${meta.colorDark}`,
+            }}
             aria-label="Back"
           >
-            <ChevronLeft className="w-5 h-5 text-white" />
+            <span style={{ fontSize: 20, color: meta.colorDark, lineHeight: 1, fontWeight: 900 }}>‹</span>
           </button>
-          <span className="text-[11px] font-bold tracking-widest text-white/90">
+          <span style={{ fontSize: 11, fontWeight: 900, letterSpacing: "1.5px", color: "#FFFFFF", opacity: 0.95 }}>
             WORLD {meta.number} · {currentWorld.name.toUpperCase()}
           </span>
         </div>
 
-        {/* Tool icon tile + title */}
-        <div className="flex items-center gap-3">
-          <div className="w-12 h-12 rounded-2xl bg-white/25 flex items-center justify-center text-2xl shrink-0">
-            {meta.emoji}
+        {/* Quacky + title */}
+        <div className="flex items-start gap-3">
+          <div
+            className="w-20 h-20 rounded-full flex items-center justify-center shrink-0"
+            style={{
+              backgroundColor: "#FFFFFF",
+              border: "4px solid #FFFFFF",
+              boxShadow: `0 4px 0 ${meta.colorDark}`,
+            }}
+          >
+            <Image
+              src="/quacky/quacky-pointing.png"
+              alt="Quacky"
+              width={62}
+              height={62}
+              className="object-contain"
+              priority
+            />
           </div>
-          <div className="flex-1 min-w-0">
-            <p className="text-[12px] font-bold text-white/90">LESSON {currentLesson.lessonNumber}</p>
-            <h1 className="text-2xl font-black leading-tight">{currentLesson.title}</h1>
+          <div className="flex-1 min-w-0 pt-1">
+            <p style={{ fontSize: 11, fontWeight: 900, letterSpacing: "1.5px", color: "#FFFFFF", opacity: 0.9 }}>
+              LESSON {currentLesson.lessonNumber} {meta.emoji}
+            </p>
+            <h1 className="leading-tight mt-0.5" style={{ fontSize: 22, fontWeight: 900, color: "#FFFFFF" }}>
+              {currentLesson.title}
+            </h1>
           </div>
         </div>
-
-        {/* Hero line */}
-        <p className="text-sm leading-snug mt-3 text-white/95 font-medium">
-          {currentLesson.heroLine}
-        </p>
 
         {/* Stat chips */}
         <div className="flex flex-wrap gap-2 mt-4">
-          <div className="flex items-center gap-1.5 bg-white/20 px-3 py-1.5 rounded-full text-[11px] font-bold">
-            <Zap className="w-3.5 h-3.5" />
-            {DIFFICULTY_LABEL[currentLesson.difficulty] || currentLesson.difficulty}
-          </div>
-          <div className="flex items-center gap-1.5 bg-white/20 px-3 py-1.5 rounded-full text-[11px] font-bold">
-            <Clock className="w-3.5 h-3.5" />
-            {currentLesson.estimatedMinutes} min
-          </div>
-          <div className="flex items-center gap-1.5 bg-white/20 px-3 py-1.5 rounded-full text-[11px] font-bold">
-            <Award className="w-3.5 h-3.5" />
-            +{totalXp} XP
-          </div>
+          <Chip emoji="⚡" label={DIFFICULTY_LABEL[currentLesson.difficulty] || currentLesson.difficulty} />
+          <Chip emoji="⏱️" label={`${currentLesson.estimatedMinutes} min`} />
+          <Chip emoji="⭐" label={`+${totalXp} XP`} />
         </div>
       </div>
 
-      {/* === BODY CONTENT === */}
-      <div className="flex-1 px-5 pt-5 space-y-5">
-
-        {/* Quacky speech bubble with warm-up challenge */}
-        <div className="flex items-start gap-3">
-          <div className="shrink-0">
-            <QuackyAvatar state="neutral" size="md" />
-          </div>
-          <div className="flex-1 relative bg-card border border-border/50 rounded-2xl rounded-tl-sm px-4 py-3">
-            {/* Speech bubble pointer */}
-            <div
-              className="absolute -left-2 top-3 w-0 h-0"
-              style={{
-                borderTop: "6px solid transparent",
-                borderBottom: "6px solid transparent",
-                borderRight: "8px solid hsl(var(--card))",
-              }}
-            />
-            <p className="text-sm leading-relaxed">
-              {currentLesson.warmUpChallenge}
-            </p>
-          </div>
+      {/* BODY — white card peeking up */}
+      <div
+        className="flex-1 px-5 pt-6 pb-6 -mt-4"
+        style={{
+          backgroundColor: "#FFFFFF",
+          borderTopLeftRadius: "32px",
+          borderTopRightRadius: "32px",
+          boxShadow: "0 -4px 20px rgba(0,0,0,0.04)",
+        }}
+      >
+        {/* Quacky speech bubble — warm-up challenge */}
+        <div
+          className="p-4 mb-5"
+          style={{
+            backgroundColor: meta.softBg,
+            borderRadius: 20,
+            border: `3px solid ${meta.color}`,
+            boxShadow: `0 4px 0 ${meta.colorDark}`,
+          }}
+        >
+          <p style={{ fontSize: 11, fontWeight: 900, letterSpacing: "1.5px", color: meta.colorDark, marginBottom: 6 }}>
+            QUACKY SAYS 🦆
+          </p>
+          <p style={{ fontSize: 14, lineHeight: 1.45, color: "#2C2C2A", fontWeight: 600 }}>
+            {currentLesson.warmUpChallenge}
+          </p>
         </div>
 
-        {/* What you will learn */}
-        <div>
-          <div
-            className="text-[11px] font-bold tracking-widest mb-2.5 flex items-center gap-1.5"
-            style={{ color: meta.color }}
-          >
-            <Target className="w-3.5 h-3.5" />
-            WHAT YOU&apos;LL LEARN
-          </div>
-          <div className="space-y-2">
+        {/* What you'll learn */}
+        <div className="mb-5">
+          <p style={{ fontSize: 12, fontWeight: 900, letterSpacing: "2px", color: meta.colorDark, marginBottom: 10 }}>
+            🎯 WHAT YOU&apos;LL LEARN
+          </p>
+          <div className="space-y-2.5">
             {currentLesson.learningPoints.map((point, i) => (
               <div
                 key={i}
-                className="flex items-center gap-3 rounded-xl px-3 py-2.5"
+                className="flex items-center gap-3 px-3.5 py-3"
                 style={{
-                  backgroundColor: meta.bg,
-                  border: `0.5px solid ${meta.chipBg}`,
+                  backgroundColor: meta.softBg,
+                  borderRadius: 16,
+                  border: `2px solid ${meta.color}`,
                 }}
               >
                 <div
-                  className="w-6 h-6 rounded-full flex items-center justify-center text-[11px] font-black text-white shrink-0"
-                  style={{ backgroundColor: meta.color }}
+                  className="flex items-center justify-center shrink-0 rounded-full"
+                  style={{
+                    width: 28,
+                    height: 28,
+                    backgroundColor: meta.color,
+                    color: "#FFFFFF",
+                    fontSize: 13,
+                    fontWeight: 900,
+                  }}
                 >
                   {i + 1}
                 </div>
-                <span
-                  className="text-[13px] font-semibold leading-snug"
-                  style={{ color: meta.textDark }}
-                >
+                <span style={{ fontSize: 13, lineHeight: 1.35, color: "#2C2C2A", fontWeight: 700 }}>
                   {point}
                 </span>
               </div>
@@ -193,65 +202,120 @@ export default function LessonIntroPage({ params }: { params: Promise<{ lessonId
           </div>
         </div>
 
-        {/* Journey preview : 3 tiles */}
-        <div className="grid grid-cols-3 gap-2">
-          <div className="bg-muted/50 rounded-xl py-3 flex flex-col items-center justify-center border border-border/30">
-            <MessageCircle className="w-5 h-5 mb-1" style={{ color: meta.color }} />
-            <p className="text-[10px] font-bold tracking-wider text-muted-foreground">QUACKY CHAT</p>
-          </div>
-          <div className="bg-muted/50 rounded-xl py-3 flex flex-col items-center justify-center border border-border/30">
-            <Target className="w-5 h-5 mb-1" style={{ color: meta.color }} />
-            <p className="text-[10px] font-bold tracking-wider text-muted-foreground">3 MISSIONS</p>
-          </div>
-          <div className="bg-muted/50 rounded-xl py-3 flex flex-col items-center justify-center border border-border/30">
-            <Trophy className="w-5 h-5 mb-1" style={{ color: meta.color }} />
-            <p className="text-[10px] font-bold tracking-wider text-muted-foreground">EARN BADGE</p>
-          </div>
+        {/* Journey preview — 3 fun tiles */}
+        <div className="grid grid-cols-3 gap-2.5 mb-5">
+          <JourneyTile emoji="💬" label="CHAT" accent={meta.color} accentDark={meta.colorDark} />
+          <JourneyTile emoji="🎯" label="3 MISSIONS" accent={meta.color} accentDark={meta.colorDark} />
+          <JourneyTile emoji="🏆" label="BADGE" accent={meta.color} accentDark={meta.colorDark} />
         </div>
 
-        {/* Parent tip : collapsible */}
-        <details className="group rounded-xl bg-amber-500/10 border border-amber-500/30 px-4 py-3">
-          <summary className="cursor-pointer list-none flex items-center gap-2 text-[13px] font-bold text-amber-400">
-            <Lightbulb className="w-4 h-4" />
-            Parent tip
-            <span className="ml-auto text-xs transition-transform group-open:rotate-180">▾</span>
+        {/* Parent tip — collapsible */}
+        <details
+          className="group px-4 py-3 mb-4"
+          style={{
+            backgroundColor: "#FFFBE6",
+            borderRadius: 16,
+            border: "2px solid #FFE066",
+          }}
+        >
+          <summary
+            className="cursor-pointer list-none flex items-center gap-2"
+            style={{ fontSize: 13, fontWeight: 900, color: "#854F0B" }}
+          >
+            <span style={{ fontSize: 16 }}>💡</span>
+            <span>Parent tip</span>
+            <span className="ml-auto transition-transform group-open:rotate-180" style={{ fontSize: 12, color: "#854F0B" }}>▾</span>
           </summary>
-          <p className="text-[12px] leading-relaxed mt-2 text-foreground/80">
+          <p style={{ fontSize: 12, lineHeight: 1.5, marginTop: 8, color: "#2C2C2A", fontWeight: 500 }}>
             {currentLesson.parentTip}
           </p>
         </details>
 
-        {/* Cost info : quiet footnote */}
-        <p className="text-[11px] text-muted-foreground leading-relaxed">
-          <span className="font-bold">💰 Cost: </span>
+        {/* Cost info footnote */}
+        <p style={{ fontSize: 11, color: "#888780", lineHeight: 1.5, fontWeight: 600 }}>
+          <span style={{ fontWeight: 900 }}>💰 Cost: </span>
           {currentLesson.costInfo}
         </p>
 
-      </div>
+        {/* CTA */}
+        <div className="mt-6 space-y-2">
+          <button
+            onClick={() => router.push(`/quiz/${currentLesson!.id}`)}
+            className="w-full transition-transform active:translate-y-1"
+            style={{
+              height: 64,
+              backgroundColor: meta.color,
+              color: "#FFFFFF",
+              borderRadius: 24,
+              fontSize: 18,
+              fontWeight: 900,
+              boxShadow: `0 5px 0 ${meta.colorDark}`,
+              border: "none",
+              letterSpacing: "0.3px",
+            }}
+          >
+            Start the quiz →
+          </button>
 
-      {/* === CTA BUTTONS (sticky-bottom spacing reserved by pb-24) === */}
-      <div className="px-5 mt-6 space-y-2">
-        <Button
-          onClick={() => router.push(`/quiz/${currentLesson!.id}`)}
-          className="w-full h-14 rounded-2xl text-base font-black text-white transition-transform active:translate-y-0.5"
-          style={{
-            backgroundColor: meta.color,
-            boxShadow: `0 4px 0 ${meta.colorDark}`,
-          }}
-        >
-          Start the quiz →
-        </Button>
-
-        <a
-          href={currentLesson.toolUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center justify-center gap-1.5 w-full py-3 text-xs font-bold text-muted-foreground hover:text-foreground transition"
-        >
-          <ExternalLink className="w-3.5 h-3.5" />
-          Open {currentLesson.toolName}
-        </a>
+          <a
+            href={currentLesson.toolUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center gap-1.5 w-full py-3"
+            style={{ fontSize: 12, fontWeight: 800, color: "#5F5E5A" }}
+          >
+            🔗 Open {currentLesson.toolName}
+          </a>
+        </div>
       </div>
+    </div>
+  );
+}
+
+function Chip({ emoji, label }: { emoji: string; label: string }) {
+  return (
+    <div
+      className="flex items-center gap-1.5 px-3 py-1.5"
+      style={{
+        backgroundColor: "rgba(255,255,255,0.25)",
+        border: "2px solid rgba(255,255,255,0.4)",
+        borderRadius: 999,
+        color: "#FFFFFF",
+        fontSize: 11,
+        fontWeight: 900,
+      }}
+    >
+      <span style={{ fontSize: 13 }}>{emoji}</span>
+      <span>{label}</span>
+    </div>
+  );
+}
+
+function JourneyTile({
+  emoji,
+  label,
+  accent,
+  accentDark,
+}: {
+  emoji: string;
+  label: string;
+  accent: string;
+  accentDark: string;
+}) {
+  return (
+    <div
+      className="flex flex-col items-center justify-center py-3"
+      style={{
+        backgroundColor: "#FFFFFF",
+        borderRadius: 16,
+        border: `2.5px solid ${accent}`,
+        boxShadow: `0 3px 0 ${accentDark}`,
+      }}
+    >
+      <span style={{ fontSize: 22, marginBottom: 2 }}>{emoji}</span>
+      <p style={{ fontSize: 9, fontWeight: 900, letterSpacing: "1px", color: accentDark }}>
+        {label}
+      </p>
     </div>
   );
 }

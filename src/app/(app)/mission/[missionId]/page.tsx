@@ -2,22 +2,21 @@
 
 import { use, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { QuackyAvatar } from "@/components/ui/QuackyAvatar";
+import Image from "next/image";
 import { XPCounter } from "@/components/ui/XPCounter";
 import { BadgeReveal } from "@/components/ui/BadgeReveal";
 import { Badge } from "@/lib/badges";
 import { awardBadge } from "@/lib/badgeDispatcher";
 import { createClient } from "@/lib/supabase/client";
 import { WORLDS } from "@/lib/data/lessons";
-import { Star, Trophy, ArrowRight, MapPin } from "lucide-react";
+import { Star, ArrowRight } from "lucide-react";
 
-// Per-world identity — matches Phase 1, 2, 3
-const WORLD_COLORS: Record<string, { color: string; colorDark: string; confetti: string[] }> = {
-  w1: { color: "#FF6340", colorDark: "#D85A30", confetti: ["#FF6340", "#FBBF24", "#FFF", "#F0997B", "#F5C4B3"] },
-  w2: { color: "#7B52EE", colorDark: "#534AB7", confetti: ["#7B52EE", "#FBBF24", "#FFF", "#AFA9EC", "#CECBF6"] },
-  w3: { color: "#2E8CE6", colorDark: "#185FA5", confetti: ["#2E8CE6", "#FBBF24", "#FFF", "#85B7EB", "#B5D4F4"] },
-  w4: { color: "#00A878", colorDark: "#0F6E56", confetti: ["#00A878", "#FBBF24", "#FFF", "#5DCAA5", "#9FE1CB"] },
-  w5: { color: "#6B35FF", colorDark: "#3C3489", confetti: ["#6B35FF", "#FBBF24", "#FFF", "#AFA9EC", "#EEEDFE"] },
+const WORLD_COLORS: Record<string, { color: string; colorDark: string; softBg: string; confetti: string[] }> = {
+  w1: { color: "#FF6340", colorDark: "#D85A30", softBg: "#FFE4DC", confetti: ["#FF6340", "#FFC43D", "#FFFFFF", "#F0997B", "#FFB3BA"] },
+  w2: { color: "#7B52EE", colorDark: "#534AB7", softBg: "#E8E2FF", confetti: ["#7B52EE", "#FFC43D", "#FFFFFF", "#AFA9EC", "#FFB3BA"] },
+  w3: { color: "#2E8CE6", colorDark: "#1a6fc4", softBg: "#D6EAFB", confetti: ["#2E8CE6", "#FFC43D", "#FFFFFF", "#85B7EB", "#FFB3BA"] },
+  w4: { color: "#00A878", colorDark: "#0F6E56", softBg: "#D3F0E3", confetti: ["#00A878", "#FFC43D", "#FFFFFF", "#5DCAA5", "#FFB3BA"] },
+  w5: { color: "#6B35FF", colorDark: "#3C3489", softBg: "#DFD4FF", confetti: ["#6B35FF", "#FFC43D", "#FFFFFF", "#AFA9EC", "#FFB3BA"] },
 };
 
 export default function MissionCompletePage({ params }: { params: Promise<{ missionId: string }> }) {
@@ -32,7 +31,6 @@ export default function MissionCompletePage({ params }: { params: Promise<{ miss
     setMounted(true);
   }, []);
 
-  // Look up the mission details from the data file
   const missionId = unwrappedParams.missionId;
   const lessonId = missionId.split("_")[0];
 
@@ -61,14 +59,12 @@ export default function MissionCompletePage({ params }: { params: Promise<{ miss
 
       const userId = session.user.id;
 
-      // 1. Log the actual XP from the mission data
       await supabase.from("xp_log").insert({
         user_id: userId,
         xp_amount: xpReward,
         source: `mission_complete_${missionId}`,
       });
 
-      // 2. Mark mission complete
       await supabase.from("mission_completions").upsert(
         {
           user_id: userId,
@@ -80,16 +76,13 @@ export default function MissionCompletePage({ params }: { params: Promise<{ miss
         { onConflict: "user_id,mission_id" }
       );
 
-      // 3. Dispatcher badge check
       const badge = await awardBadge(supabase, userId, {
         type: "mission_complete",
         missionId,
         lessonId,
       });
 
-      if (badge) {
-        setRevealedBadge(badge);
-      }
+      if (badge) setRevealedBadge(badge);
 
       setHasAwarded(true);
     };
@@ -101,7 +94,6 @@ export default function MissionCompletePage({ params }: { params: Promise<{ miss
       router.push("/home");
       return;
     }
-    // Find the next mission in the same lesson; if last, route to lesson's next lesson; else home
     const currentIndex = lesson.missions.findIndex((m) => m.id === missionId);
     if (currentIndex >= 0 && currentIndex < lesson.missions.length - 1) {
       router.push(`/chat?lessonId=${lessonId}`);
@@ -117,18 +109,19 @@ export default function MissionCompletePage({ params }: { params: Promise<{ miss
   return (
     <div
       className="flex flex-col items-center justify-between min-h-[100dvh] pb-10 relative overflow-hidden animate-in fade-in duration-500"
-      style={{
-        background: `linear-gradient(180deg, ${meta.color}33 0%, hsl(var(--background)) 60%, hsl(var(--background)) 100%)`,
-      }}
+      style={{ backgroundColor: "#FFF8E7", color: "#2C2C2A" }}
     >
       {/* Confetti particles */}
       {mounted && (
         <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
-          {Array.from({ length: 60 }).map((_, i) => (
+          {Array.from({ length: 70 }).map((_, i) => (
             <div
               key={i}
-              className="absolute w-2 h-2 rounded-sm opacity-0 animate-confetti"
+              className="absolute opacity-0 animate-confetti"
               style={{
+                width: 10,
+                height: 10,
+                borderRadius: 3,
                 left: `${Math.random() * 100}%`,
                 top: `-10px`,
                 backgroundColor: meta.confetti[Math.floor(Math.random() * meta.confetti.length)],
@@ -140,50 +133,78 @@ export default function MissionCompletePage({ params }: { params: Promise<{ miss
         </div>
       )}
 
+      {/* Decorative pastel circles */}
+      <div className="absolute top-16 right-8 w-16 h-16 rounded-full pointer-events-none"
+        style={{ backgroundColor: "#FFE066", opacity: 0.4 }} aria-hidden="true" />
+      <div className="absolute top-40 left-6 w-14 h-14 rounded-full pointer-events-none"
+        style={{ backgroundColor: meta.softBg, opacity: 0.7 }} aria-hidden="true" />
+
       {/* Main content */}
-      <div className="flex-1 flex flex-col items-center justify-center px-6 py-10 w-full max-w-sm z-10 text-center animate-in zoom-in-95 duration-500 space-y-6">
+      <div className="flex-1 flex flex-col items-center justify-center px-6 py-10 w-full max-w-sm z-10 text-center animate-in zoom-in-95 duration-500 space-y-5">
 
         {/* World breadcrumb chip */}
         {world && lesson && (
           <div
-            className="flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold tracking-wider"
+            className="flex items-center gap-1.5 px-3.5 py-1.5"
             style={{
-              backgroundColor: `${meta.color}20`,
-              color: meta.color,
+              backgroundColor: "#FFFFFF",
+              border: `2.5px solid ${meta.color}`,
+              boxShadow: `0 3px 0 ${meta.colorDark}`,
+              borderRadius: 999,
+              fontSize: 10,
+              fontWeight: 900,
+              letterSpacing: "1.2px",
+              color: meta.colorDark,
             }}
           >
-            <MapPin className="w-3 h-3" />
-            {world.name.toUpperCase()} · {lesson.title.toUpperCase()}
+            <span>📍</span>
+            <span>{world.name.toUpperCase()} · {lesson.title.toUpperCase()}</span>
           </div>
         )}
 
-        {/* Quacky cheering */}
-        <div className="animate-bounce">
-          <QuackyAvatar state="cheering" size="xl" className="drop-shadow-2xl" />
+        {/* Cheering Quacky in a chunky circle */}
+        <div
+          className="w-40 h-40 rounded-full flex items-center justify-center animate-bounce"
+          style={{
+            backgroundColor: "#FFFFFF",
+            border: `6px solid ${meta.color}`,
+            boxShadow: `0 8px 0 ${meta.colorDark}`,
+            animationDuration: "1.5s",
+          }}
+        >
+          <Image
+            src="/quacky/quacky-cheering.png"
+            alt="Quacky is cheering"
+            width={120}
+            height={120}
+            className="object-contain"
+            priority
+          />
         </div>
 
         {/* Headline */}
-        <div className="space-y-1">
-          <h1
-            className="text-3xl font-black uppercase tracking-widest"
-            style={{ color: meta.color }}
-          >
-            Mission Complete!
+        <div className="space-y-1.5 pt-1">
+          <h1 style={{ fontSize: 32, fontWeight: 900, color: meta.colorDark, letterSpacing: "0.5px", lineHeight: 1.05 }}>
+            Mission Complete! 🎉
           </h1>
           {mission && (
-            <p className="text-sm text-foreground/80 font-semibold">
+            <p style={{ fontSize: 14, fontWeight: 700, color: "#5F5E5A", lineHeight: 1.3 }}>
               {mission.title}
             </p>
           )}
         </div>
 
-        {/* 3-star animated row */}
+        {/* 3-star row */}
         <div className="flex justify-center gap-3 py-1">
           {[1, 2, 3].map((star, idx) => (
             <Star
               key={star}
-              className="w-11 h-11 fill-amber-400 text-amber-400 animate-in zoom-in spin-in-12 drop-shadow-md"
+              className="w-12 h-12 animate-in zoom-in spin-in-12"
               style={{
+                fill: "#FFC43D",
+                color: "#BA7517",
+                strokeWidth: 2,
+                filter: "drop-shadow(0 3px 0 #BA7517)",
                 animationDuration: "700ms",
                 animationDelay: `${300 + idx * 150}ms`,
                 animationFillMode: "both",
@@ -192,26 +213,26 @@ export default function MissionCompletePage({ params }: { params: Promise<{ miss
           ))}
         </div>
 
-        {/* XP card */}
+        {/* XP card — chunky yellow */}
         <div
-          className="w-full rounded-3xl p-5 border-2 animate-in slide-in-from-bottom-4 fade-in"
+          className="w-full animate-in slide-in-from-bottom-4 fade-in"
           style={{
-            backgroundColor: "hsl(var(--card))",
-            borderColor: meta.color,
+            backgroundColor: "#FFC43D",
+            border: "3px solid #BA7517",
+            borderRadius: 24,
+            padding: "18px",
+            boxShadow: "0 5px 0 #854F0B",
             animationDuration: "500ms",
             animationDelay: "800ms",
             animationFillMode: "both",
           }}
         >
-          <div className="flex items-center justify-center gap-3">
-            <Trophy className="w-6 h-6" style={{ color: meta.color }} />
-            <p className="text-[11px] font-black tracking-[0.2em] text-muted-foreground">
-              XP EARNED
-            </p>
-          </div>
+          <p style={{ fontSize: 11, fontWeight: 900, letterSpacing: "2px", color: "#854F0B", textAlign: "center" }}>
+            🏆 XP EARNED
+          </p>
           <p
-            className="text-5xl font-black tabular-nums mt-1"
-            style={{ color: meta.color }}
+            className="tabular-nums mt-1 text-center"
+            style={{ fontSize: 44, fontWeight: 900, color: "#854F0B", lineHeight: 1.1 }}
           >
             +<XPCounter from={0} to={xpReward} duration={1000} />
           </p>
@@ -221,7 +242,7 @@ export default function MissionCompletePage({ params }: { params: Promise<{ miss
 
       {/* Action buttons */}
       <div
-        className="w-full max-w-sm px-6 space-y-2 z-10 animate-in slide-in-from-bottom-8 fade-in"
+        className="w-full max-w-sm px-6 space-y-3 z-10 animate-in slide-in-from-bottom-8 fade-in"
         style={{
           animationDuration: "500ms",
           animationDelay: "1000ms",
@@ -230,19 +251,34 @@ export default function MissionCompletePage({ params }: { params: Promise<{ miss
       >
         <button
           onClick={handleNextMission}
-          className="w-full h-14 rounded-2xl text-base font-black text-white flex items-center justify-center gap-2 transition-transform active:translate-y-0.5"
+          className="w-full flex items-center justify-center gap-2 transition-transform active:translate-y-1"
           style={{
+            height: 64,
             backgroundColor: meta.color,
-            boxShadow: `0 4px 0 ${meta.colorDark}`,
+            color: "#FFFFFF",
+            borderRadius: 24,
+            fontSize: 18,
+            fontWeight: 900,
+            boxShadow: `0 5px 0 ${meta.colorDark}`,
+            border: "none",
+            letterSpacing: "0.3px",
           }}
         >
-          Next mission <ArrowRight className="w-4 h-4" />
+          Next mission <ArrowRight className="w-5 h-5" />
         </button>
         <button
           onClick={() => router.push("/home")}
-          className="w-full h-12 rounded-2xl text-sm font-bold text-muted-foreground hover:text-foreground transition"
+          className="w-full h-12 transition"
+          style={{
+            fontSize: 14,
+            fontWeight: 800,
+            color: "#5F5E5A",
+            background: "transparent",
+            border: "none",
+            letterSpacing: "0.3px",
+          }}
         >
-          Back to map
+          ← Back to map
         </button>
       </div>
 
