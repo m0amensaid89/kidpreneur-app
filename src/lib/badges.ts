@@ -64,6 +64,7 @@ export const BADGE_FIRST_MISSION: Badge = {
 };
 
 export const BADGE_FIRST_SANDBOX: Badge = {
+  artUrl: "/badges/quacky_first_sandbox_1024.png",
   id: "first_sandbox",
   name: "First Prompt",
   emoji: "💬",
