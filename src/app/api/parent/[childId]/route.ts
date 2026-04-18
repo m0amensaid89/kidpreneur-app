@@ -15,38 +15,20 @@ export async function GET(
   try {
     const { childId } = await params;
 
-    // Diagnostic: what env do we actually have?
-    const hasServiceRole = !!process.env.SUPABASE_SERVICE_ROLE_KEY;
-    const hasAnon = !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-    const hasUrl = !!process.env.NEXT_PUBLIC_SUPABASE_URL;
-    console.log(`[parent API] lookup childId=${childId} env: url=${hasUrl} service_role=${hasServiceRole} anon=${hasAnon}`);
-
-    // Fetch profile — use limit(1) instead of single() to see row count for debugging
+    // Fetch profile (use limit(1) instead of single() to avoid PostgREST coerce errors on 0 rows)
     const { data: profiles, error: profileError } = await supabaseAdmin
       .from("profiles")
       .select("name, streak, last_active")
       .eq("id", childId)
       .limit(1);
 
-    console.log(`[parent API] profile query: rows_returned=${profiles?.length || 0} error=${JSON.stringify(profileError)}`);
-
     if (profileError || !profiles || profiles.length === 0) {
-      console.log(`[parent API] DIAGNOSIS: 0 rows returned. If service_role was true above but 0 rows, RLS is blocking. If service_role was false, env var is missing.`);
-      return NextResponse.json({
-        error: "Profile not found",
-        detail: profileError?.message || "Zero rows returned",
-        diagnostic: {
-          env_service_role: hasServiceRole,
-          env_anon: hasAnon,
-          env_url: hasUrl,
-        },
-      }, { status: 404 });
+      return NextResponse.json({ error: "Profile not found" }, { status: 404 });
     }
 
     const profile = profiles[0];
-    console.log(`[parent API] profile found: name=${profile.name}`);
 
-    // Fetch total XP (xp_amount is the actual column, not "amount")
+    // Fetch total XP (column is xp_amount, not amount)
     const { data: xpData } = await supabaseAdmin
       .from("xp_log")
       .select("xp_amount")
@@ -102,6 +84,7 @@ export async function GET(
       recentMissions: recentMissions || [],
     });
   } catch (error) {
+    console.error("[parent API] internal error:", error);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
