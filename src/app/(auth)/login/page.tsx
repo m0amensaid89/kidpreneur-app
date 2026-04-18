@@ -3,13 +3,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { createClient } from "@/lib/supabase/client";
-import { Input } from "@/components/ui/input";
-import { QuackyAvatar } from "@/components/ui/QuackyAvatar";
-import { Sparkles } from "lucide-react";
-
-const QUACKY_BLUE = "#2E8CE6";
-const QUACKY_BLUE_DARK = "#1a6fc4";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -24,10 +19,7 @@ export default function LoginPage() {
     setLoading(true);
     setError(null);
 
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
 
     if (error) {
       setError(error.message);
@@ -39,96 +31,194 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex flex-col min-h-[100dvh]">
-
-      {/* Hero header with Quacky */}
+    <div
+      className="flex flex-col min-h-[100dvh] relative overflow-hidden"
+      style={{
+        backgroundColor: "#FFF8E7",
+        color: "#2C2C2A",
+      }}
+    >
+      {/* Decorative floating circles — Quacky's world */}
       <div
-        className="relative text-white pt-12 pb-10 px-6"
-        style={{
-          background: `linear-gradient(135deg, ${QUACKY_BLUE} 0%, ${QUACKY_BLUE_DARK} 100%)`,
-        }}
-      >
-        <div className="flex flex-col items-center gap-4 animate-in fade-in zoom-in-95 duration-500">
-          <QuackyAvatar state="happy" size="xl" className="drop-shadow-lg" />
-          <div className="text-center">
-            <div className="flex items-center justify-center gap-1.5 text-[11px] font-bold tracking-[0.22em] text-white/85 mb-1">
-              <Sparkles className="w-3 h-3" />
-              KIDPRENEUR
-              <Sparkles className="w-3 h-3" />
-            </div>
-            <h1 className="text-3xl font-black">Welcome back!</h1>
-            <p className="text-sm text-white/85 mt-1 font-semibold">
-              Your adventure is ready to continue.
-            </p>
-          </div>
+        className="absolute top-16 right-8 w-16 h-16 rounded-full pointer-events-none"
+        style={{ backgroundColor: "#FFE066", opacity: 0.5 }}
+        aria-hidden="true"
+      />
+      <div
+        className="absolute top-40 left-6 w-20 h-20 rounded-full pointer-events-none"
+        style={{ backgroundColor: "#FFB3BA", opacity: 0.45 }}
+        aria-hidden="true"
+      />
+      <div
+        className="absolute top-56 right-4 w-14 h-14 rounded-full pointer-events-none"
+        style={{ backgroundColor: "#B3E5FC", opacity: 0.5 }}
+        aria-hidden="true"
+      />
+      <div
+        className="absolute bottom-40 left-8 w-12 h-12 rounded-full pointer-events-none"
+        style={{ backgroundColor: "#C8E6C9", opacity: 0.5 }}
+        aria-hidden="true"
+      />
+
+      {/* Hero — Quacky in his world (warm cream bg) */}
+      <div className="relative z-10 pt-10 pb-6 px-6 text-center animate-in fade-in zoom-in-95 duration-500">
+        <div
+          className="w-40 h-40 mx-auto mb-5 rounded-full flex items-center justify-center"
+          style={{
+            backgroundColor: "#FFFFFF",
+            border: "5px solid #2E8CE6",
+            boxShadow: "0 6px 0 #1a6fc4",
+          }}
+        >
+          <Image
+            src="/quacky/quacky-happy.png"
+            alt="Quacky is happy to see you"
+            width={120}
+            height={120}
+            className="object-contain"
+            priority
+          />
         </div>
+
+        <h1
+          className="text-4xl leading-tight mb-2"
+          style={{
+            color: "#1a6fc4",
+            fontWeight: 900,
+          }}
+        >
+          Hey there!
+        </h1>
+        <p
+          className="text-base"
+          style={{
+            color: "#5F5E5A",
+            fontWeight: 500,
+          }}
+        >
+          Ready to keep learning?
+        </p>
       </div>
 
-      {/* Form */}
-      <div className="flex-1 px-6 pt-8 pb-8 animate-in fade-in slide-in-from-bottom-6 duration-500">
+      {/* White form card that peeks up from the cream background */}
+      <div
+        className="relative z-10 flex-1 mt-4 px-6 pt-6 pb-10 animate-in fade-in slide-in-from-bottom-6 duration-500"
+        style={{
+          backgroundColor: "#FFFFFF",
+          borderTopLeftRadius: "40px",
+          borderTopRightRadius: "40px",
+          boxShadow: "0 -4px 20px rgba(0,0,0,0.04)",
+        }}
+      >
         <form onSubmit={handleLogin} className="space-y-4 max-w-sm mx-auto w-full">
-          <div className="space-y-1.5">
+
+          {/* Email bubble */}
+          <div
+            style={{
+              backgroundColor: "#F4F8FD",
+              border: "3px solid #E6F1FB",
+              borderRadius: "24px",
+              padding: "12px 20px",
+              transition: "border-color 0.2s",
+            }}
+            onFocus={(e) => (e.currentTarget.style.borderColor = "#2E8CE6")}
+            onBlur={(e) => (e.currentTarget.style.borderColor = "#E6F1FB")}
+          >
             <label
               htmlFor="email"
-              className="text-[11px] font-black tracking-widest text-muted-foreground uppercase"
+              className="block text-xs mb-1"
+              style={{ color: "#378ADD", fontWeight: 700 }}
             >
-              Email
+              your email
             </label>
-            <Input
+            <input
               id="email"
               type="email"
-              placeholder="you@example.com"
+              placeholder="type it here..."
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="h-14 rounded-2xl text-base font-medium border-2"
+              className="w-full bg-transparent outline-none text-base"
+              style={{
+                color: "#2C2C2A",
+                fontWeight: 600,
+              }}
             />
           </div>
 
-          <div className="space-y-1.5">
+          {/* Password bubble */}
+          <div
+            style={{
+              backgroundColor: "#F4F8FD",
+              border: "3px solid #E6F1FB",
+              borderRadius: "24px",
+              padding: "12px 20px",
+            }}
+          >
             <label
               htmlFor="password"
-              className="text-[11px] font-black tracking-widest text-muted-foreground uppercase"
+              className="block text-xs mb-1"
+              style={{ color: "#378ADD", fontWeight: 700 }}
             >
-              Password
+              secret password
             </label>
-            <Input
+            <input
               id="password"
               type="password"
               placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="h-14 rounded-2xl text-base font-medium border-2"
+              className="w-full bg-transparent outline-none text-base"
+              style={{
+                color: "#2C2C2A",
+                fontWeight: 600,
+              }}
             />
           </div>
 
           {error && (
-            <div className="text-red-500 text-sm font-semibold bg-red-500/10 border border-red-500/30 p-3 rounded-xl">
+            <div
+              className="text-sm text-center rounded-2xl p-3"
+              style={{
+                backgroundColor: "#FCEBEB",
+                color: "#A32D2D",
+                border: "2px solid #F7C1C1",
+                fontWeight: 600,
+              }}
+            >
               {error}
             </div>
           )}
 
+          {/* The big yellow CTA — the hero button */}
           <button
             type="submit"
             disabled={loading}
-            className="w-full h-14 rounded-2xl text-base font-black text-white transition-transform active:translate-y-0.5 disabled:opacity-50 mt-6"
+            className="w-full transition-transform active:translate-y-1 disabled:opacity-60 mt-6"
             style={{
-              backgroundColor: QUACKY_BLUE,
-              boxShadow: `0 4px 0 ${QUACKY_BLUE_DARK}`,
+              height: "64px",
+              backgroundColor: "#FFC43D",
+              color: "#854F0B",
+              borderRadius: "24px",
+              fontSize: "18px",
+              fontWeight: 900,
+              boxShadow: "0 5px 0 #BA7517",
+              border: "none",
+              cursor: loading ? "wait" : "pointer",
+              letterSpacing: "0.3px",
             }}
           >
-            {loading ? "Signing in..." : "Let's go!"}
+            {loading ? "One sec..." : "Let's go! 🚀"}
           </button>
 
-          <div className="pt-4 text-center text-sm">
-            <span className="text-muted-foreground">New here? </span>
+          <div className="pt-4 text-center text-sm" style={{ color: "#5F5E5A" }}>
+            <span>New here? </span>
             <Link
               href="/signup"
-              className="font-black hover:underline"
-              style={{ color: QUACKY_BLUE }}
+              style={{ color: "#2E8CE6", fontWeight: 800, textDecoration: "underline" }}
             >
-              Create an account
+              Make an account
             </Link>
           </div>
         </form>
