@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { createClient } from "@/lib/supabase/client";
+import { awardBadge } from "@/lib/badgeDispatcher";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -19,12 +20,20 @@ export default function LoginPage() {
     setLoading(true);
     setError(null);
 
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
 
     if (error) {
       setError(error.message);
       setLoading(false);
     } else {
+      // Fire first_login badge (idempotent — dispatcher skips if already earned)
+      if (data.session?.user) {
+        try {
+          await awardBadge(supabase, data.session.user.id, { type: "first_login" });
+        } catch (err) {
+          console.warn("[login] first_login badge dispatch failed:", err);
+        }
+      }
       router.push("/home");
       router.refresh();
     }

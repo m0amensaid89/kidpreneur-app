@@ -5,6 +5,10 @@ import { Send } from "lucide-react";
 import { useState, useEffect, useRef, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { WORLDS } from "@/lib/data/lessons";
+import { createClient } from "@/lib/supabase/client";
+import { awardBadge } from "@/lib/badgeDispatcher";
+import { BadgeReveal } from "@/components/ui/BadgeReveal";
+import { Badge } from "@/lib/badges";
 
 type Message = {
   role: "user" | "quacky";
@@ -15,6 +19,7 @@ function ChatInterface() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const lessonId = searchParams.get("lessonId");
+  const supabase = createClient();
 
   const [prompt, setPrompt] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
@@ -22,6 +27,7 @@ function ChatInterface() {
   const [showReflection, setShowReflection] = useState(false);
   const [reflection, setReflection] = useState("");
   const [quackyPose, setQuackyPose] = useState<"quacky-happy" | "quacky-thinking" | "quacky-amazed">("quacky-happy");
+  const [revealedBadge, setRevealedBadge] = useState<Badge | null>(null);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -90,6 +96,25 @@ function ChatInterface() {
         setMessages((prev) => [...prev, { role: "quacky", content: data.response }]);
         setQuackyPose("quacky-amazed");
         if (lessonId) setShowReflection(true);
+
+        // Award XP + fire sandbox_prompt_sent badge event
+        try {
+          const { data: { session } } = await supabase.auth.getSession();
+          if (session?.user) {
+            const userId = session.user.id;
+
+            await supabase.from("xp_log").insert({
+              user_id: userId,
+              xp_amount: 5,
+              source: `sandbox_prompt${lessonId ? `_${lessonId}` : ""}`,
+            });
+
+            const badge = await awardBadge(supabase, userId, { type: "sandbox_prompt_sent" });
+            if (badge) setRevealedBadge(badge);
+          }
+        } catch (err) {
+          console.warn("[chat] XP/badge dispatch failed (non-fatal):", err);
+        }
       }
     } catch {
       setMessages((prev) => [...prev, { role: "quacky", content: "Quacky is thinking... try again!" }]);
@@ -99,10 +124,44 @@ function ChatInterface() {
     }
   };
 
-  const handleReflectionSubmit = () => {
+  const handleReflectionSubmit = async () => {
     if (!reflection.trim()) return;
+
+    // Fire reflection_submitted event + small XP reward
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session?.user) {
+        const userId = session.user.id;
+
+        await supabase.from("xp_log").insert({
+          user_id: userId,
+          xp_amount: 10,
+          source: `reflection${lessonId ? `_${lessonId}` : ""}`,
+        });
+
+        // Fire reflection badge (dispatcher grants first_reflection / reflection_sage)
+        const badge = await awardBadge(supabase, userId, { type: "reflection_submitted" });
+        if (badge) {
+          setRevealedBadge(badge);
+          // Hold here — user dismissing the badge will then route to mission complete
+          return;
+        }
+      }
+    } catch (err) {
+      console.warn("[chat] reflection dispatch failed (non-fatal):", err);
+    }
+
     const missionId = `m_${lessonId}`;
     router.push(`/mission/${missionId}`);
+  };
+
+  const handleBadgeDismissFromChat = () => {
+    setRevealedBadge(null);
+    // If we were holding a reflection, continue to mission complete now
+    if (reflection.trim()) {
+      const missionId = `m_${lessonId}`;
+      router.push(`/mission/${missionId}`);
+    }
   };
 
   return (
@@ -329,6 +388,10 @@ function ChatInterface() {
           </div>
         )}
       </div>
+
+      {revealedBadge && (
+        <BadgeReveal badge={revealedBadge} onDismiss={handleBadgeDismissFromChat} />
+      )}
     </div>
   );
 }

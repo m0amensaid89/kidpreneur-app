@@ -59,12 +59,14 @@ export default function MissionCompletePage({ params }: { params: Promise<{ miss
 
       const userId = session.user.id;
 
+      // 1. Log the mission's XP
       await supabase.from("xp_log").insert({
         user_id: userId,
         xp_amount: xpReward,
         source: `mission_complete_${missionId}`,
       });
 
+      // 2. Mark mission complete
       await supabase.from("mission_completions").upsert(
         {
           user_id: userId,
@@ -76,18 +78,78 @@ export default function MissionCompletePage({ params }: { params: Promise<{ miss
         { onConflict: "user_id,mission_id" }
       );
 
-      const badge = await awardBadge(supabase, userId, {
+      // 3. Collect ALL possible badges from this one event cascade
+      const awardedQueue: Badge[] = [];
+
+      const pushIfBadge = (b: Badge | null) => {
+        if (b) awardedQueue.push(b);
+      };
+
+      // 3a. mission_complete itself (first_mission, mission_trio)
+      pushIfBadge(await awardBadge(supabase, userId, {
         type: "mission_complete",
         missionId,
         lessonId,
-      });
+      }));
 
-      if (badge) setRevealedBadge(badge);
+      // 3b. If this mission was the LAST one in its lesson → fire lesson_complete
+      if (lesson) {
+        const { count: completedInLesson } = await supabase
+          .from("mission_completions")
+          .select("*", { count: "exact", head: true })
+          .eq("user_id", userId)
+          .eq("lesson_id", lessonId);
+
+        if ((completedInLesson || 0) >= lesson.missions.length) {
+          pushIfBadge(await awardBadge(supabase, userId, {
+            type: "lesson_complete",
+            lessonId,
+            worldId: world?.id || "",
+          }));
+
+          // 3c. If this lesson was the LAST lesson in its world → fire world_complete
+          if (world) {
+            // A world is complete when every lesson in it has at least one mission_completion
+            const { data: worldProgress } = await supabase
+              .from("mission_completions")
+              .select("lesson_id")
+              .eq("user_id", userId)
+              .in("lesson_id", world.lessons.map(l => l.id));
+
+            const completedLessons = new Set((worldProgress || []).map(r => r.lesson_id));
+            if (completedLessons.size >= world.lessons.length) {
+              pushIfBadge(await awardBadge(supabase, userId, {
+                type: "world_complete",
+                worldId: world.id,
+              }));
+            }
+          }
+        }
+      }
+
+      // 3d. XP milestone check — recompute total XP and see if 1000/10000 crossed
+      const { data: xpRows } = await supabase
+        .from("xp_log")
+        .select("xp_amount")
+        .eq("user_id", userId);
+      const totalXp = (xpRows || []).reduce((s, r) => s + (r.xp_amount || 0), 0);
+
+      pushIfBadge(await awardBadge(supabase, userId, {
+        type: "xp_milestone",
+        totalXp,
+      }));
+
+      // 4. Reveal the best badge (queue is ordered by cascade priority)
+      // Prefer rarest-tier if multiple: legendary > rare > common
+      const rarityRank = { legendary: 3, rare: 2, common: 1 };
+      awardedQueue.sort((a, b) => rarityRank[b.rarity] - rarityRank[a.rarity]);
+
+      if (awardedQueue[0]) setRevealedBadge(awardedQueue[0]);
 
       setHasAwarded(true);
     };
     award();
-  }, [hasAwarded, supabase, missionId, lessonId, xpReward]);
+  }, [hasAwarded, supabase, missionId, lessonId, xpReward, lesson, world]);
 
   const handleNextMission = () => {
     if (!lesson || !mission) {
