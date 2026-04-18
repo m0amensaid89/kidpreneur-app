@@ -15,6 +15,12 @@ export async function GET(
   try {
     const { childId } = await params;
 
+    // Diagnostic: what env do we actually have?
+    const hasServiceRole = !!process.env.SUPABASE_SERVICE_ROLE_KEY;
+    const hasAnon = !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    const hasUrl = !!process.env.NEXT_PUBLIC_SUPABASE_URL;
+    console.log(`[parent API] lookup childId=${childId} env: url=${hasUrl} service_role=${hasServiceRole} anon=${hasAnon}`);
+
     // Fetch profile
     const { data: profile, error: profileError } = await supabaseAdmin
       .from("profiles")
@@ -23,8 +29,11 @@ export async function GET(
       .single();
 
     if (profileError || !profile) {
-      return NextResponse.json({ error: "Profile not found" }, { status: 404 });
+      console.log(`[parent API] profile lookup failed: error=${JSON.stringify(profileError)} profile=${JSON.stringify(profile)}`);
+      return NextResponse.json({ error: "Profile not found", detail: profileError?.message }, { status: 404 });
     }
+
+    console.log(`[parent API] profile found: name=${profile.name}`);
 
     // Fetch total XP (xp_amount is the actual column, not "amount")
     const { data: xpData } = await supabaseAdmin
