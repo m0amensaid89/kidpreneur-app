@@ -32,28 +32,60 @@ export default function OnboardingPage() {
     if (step > 1) setStep(step - 1);
   };
 
+  const [submitError, setSubmitError] = useState<string | null>(null);
+
   const handleComplete = async () => {
     setIsSubmitting(true);
+    setSubmitError(null);
+
     try {
       const { data: { session } } = await supabase.auth.getSession();
-      if (!session) { router.push("/login"); return; }
+      if (!session) {
+        router.push("/login");
+        return;
+      }
 
-      const { error } = await supabase.from("profiles").upsert(
+      // CRITICAL path: save the name. If this fails, onboarding CAN'T complete.
+      const nameResult = await supabase.from("profiles").upsert(
         {
           id: session.user.id,
-          name: name,
-          age_range: ageRange,
-          quacky_skin: skinColor,
+          name: name.trim(),
           updated_at: new Date().toISOString(),
         },
         { onConflict: "id" }
       );
-      if (error) console.error("Error saving profile:", error);
+
+      if (nameResult.error) {
+        console.error("[onboarding] critical: failed to save name", nameResult.error);
+        setSubmitError(`Couldn't save your name: ${nameResult.error.message}`);
+        setIsSubmitting(false);
+        return;
+      }
+
+      // BEST-EFFORT path: try to save the extras. If the columns don't exist in
+      // the schema yet, fail silently — user can still proceed with their name.
+      if (ageRange) {
+        const { error } = await supabase
+          .from("profiles")
+          .update({ age_range: ageRange })
+          .eq("id", session.user.id);
+        if (error) console.warn("[onboarding] couldn't save age_range (column may not exist):", error.message);
+      }
+
+      if (skinColor && skinColor !== "blue") {
+        const { error } = await supabase
+          .from("profiles")
+          .update({ quacky_skin: skinColor })
+          .eq("id", session.user.id);
+        if (error) console.warn("[onboarding] couldn't save quacky_skin (column may not exist):", error.message);
+      }
+
+      // Navigate with a hard push so the server page-load re-runs with the new profile row.
       router.push("/home");
+      router.refresh();
     } catch (err) {
-      console.error(err);
-      router.push("/home");
-    } finally {
+      console.error("[onboarding] unexpected error:", err);
+      setSubmitError("Something went wrong. Please try again.");
       setIsSubmitting(false);
     }
   };
@@ -287,6 +319,20 @@ export default function OnboardingPage() {
                   );
                 })}
               </div>
+
+              {submitError && (
+                <div
+                  className="text-sm text-center rounded-2xl p-3 mt-2"
+                  style={{
+                    backgroundColor: "#FCEBEB",
+                    color: "#A32D2D",
+                    border: "2px solid #F7C1C1",
+                    fontWeight: 600,
+                  }}
+                >
+                  {submitError}
+                </div>
+              )}
 
               <button
                 onClick={handleComplete}

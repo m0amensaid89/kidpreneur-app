@@ -193,7 +193,7 @@ export default function SignupPage() {
               letterSpacing: "0.3px",
             }}
           >
-            {loading ? "Creating..." : "I&apos;m in! 🎉"}
+            {loading ? "Creating..." : "I'm in! 🎉"}
           </button>
 
           <p className="text-xs text-center pt-3 px-4 leading-relaxed"
