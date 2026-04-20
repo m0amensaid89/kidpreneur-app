@@ -97,6 +97,51 @@ async function countRows(
   return count || 0;
 }
 
+
+async function triggerCertIfEligible(
+  userId: string,
+  kidName: string,
+  eventId: string
+): Promise<void> {
+  const base = process.env.NEXT_PUBLIC_APP_URL ?? "https://kidpreneur.i-gamify.net";
+  const worldNames: Record<string, string> = {
+    w1: "Canvas Kingdom", w2: "Story Forge", w3: "Crowd Plaza",
+    w4: "Power Grid", w5: "Neural Nexus",
+  };
+  const lessonMatch = eventId.match(/^lesson_complete_(l\d+)$/);
+  if (lessonMatch) {
+    fetch(`${base}/api/certificates/generate`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ user_id: userId, kid_name: kidName, cert_type: "lesson", reference_id: lessonMatch[1], reference_name: `Lesson ${lessonMatch[1].toUpperCase()}`, locale: "en" }),
+    }).catch(() => {});
+  }
+  const worldMatch = eventId.match(/^world_complete_(w\d+)$/);
+  if (worldMatch) {
+    fetch(`${base}/api/certificates/generate`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ user_id: userId, kid_name: kidName, cert_type: "world", reference_id: worldMatch[1], reference_name: worldNames[worldMatch[1]] ?? worldMatch[1], locale: "en" }),
+    }).catch(() => {});
+  }
+  if (eventId === "kidpreneur_founder") {
+    fetch(`${base}/api/certificates/generate`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ user_id: userId, kid_name: kidName, cert_type: "founder", reference_name: "KidPreneur Complete Journey", locale: "en" }),
+    }).catch(() => {});
+  }
+}
+
+function syncLeaderboard(userId: string): void {
+  const base = process.env.NEXT_PUBLIC_APP_URL ?? "https://kidpreneur.i-gamify.net";
+  fetch(`${base}/api/leaderboard/sync`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ user_id: userId }),
+  }).catch(() => {});
+}
+
 // Main dispatcher. Returns the HIGHEST-priority badge to reveal (or null).
 // We intentionally return ONE badge at a time so the UI reveal flow stays clean.
 export async function awardBadge(
@@ -216,6 +261,17 @@ export async function awardBadge(
     const granted = await grantBadge(supabase, userId, badge);
     if (granted) return granted;
   }
+
+  // Fire cert trigger and leaderboard sync as background tasks
+  const eventId = event.type === "lesson_complete"
+    ? `lesson_complete_${(event as any).lessonId ?? ""}`
+    : event.type === "world_complete"
+    ? `world_complete_${(event as any).worldId ?? ""}`
+    : event.type === "capstone_submitted" || event.type === "empire_builder_complete"
+    ? `world_complete_${(event as any).worldId ?? ""}`
+    : event.type;
+  triggerCertIfEligible(userId, "KidPreneur", eventId).catch(() => {});
+  syncLeaderboard(userId);
 
   return null;
 }
