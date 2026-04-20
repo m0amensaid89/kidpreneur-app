@@ -1,0 +1,99 @@
+{
+  "common": {
+    "loading": "جاري التحميل...",
+    "continue": "استمر",
+    "close": "إغلاق",
+    "back": "رجوع",
+    "next": "التالي",
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "submit": "إرسال",
+    "start": "ابدأ",
+    "done": "تم"
+  },
+  "nav": {
+    "home": "الرئيسية",
+    "profile": "ملفي",
+    "leaderboard": "المتصدرون",
+    "certificates": "شهاداتي",
+    "settings": "الإعدادات"
+  },
+  "home": {
+    "welcome": "أهلاً بك",
+    "startLearning": "ابدأ التعلم",
+    "continueJourney": "كمّل رحلتك",
+    "worldsTitle": "اختار عالمك",
+    "xpLabel": "نقطة",
+    "levelLabel": "المستوى",
+    "streakLabel": "يوم متتالي"
+  },
+  "worlds": {
+    "w1": "مملكة اللوحات",
+    "w2": "مصنع القصص",
+    "w3": "ميدان الجماهير",
+    "w4": "شبكة القوة",
+    "w5": "عصر الذكاء"
+  },
+  "lesson": {
+    "mission": "مهمة",
+    "of": "من",
+    "complete": "مكتملة",
+    "startMission": "ابدأ المهمة",
+    "backToLesson": "رجوع للدرس"
+  },
+  "profile": {
+    "title": "ملفي الشخصي",
+    "badges": "شاراتي",
+    "certificates": "شهاداتي",
+    "stats": "إحصائياتي",
+    "shareWithParent": "شارك مع ولي الأمر",
+    "leaderboardToggle": "اظهر في المتصدرين"
+  },
+  "parent": {
+    "title": "لوحة ولي الأمر",
+    "weeklyXP": "نقاط الأسبوع",
+    "totalXP": "مجموع النقاط",
+    "currentLevel": "المستوى الحالي",
+    "streak": "يوم متتالي",
+    "missionsCompleted": "مهام منجزة",
+    "badgesEarned": "شارات مكتسبة"
+  },
+  "chat": {
+    "placeholder": "اسأل كواكي أي حاجة...",
+    "send": "إرسال",
+    "thinking": "كواكي بيفكر..."
+  },
+  "certificates": {
+    "earned": "لقد حصلت على شهادة!",
+    "download": "تحميل PDF",
+    "shareWithParent": "اطلب من والديك المشاركة",
+    "viewAll": "عرض شهاداتي",
+    "verifyTitle": "التحقق من الشهادة",
+    "authentic": "شهادة أصلية"
+  },
+  "leaderboard": {
+    "title": "المتصدرون",
+    "allTime": "الكل",
+    "weekly": "هذا الأسبوع",
+    "yourRank": "مرتبتك",
+    "empty": "لا أحد هنا بعد. كن الأول!",
+    "xp": "نقطة"
+  },
+  "onboarding": {
+    "welcome": "أهلاً بك في KidPreneur!",
+    "subtitle": "تعلم أدوات الذكاء الاصطناعي وابني إمبراطوريتك",
+    "getStarted": "ابدأ الرحلة",
+    "namePrompt": "ما اسمك؟",
+    "agePrompt": "كم عمرك؟",
+    "namePlaceholder": "اكتب اسمك"
+  },
+  "auth": {
+    "login": "تسجيل الدخول",
+    "signup": "إنشاء حساب",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "forgotPassword": "نسيت كلمة المرور؟",
+    "noAccount": "ليس لديك حساب؟",
+    "hasAccount": "عندك حساب بالفعل؟"
+  }
+}
