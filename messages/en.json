@@ -1,0 +1,99 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "continue": "Continue",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "save": "Save",
+    "cancel": "Cancel",
+    "submit": "Submit",
+    "start": "Start",
+    "done": "Done"
+  },
+  "nav": {
+    "home": "Home",
+    "profile": "Profile",
+    "leaderboard": "Leaderboard",
+    "certificates": "Certificates",
+    "settings": "Settings"
+  },
+  "home": {
+    "welcome": "Welcome back",
+    "startLearning": "Start Learning",
+    "continueJourney": "Continue Your Journey",
+    "worldsTitle": "Choose Your World",
+    "xpLabel": "XP",
+    "levelLabel": "Level",
+    "streakLabel": "Day Streak"
+  },
+  "worlds": {
+    "w1": "Canvas Kingdom",
+    "w2": "Story Forge",
+    "w3": "Crowd Plaza",
+    "w4": "Power Grid",
+    "w5": "Neural Nexus"
+  },
+  "lesson": {
+    "mission": "Mission",
+    "of": "of",
+    "complete": "Complete",
+    "startMission": "Start Mission",
+    "backToLesson": "Back to Lesson"
+  },
+  "profile": {
+    "title": "My Profile",
+    "badges": "My Badges",
+    "certificates": "My Certificates",
+    "stats": "Stats",
+    "shareWithParent": "Share with Parent",
+    "leaderboardToggle": "Show on Leaderboard"
+  },
+  "parent": {
+    "title": "Parent Dashboard",
+    "weeklyXP": "XP This Week",
+    "totalXP": "Total XP",
+    "currentLevel": "Current Level",
+    "streak": "Day Streak",
+    "missionsCompleted": "Missions Completed",
+    "badgesEarned": "Badges Earned"
+  },
+  "chat": {
+    "placeholder": "Ask Quacky anything...",
+    "send": "Send",
+    "thinking": "Quacky is thinking..."
+  },
+  "certificates": {
+    "earned": "You earned a certificate!",
+    "download": "Download PDF",
+    "shareWithParent": "Ask parent to share",
+    "viewAll": "View my certificates",
+    "verifyTitle": "Certificate Verification",
+    "authentic": "Authentic Certificate"
+  },
+  "leaderboard": {
+    "title": "Leaderboard",
+    "allTime": "All Time",
+    "weekly": "This Week",
+    "yourRank": "Your Rank",
+    "empty": "No one here yet. Be the first!",
+    "xp": "XP"
+  },
+  "onboarding": {
+    "welcome": "Welcome to KidPreneur!",
+    "subtitle": "Learn AI tools and build your empire",
+    "getStarted": "Get Started",
+    "namePrompt": "What's your name?",
+    "agePrompt": "How old are you?",
+    "namePlaceholder": "Enter your name"
+  },
+  "auth": {
+    "login": "Log In",
+    "signup": "Sign Up",
+    "email": "Email",
+    "password": "Password",
+    "forgotPassword": "Forgot password?",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?"
+  }
+}
