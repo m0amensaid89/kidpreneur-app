@@ -1,3 +1,4 @@
+import { LocaleProvider } from '@/components/LocaleProvider'
 import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
 import "./globals.css";
@@ -52,7 +53,7 @@ export default function RootLayout({
               className="flex-1 w-full max-w-[430px] mx-auto relative shadow-2xl flex flex-col min-h-[100dvh] overflow-hidden animate-in fade-in duration-300"
               style={{ backgroundColor: "#FFF8E7" }}
             >
-              {children}
+              <LocaleProvider>{children}</LocaleProvider>
             </div>
           </SessionProvider>
         </ErrorBoundary>
