@@ -394,7 +394,7 @@ export function LessonReadingSection({ lesson, worldColor, onReadingComplete }: 
         }}>
           <div style={{ fontSize: 24, marginBottom: 6 }}>🎉</div>
           <div style={{ fontSize: 14, fontWeight: 900, color: worldColor }}>
-            {t('readingComplete')}
+            {isAr ? 'كملت القراءة! جاهز للمهمة.' : 'Reading complete! Go get that mission.'}
           </div>
         </div>
       )}
