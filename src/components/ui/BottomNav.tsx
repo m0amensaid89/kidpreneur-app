@@ -3,10 +3,13 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useTranslations } from '@/lib/i18n/useTranslations'
+import { useLocale } from '@/components/LocaleProvider'
 
 export function BottomNav() {
   const pathname = usePathname()
   const t = useTranslations('nav')
+  const { locale, isRTL } = useLocale()
+  const isAr = locale === 'ar'
 
   const tabs = [
     { key: 'home', href: '/home', emoji: '🏠' },
@@ -19,8 +22,8 @@ export function BottomNav() {
     <nav className="fixed bottom-0 left-0 right-0 z-50 bg-[#FFF8E7] border-t-2 border-amber-100 flex items-stretch justify-around h-16 max-w-[430px] mx-auto">
       {tabs.map(tab => {
         const active = pathname === tab.href || pathname?.startsWith(tab.href + '/')
-        const label = tab.key === 'learn' ? 'Learn'
-          : tab.key === 'badges' ? 'Badges'
+        const label = tab.key === 'learn' ? (isAr ? 'تعلّم' : 'Learn')
+          : tab.key === 'badges' ? (isAr ? 'شاراتي' : 'Badges')
           : t(tab.key)
         return (
           <Link
