@@ -1,5 +1,6 @@
 "use client";
 
+import { useLocale } from "@/components/LocaleProvider";
 import Image from "next/image";
 import { Send } from "lucide-react";
 import { useState, useEffect, useRef, Suspense } from "react";
@@ -30,6 +31,25 @@ type Message = {
 
 function ChatInterface() {
   const router = useRouter();
+  const { locale, isRTL } = useLocale();
+  const isAr = locale === 'ar';
+  const ct = isAr
+    ? {
+        placeholder: 'اسأل كواكي أي حاجة...', send: 'إرسال',
+        thinking: 'كواكي بيفكر...', tryAgain: 'جرب تاني!',
+        reflectionTitle: 'سؤال التأمل',
+        reflectionPlaceholder: 'اكتب تأملك هنا...',
+        reflectionSubmit: 'ابعت التأمل',
+        continueToMission: 'كمّل للمهمة',
+      }
+    : {
+        placeholder: 'Ask Quacky anything...', send: 'Send',
+        thinking: 'Quacky is thinking...', tryAgain: 'Try again!',
+        reflectionTitle: 'Reflection Question',
+        reflectionPlaceholder: 'Write your reflection here...',
+        reflectionSubmit: 'Submit Reflection',
+        continueToMission: 'Continue to Mission',
+      };
   const searchParams = useSearchParams();
   const lessonId = searchParams.get("lessonId");
   const missionIdParam = searchParams.get("missionId");
@@ -145,7 +165,7 @@ function ChatInterface() {
         }
       }
     } catch {
-      setMessages((prev) => [...prev, { role: "quacky", content: "Quacky is thinking... try again!" }]);
+      setMessages((prev) => [...prev, { role: "quacky", content: {ct.tryAgain} }]);
       setQuackyPose("quacky-happy");
     } finally {
       setIsWaiting(false);
