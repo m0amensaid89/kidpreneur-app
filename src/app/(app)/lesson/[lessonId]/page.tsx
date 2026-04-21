@@ -26,6 +26,11 @@ const WORLD_COLORS: Record<
 const DIFFICULTY_LABEL_EN: Record<string, string> = { easy: "Easy", medium: "Medium", hard: "Challenging" };
 const DIFFICULTY_LABEL_AR: Record<string, string> = { easy: "سهل", medium: "متوسط", hard: "صعب" };
 
+const WORLD_NAMES_AR: Record<string, string> = {
+  w1: 'مملكة اللوحات', w2: 'مصنع القصص', w3: 'ميدان الجماهير',
+  w4: 'شبكة القوة', w5: 'عصر الذكاء',
+};
+
 export default function LessonIntroPage({ params }: { params: Promise<{ lessonId: string }> }) {
   const router = useRouter();
   const { isRTL, locale } = useLocale();
@@ -104,7 +109,7 @@ export default function LessonIntroPage({ params }: { params: Promise<{ lessonId
   const meta = WORLD_COLORS[currentWorld.id] || WORLD_COLORS.w1;
   const sandboxConfig = getSandboxConfig(currentLesson.id);
   const totalXp = 30 + currentLesson.missions.reduce((sum, m) => sum + (m.xpReward || 0), 0);
-  const worldName = isAr ? currentWorld.nameAr || currentWorld.name : currentWorld.name;
+  const worldName = isAr ? (WORLD_NAMES_AR[currentWorld.id] || currentWorld.name) : currentWorld.name;
 
   return (
     <div dir={isRTL ? "rtl" : "ltr"} className="flex flex-col min-h-full relative pb-10" style={{ backgroundColor: "#FFF8E7" }}>
