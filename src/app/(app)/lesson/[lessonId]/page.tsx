@@ -318,9 +318,5 @@ function JourneyTile({
         {label}
       </p>
     </div>
-      <QuackyVoice
-        lessonContext={currentLesson?.title ?? ''}
-        locale="en"
-      />
   );
 }
