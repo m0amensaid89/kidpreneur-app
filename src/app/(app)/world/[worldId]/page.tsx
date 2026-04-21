@@ -10,6 +10,7 @@ import { EmpireBuilderButton } from '@/components/empire/EmpireBuilderButton'
 
 type LessonStatus = "available" | "locked" | "completed";
 
+// Arabic world names
 const WORLD_NAMES_AR: Record<string, string> = {
   w1: 'مملكة اللوحات', w2: 'مصنع القصص', w3: 'ميدان الجماهير',
   w4: 'شبكة القوة', w5: 'عصر الذكاء',
