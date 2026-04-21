@@ -1,4 +1,6 @@
-"use client";
+"use client"
+
+import { useLocale } from "@/components/LocaleProvider";
 
 import { useState } from "react";
 import Image from "next/image";
@@ -44,7 +46,20 @@ const ERROR_DARK    = "#A32D2D";
 const ERROR_SOFT    = "#FCEBEB";
 
 export function QuizClient({ lessonId, worldId, lessonTitle, quizData, userId }: QuizClientProps) {
-  const router = useRouter();
+  const router = useRouter()
+  const { locale, isRTL } = useLocale()
+  const isAr = locale === 'ar'
+  const qt = isAr
+    ? {
+        question: 'سؤال', correct: 'صح! ممتاز 🎉', wrong: 'غلط، حاول تاني 💪',
+        score: 'نتيجتك', tryAgain: 'حاول تاني', cont: 'كمّل',
+        lessonComplete: 'الدرس اكتمل!', xpEarned: 'نقاط اكتسبتها',
+      }
+    : {
+        question: 'Question', correct: 'Correct! Great job 🎉', wrong: 'Wrong, try again 💪',
+        score: 'Your score', tryAgain: 'Try Again', cont: 'Continue',
+        lessonComplete: 'Lesson complete!', xpEarned: 'XP earned',
+      };
   const supabase = createClient();
 
   const [currentIndex, setCurrentIndex] = useState(0);
