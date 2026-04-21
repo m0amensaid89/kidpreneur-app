@@ -50,7 +50,7 @@ export default function RootLayout({
         <ErrorBoundary>
           <SessionProvider>
             <div
-              className="flex-1 w-full max-w-[430px] mx-auto relative shadow-2xl flex flex-col min-h-[100dvh] overflow-hidden animate-in fade-in duration-300"
+              className="flex-1 w-full max-w-[430px] lg:max-w-full mx-auto relative lg:shadow-none shadow-2xl flex flex-col min-h-[100dvh] lg:overflow-visible overflow-hidden animate-in fade-in duration-300"
               style={{ backgroundColor: "#FFF8E7" }}
             >
               <LocaleProvider>{children}</LocaleProvider>
