@@ -32,7 +32,7 @@ export function EmpireBuilderChat({
 
   const t = locale === 'ar'
     ? { placeholder: 'اشرح فكرتك...', send: 'إرسال', thinking: 'بيفكر...', pitch: 'ابدأ العرض', done: 'عرضك اتقيّم!' }
-    : { placeholder: 'Pitch your idea...', send: {isAr ? 'إرسال' : 'Send'}, thinking: 'Thinking...', pitch: 'Start Pitch', done: 'Pitch evaluated!' }
+    : { placeholder: 'Pitch your idea...', send: Send, thinking: 'Thinking...', pitch: 'Start Pitch', done: 'Pitch evaluated!' }
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
