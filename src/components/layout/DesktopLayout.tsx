@@ -2,100 +2,85 @@
 
 import { useBreakpoint } from '@/hooks/useBreakpoint'
 import { LanguageToggle } from '@/components/LanguageToggle'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+
+const NAV_ITEMS = [
+  { label: 'Home', href: '/home' },
+  { label: 'Worlds', href: '/home' },
+  { label: 'Leaderboard', href: '/home' },
+  { label: 'Certificates', href: '/profile' },
+  { label: 'Profile', href: '/profile' },
+]
 
 export function DesktopLayout({ children }: { children: React.ReactNode }) {
-  const { isDesktop, isTablet } = useBreakpoint()
+  const { isTabletOrDesktop } = useBreakpoint()
+  const pathname = usePathname()
 
-  if (!isTablet && !isDesktop) return <>{children}</>
+  // Mobile: render children unchanged — mobile layout handles everything
+  if (!isTabletOrDesktop) return <>{children}</>
 
   return (
     <>
-      {/* Fixed sidebar — desktop only */}
-      {isDesktop && (
-        <aside
-          style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            width: 220,
-            height: '100vh',
-            background: '#FFFFFF',
-            borderRight: '2px solid #FDE68A',
-            display: 'flex',
-            flexDirection: 'column',
-            zIndex: 40,
-            overflowY: 'auto',
-          }}
-        >
-          <div style={{ padding: '20px 20px 16px', borderBottom: '1px solid #FEF3C7' }}>
-            <div style={{ fontSize: 16, fontWeight: 900, color: '#92400E', fontFamily: 'Roboto, sans-serif' }}>
-              🦆 KidPreneur
-            </div>
-            <div style={{ fontSize: 11, color: '#D97706', fontWeight: 600, marginTop: 2 }}>
-              AI Learning Platform
-            </div>
-          </div>
+      {/* Sticky top nav bar — tablet + desktop */}
+      <div
+        style={{
+          position: 'sticky',
+          top: 0,
+          zIndex: 50,
+          background: '#FFF8E7',
+          borderBottom: '2px solid #FDE68A',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: '0 24px',
+          height: 56,
+          gap: 8,
+        }}
+      >
+        {/* Logo */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
+          <span style={{ fontSize: 22 }}>🦆</span>
+          <span style={{ fontWeight: 900, fontSize: 16, color: '#92400E', fontFamily: 'Roboto, sans-serif', letterSpacing: '-0.3px' }}>
+            KidPreneur
+          </span>
+        </div>
 
-          <nav style={{ flex: 1, padding: '12px 10px', display: 'flex', flexDirection: 'column', gap: 4 }}>
-            {[
-              { emoji: '🏠', label: 'Home', href: '/home' },
-              { emoji: '🌍', label: 'My Worlds', href: '/home' },
-              { emoji: '🏆', label: 'Leaderboard', href: '/home' },
-              { emoji: '📜', label: 'Certificates', href: '/profile' },
-              { emoji: '👤', label: 'Profile', href: '/profile' },
-            ].map(item => (
+        {/* Nav links */}
+        <nav style={{ display: 'flex', alignItems: 'center', gap: 4, flex: 1, justifyContent: 'center' }}>
+          {NAV_ITEMS.map(item => {
+            const active = pathname === item.href || pathname?.startsWith(item.href + '/')
+            return (
               <a
                 key={item.label}
                 href={item.href}
                 style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 10,
-                  padding: '10px 12px',
-                  borderRadius: 16,
-                  fontSize: 14,
-                  fontWeight: 600,
-                  color: '#92400E',
+                  padding: '6px 14px',
+                  borderRadius: 20,
+                  fontSize: 13,
+                  fontWeight: 700,
+                  color: active ? '#92400E' : '#B45309',
+                  background: active ? '#FDE68A' : 'transparent',
                   textDecoration: 'none',
                   fontFamily: 'Roboto, sans-serif',
+                  transition: 'background 0.15s',
+                  whiteSpace: 'nowrap',
                 }}
               >
-                <span style={{ fontSize: 18 }}>{item.emoji}</span>
-                <span>{item.label}</span>
+                {item.label}
               </a>
-            ))}
-          </nav>
+            )
+          })}
+        </nav>
 
-          <div style={{ padding: '12px 16px', borderTop: '1px solid #FEF3C7' }}>
-            <LanguageToggle />
-          </div>
-        </aside>
-      )}
-
-      {/* Tablet sticky top bar */}
-      {isTablet && !isDesktop && (
-        <div
-          style={{
-            position: 'sticky',
-            top: 0,
-            zIndex: 30,
-            background: '#FFF8E7',
-            borderBottom: '2px solid #FDE68A',
-            padding: '10px 16px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}
-        >
-          <div style={{ fontSize: 15, fontWeight: 900, color: '#92400E' }}>🦆 KidPreneur</div>
+        {/* Right: Language toggle */}
+        <div style={{ flexShrink: 0 }}>
           <LanguageToggle />
         </div>
-      )}
-
-      {/* Push content right of sidebar on desktop */}
-      <div style={isDesktop ? { marginLeft: 220 } : {}}>
-        {children}
       </div>
+
+      {/* Page content — unchanged, no offset needed */}
+      {children}
     </>
   )
 }
