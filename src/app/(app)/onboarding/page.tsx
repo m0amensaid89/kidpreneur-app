@@ -20,7 +20,6 @@ export default function OnboardingPage() {
   const { locale, isRTL } = useLocale();
   const isAr = locale === "ar";
 
-  // Egyptian Arabic bilingual labels for the entire onboarding flow
   const ot = isAr
     ? {
         step1Label: "الخطوة الأولى",
@@ -39,32 +38,26 @@ export default function OnboardingPage() {
         startBtn: "يلا نبدأ! 🚀",
         settingUp: "بنجهّز إمبراطوريتك...",
         back: "رجوع",
-        skinLabels: { Classic: "كلاسيك", Canvas: "كانفاس", Story: "ستوري", Power: "باور", Neural: "نيورال" },
       }
     : {
-        step1Label: {ot.step1Label},
-        step1Title: "What\'s your name?",
-        step1Sub: {ot.step1Sub},
+        step1Label: "STEP ONE",
+        step1Title: "What's your name?",
+        step1Sub: "Quacky wants to know what to call you! 🦆",
         step1Placeholder: "Your first name",
         step1Next: "Next →",
-        step2Label: {ot.step2Label},
+        step2Label: "STEP TWO",
         step2Title: (name: string) => `How old are you, ${name}?`,
-        step2Sub: "We\'ll pick the right content for you!",
-        age1: {ot.age1},
-        age2: {ot.age2},
-        step3Label: {ot.step3Label},
-        step3Title: "Pick Quacky\'s color!",
+        step2Sub: "We'll pick the right content for you!",
+        age1: "8-11 years",
+        age2: "12-15 years",
+        step3Label: "LAST STEP",
+        step3Title: "Pick Quacky's color!",
         step3Sub: "This is your AI duck — make it yours 🎨",
-        startBtn: "Let\'s go! 🚀",
+        startBtn: "Let's go! 🚀",
         settingUp: "Setting up...",
         back: "Back",
-        skinLabels: { Classic: "Classic", Canvas: "Canvas", Story: "Story", Power: "Power", Neural: "Neural" },
       };
 
-  const router = useRouter();
-  const supabase = createClient();
-
-  const [step, setStep] = useState(1);
   const [name, setName] = useState("");
   const [ageRange, setAgeRange] = useState("");
   const [skinColor, setSkinColor] = useState("blue");
