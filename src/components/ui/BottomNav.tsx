@@ -1,68 +1,68 @@
-"use client";
+'use client'
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { Home, BookOpen, Trophy, User } from "lucide-react";
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { useLocale } from '@/components/LocaleProvider'
 
-const tabs = [
-  { name: "Home", href: "/home", icon: Home, match: /^\/home/ },
-  { name: "Learn", href: "/world/w1", icon: BookOpen, match: /^\/(world|lesson|quiz|mission|chat)/ },
-  { name: "Badges", href: "/profile", icon: Trophy, match: /^\/profile/ },
-  { name: "Me", href: "/settings", icon: User, match: /^\/settings/ },
-];
+const TABS_EN = [
+  { name: 'Home', href: '/home', match: /^\/home/ },
+  { name: 'Learn', href: '/world/w1', match: /^\/(world|lesson|mission|quiz|chat)/ },
+  { name: 'Badges', href: '/profile', match: /^\/profile/ },
+  { name: 'Me', href: '/profile', match: /^\/settings/ },
+]
+
+const TABS_AR = [
+  { name: 'الرئيسية', href: '/home', match: /^\/home/ },
+  { name: 'تعلم', href: '/world/w1', match: /^\/(world|lesson|mission|quiz|chat)/ },
+  { name: 'شاراتي', href: '/profile', match: /^\/profile/ },
+  { name: 'أنا', href: '/profile', match: /^\/settings/ },
+]
+
+const ICONS = [
+  // Home
+  <svg key="home" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>,
+  // Learn
+  <svg key="learn" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M21 5c-1.11-.35-2.33-.5-3.5-.5-1.95 0-4.05.4-5.5 1.5-1.45-1.1-3.55-1.5-5.5-1.5S2.45 4.9 1 6v14.65c0 .25.25.5.5.5.1 0 .15-.05.25-.05C3.1 20.45 5.05 20 6.5 20c1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.3 4.75 1.05.1.05.15.05.25.05.25 0 .5-.25.5-.5V6c-.6-.45-1.25-.75-2-1zm0 13.5c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V8c1.35-.85 3.8-1.5 5.5-1.5 1.2 0 2.4.15 3.5.5v11.5z"/></svg>,
+  // Badges
+  <svg key="badges" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1l3.09 6.26L22 8.27l-5 4.87 1.18 6.88L12 16.9l-6.18 3.12L7 13.14 2 8.27l6.91-1.01z"/></svg>,
+  // Me
+  <svg key="me" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>,
+]
 
 export function BottomNav() {
-  const pathname = usePathname();
+  const pathname = usePathname()
+  const { locale, isRTL } = useLocale()
+  const tabs = locale === 'ar' ? TABS_AR : TABS_EN
 
   return (
-    <div
-      className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] pb-safe z-40"
-      style={{
-        backgroundColor: "#FFFFFF",
-        borderTop: "3px solid #FFE066",
-      }}
+    <nav
+      className="fixed bottom-0 left-0 right-0 z-50 border-t-2 border-amber-100"
+      style={{ background: '#FFF8E7', direction: isRTL ? 'rtl' : 'ltr' }}
     >
-      <div className="flex items-center justify-around h-16 px-2">
-        {tabs.map((tab) => {
-          const Icon = tab.icon;
-          const isActive = tab.match.test(pathname);
-
+      <div className="flex items-center justify-around h-16 max-w-[430px] mx-auto px-2">
+        {tabs.map((tab, i) => {
+          const active = tab.match.test(pathname ?? '')
           return (
             <Link
               key={tab.name}
               href={tab.href}
-              className="flex flex-col items-center justify-center w-full h-full gap-0.5 transition-transform active:scale-95"
+              className="flex flex-col items-center gap-0.5 px-3 py-1 rounded-2xl transition"
+              style={{ color: active ? '#D97706' : '#9CA3AF', minWidth: 56 }}
             >
-              <div
-                className="flex items-center justify-center rounded-2xl transition-all"
-                style={{
-                  width: isActive ? 48 : 36,
-                  height: 32,
-                  backgroundColor: isActive ? "#FFE066" : "transparent",
-                }}
-              >
-                <Icon
-                  className="w-5 h-5"
-                  style={{
-                    color: isActive ? "#854F0B" : "#888780",
-                  }}
-                  strokeWidth={isActive ? 2.5 : 2}
-                />
-              </div>
+              <span style={{ opacity: active ? 1 : 0.6 }}>{ICONS[i]}</span>
               <span
                 style={{
                   fontSize: 10,
-                  fontWeight: isActive ? 900 : 700,
-                  letterSpacing: "0.5px",
-                  color: isActive ? "#854F0B" : "#888780",
+                  fontWeight: 700,
+                  fontFamily: locale === 'ar' ? 'Cairo, sans-serif' : 'Roboto, sans-serif',
                 }}
               >
                 {tab.name}
               </span>
             </Link>
-          );
+          )
         })}
       </div>
-    </div>
-  );
+    </nav>
+  )
 }
