@@ -5,6 +5,7 @@ import Image from "next/image";
 import { WORLDS } from "@/lib/data/lessons";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import { EmpireBuilderButton } from '@/components/empire/EmpireBuilderButton'
 
 type LessonStatus = "available" | "locked" | "completed";
 
