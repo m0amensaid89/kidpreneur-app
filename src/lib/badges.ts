@@ -16,13 +16,13 @@ export type BadgeRarity = "common" | "rare" | "legendary";
 export interface Badge {
   id: string;
   name: string;
+  nameAr?: string;
   emoji: string;
   description: string;
+  descriptionAr?: string;
   category: BadgeCategory;
   rarity: BadgeRarity;
   xpBonus: number;
-  // Optional art (PNG/SVG) — falls back to emoji when absent.
-  // Populated as the Quacky PNG waves ship (1, 2, 3).
   artUrl?: string;
   artUrlLocked?: string;
 }
@@ -33,8 +33,10 @@ export interface Badge {
 export const BADGE_FIRST_LOGIN: Badge = {
   id: "first_login",
   name: "First Steps",
+  nameAr: "أول خطوة",
   emoji: "🐣",
   description: "Welcome to KidPreneur. Your empire starts here.",
+  descriptionAr: "أهلاً في KidPreneur. إمبراطوريتك بدأت هنا.",
   category: "first_time",
   rarity: "common",
   xpBonus: 25,
@@ -44,8 +46,10 @@ export const BADGE_FIRST_LOGIN: Badge = {
 export const BADGE_FIRST_QUIZ: Badge = {
   id: "first_quiz",
   name: "Quiz Rookie",
+  nameAr: "أول اختبار",
   emoji: "🎯",
   description: "You finished your first quiz. Many more to come.",
+  descriptionAr: "خلصت أول اختبار. في كتير جاي!",
   category: "first_time",
   rarity: "common",
   xpBonus: 25,
@@ -55,8 +59,10 @@ export const BADGE_FIRST_QUIZ: Badge = {
 export const BADGE_FIRST_MISSION: Badge = {
   id: "first_mission",
   name: "Mission Ready",
+  nameAr: "جاهز للمهمة",
   emoji: "🚀",
   description: "Your first mission is in the books.",
+  descriptionAr: "أول مهمة اتسجلت في تاريخك.",
   category: "first_time",
   rarity: "common",
   xpBonus: 50,
@@ -135,8 +141,10 @@ export const BADGE_MISSION_TRIO: Badge = {
 export const BADGE_PROMPT_WIZARD: Badge = {
   id: "prompt_wizard",
   name: "Prompt Wizard",
+  nameAr: "ساحر البرومبتات",
   emoji: "🪄",
   description: "25 AI prompts sent. You speak fluent AI now.",
+  descriptionAr: "٢٥ برومبت اتبعتوا. بتتكلم الذكاء الاصطناعي بطلاقة.",
   category: "mastery",
   rarity: "rare",
   xpBonus: 150,
@@ -146,8 +154,10 @@ export const BADGE_PROMPT_WIZARD: Badge = {
 export const BADGE_REFLECTION_SAGE: Badge = {
   id: "reflection_sage",
   name: "Reflection Sage",
+  nameAr: "حكيم التأمل",
   emoji: "📜",
   description: "25 reflections written. Your wisdom is compounding.",
+  descriptionAr: "٢٥ تأمل اتكتبوا. حكمتك بتتراكم.",
   category: "mastery",
   rarity: "rare",
   xpBonus: 150,
@@ -397,8 +407,10 @@ export const BADGE_XP_10000: Badge = {
 export const BADGE_KIDPRENEUR_FOUNDER: Badge = {
   id: "kidpreneur_founder",
   name: "KidPreneur Founder",
+  nameAr: "مؤسس KidPreneur",
   emoji: "🎓",
   description: "All 5 worlds plus 5 capstones. Empire complete.",
+  descriptionAr: "كل العوالم الخمسة + ٥ مشاريع. الإمبراطورية اكتملت.",
   category: "empire",
   rarity: "legendary",
   xpBonus: 5000,
