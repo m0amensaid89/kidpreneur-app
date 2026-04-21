@@ -8,19 +8,12 @@ export async function POST(req: NextRequest) {
     if (!prompt) return NextResponse.json({ error: 'prompt required' }, { status: 400 })
 
     // Kid-safe prompt enhancement
-    const safePrompt = `${prompt}, colorful, vibrant, child-friendly, high quality, detailed`
+    const safePrompt = `${prompt}, colorful, vibrant, high quality, detailed art`
     const encoded = encodeURIComponent(safePrompt)
-
-    // Pollinations.ai — free, no API key, fast image generation
-    // Returns the image directly at this URL
     const seed = Math.floor(Math.random() * 999999)
-    const imageUrl = `https://image.pollinations.ai/prompt/${encoded}?width=512&height=512&seed=${seed}&nologo=true&safe=true`
 
-    // Verify image is accessible (HEAD check)
-    const check = await fetch(imageUrl, { method: 'GET' })
-    if (!check.ok) {
-      return NextResponse.json({ error: 'Image generation failed' }, { status: 500 })
-    }
+    // Pollinations.ai — free, no API key, generates on-demand at URL
+    const imageUrl = `https://image.pollinations.ai/prompt/${encoded}?width=512&height=512&seed=${seed}&nologo=true&safe=true`
 
     return NextResponse.json({ imageUrl })
   } catch (err) {
