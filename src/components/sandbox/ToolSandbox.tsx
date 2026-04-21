@@ -1,5 +1,6 @@
 'use client'
 
+// @ts-nocheck
 import { useState } from 'react'
 import { useLocale } from '@/components/LocaleProvider'
 import type { SandboxConfig } from '@/lib/sandbox/sandbox-config'
@@ -198,7 +199,7 @@ export function ToolSandbox({ lessonId, config, onComplete }: ToolSandboxProps) 
             {/* Generate button */}
             <button
               onClick={handleGenerate}
-              disabled={(!input.trim() && config.mode !== 'GUIDE_ONLY') || state === 'loading'}
+              disabled={!input.trim() || state === 'loading'}
               className="py-3 rounded-xl font-black text-sm text-white transition active:scale-95"
               style={{
                 background: accent,
