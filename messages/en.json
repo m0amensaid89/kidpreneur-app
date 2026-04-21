@@ -31,7 +31,9 @@
     "settings": "Settings",
     "worlds": "Worlds",
     "badges": "Badges",
-    "me": "Me"
+    "me": "Me",
+    "learn": "Learn",
+    "chat": "Chat"
   },
   "home": {
     "welcome": "Welcome",
@@ -47,7 +49,13 @@
     "streakDays": "days",
     "level": "Level",
     "unlockAt": "Unlocks at",
-    "locked": "Locked"
+    "locked": "Locked",
+    "totalLessons": "lessons",
+    "xpPoints": "XP",
+    "keepGoing": "Keep going!",
+    "worldProgress": "World Progress",
+    "allWorlds": "All Worlds",
+    "nextLesson": "Next Lesson"
   },
   "worlds": {
     "w1": "Canvas Kingdom",
@@ -66,7 +74,28 @@
     "difficulty": "Difficulty",
     "xpReward": "XP Reward",
     "watchLesson": "Watch Lesson",
-    "watchFirst": "Watch the lesson first"
+    "watchFirst": "Watch the lesson first",
+    "difficulty_easy": "Easy",
+    "difficulty_medium": "Medium",
+    "difficulty_hard": "Challenging",
+    "estimatedTime": "min",
+    "toolCategory": "Category",
+    "costInfo": "Pricing",
+    "parentTip": "Parent Tip",
+    "readingSection": "What you will learn",
+    "flipCards": "Key Features",
+    "flipHint": "Flip each card to discover the feature",
+    "cardsLeft": "cards left",
+    "allFlipped": "All cards flipped! 🎉",
+    "tapReveal": "Tap to reveal the next point",
+    "empireTipTitle": "The Empire Tip 💰",
+    "empireLocked": "Flip all cards to unlock the tip",
+    "readingReady": "Ready for Mission! ✅",
+    "skipReading": "Skip reading",
+    "readingComplete": "Reading complete! Go get that mission.",
+    "whatIsTool": "What is this tool?",
+    "toolTip": "Try the tool",
+    "openTool": "Open Tool"
   },
   "mission": {
     "complete": "Great job! Mission complete",
@@ -74,14 +103,24 @@
     "nextMission": "Next Mission",
     "allDone": "All missions done!",
     "submitAnswer": "Submit Answer",
-    "yourAnswer": "Your answer"
+    "yourAnswer": "Your answer",
+    "instructions": "Instructions",
+    "sandboxPrompt": "Use the sandbox",
+    "reflectionQuestion": "Reflection Question",
+    "missionProgress": "Mission Progress"
   },
   "quiz": {
     "question": "Question",
     "correct": "Correct! Great job",
     "wrong": "Wrong, try again",
     "score": "Your score",
-    "tryAgain": "Try Again"
+    "tryAgain": "Try Again",
+    "explainer": "Explanation",
+    "nextQuestion": "Next Question",
+    "finalScore": "Final Score",
+    "perfect": "Perfect! Outstanding 🏆",
+    "passed": "Passed! Well done",
+    "failed": "Try again"
   },
   "profile": {
     "title": "My Profile",
@@ -94,7 +133,12 @@
     "missions": "Missions",
     "level": "Level",
     "streak": "Day Streak",
-    "ageRange": "Age Range"
+    "ageRange": "Age Range",
+    "totalLessons": "Lessons completed",
+    "longestStreak": "Longest streak",
+    "joinDate": "Joined",
+    "editProfile": "Edit Profile",
+    "shareProgress": "Share Progress"
   },
   "parent": {
     "title": "Parent Dashboard",
@@ -178,7 +222,12 @@
     "placeholder": "Pitch your idea...",
     "send": "Send",
     "pitchTo": "Pitch to",
-    "focus": "Focus"
+    "focus": "Focus",
+    "pitchPlaceholder": "Pitch your idea to the investor...",
+    "excellent": "Excellent! 🏆",
+    "good": "Good 👍",
+    "tryAgain": "Try Again",
+    "feedback": "Investor Feedback"
   },
   "kids": {
     "title": "Kid Profiles",
@@ -231,7 +280,9 @@
     "pause": "Pause",
     "completed": "Lesson watched!",
     "arabic": "Arabic",
-    "skip": "Skip"
+    "skip": "Skip",
+    "english": "English",
+    "switchLanguage": "Switch Language"
   },
   "badges": {
     "earned": "You earned a badge!",
@@ -247,12 +298,73 @@
     "english": "English",
     "notifications": "Notifications",
     "parentEmail": "Parent Email",
-    "logout": "Log Out"
+    "logout": "Log Out",
+    "account": "Account",
+    "privacy": "Privacy",
+    "about": "About",
+    "version": "Version",
+    "contact": "Contact us",
+    "deleteAccount": "Delete Account",
+    "confirmDelete": "Are you sure you want to delete your account?",
+    "cancel": "Cancel",
+    "confirm": "Confirm"
   },
   "errors": {
     "generic": "Something went wrong, try again",
     "network": "Cannot connect to the internet",
     "notFound": "Page not found",
-    "unauthorized": "Please log in first"
+    "unauthorized": "Please log in first",
+    "lessonNotFound": "Lesson not found",
+    "worldNotFound": "World not found",
+    "quizFailed": "Try again",
+    "saveFailed": "Could not save right now",
+    "offline": "No internet connection"
+  },
+  "world": {
+    "w1": "Canvas Kingdom",
+    "w2": "Story Forge",
+    "w3": "Crowd Plaza",
+    "w4": "Power Grid",
+    "w5": "Neural Nexus",
+    "lessons": "Lessons",
+    "unlocked": "Unlocked",
+    "locked": "Locked",
+    "progress": "Progress",
+    "complete": "Complete",
+    "startWorld": "Start World",
+    "continueWorld": "Continue World",
+    "lessonCount": "lessons"
+  },
+  "sandbox": {
+    "title": "Try It Now",
+    "imagePrompt": "Describe what you want to create",
+    "textPrompt": "Write your prompt",
+    "voicePrompt": "Write the text to narrate",
+    "researchPrompt": "Research any topic",
+    "generate": "Generate",
+    "tryAgain": "Try Again",
+    "copy": "Copy",
+    "copied": "Copied!",
+    "loading": "Working...",
+    "error": "Something went wrong, try again",
+    "guideTitle": "How to use it",
+    "openSite": "Open Site",
+    "missionComplete": "Mission Complete ✅",
+    "quackyTip": "Quacky's Tip",
+    "imageResult": "Image generated!",
+    "downloadImage": "Download Image"
+  },
+  "difficulty": {
+    "easy": "Easy",
+    "medium": "Medium",
+    "hard": "Challenging"
+  },
+  "accessibility": {
+    "menuOpen": "Open menu",
+    "menuClose": "Close menu",
+    "backToHome": "Back to home",
+    "loading": "Loading",
+    "imageAlt": "Lesson image",
+    "profilePicture": "Profile picture"
   }
 }
