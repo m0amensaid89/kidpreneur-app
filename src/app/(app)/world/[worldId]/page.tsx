@@ -3,6 +3,7 @@
 import { use, useEffect, useState } from "react";
 import Image from "next/image";
 import { WORLDS } from "@/lib/data/lessons";
+import { useLocale } from "@/components/LocaleProvider";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { EmpireBuilderButton } from '@/components/empire/EmpireBuilderButton'
@@ -19,6 +20,8 @@ const WORLD_META: Record<string, { color: string; colorDark: string; softBg: str
 
 export default function WorldDetailPage({ params }: { params: Promise<{ worldId: string }> }) {
   const router = useRouter();
+  const { isRTL, locale } = useLocale();
+  const isAr = locale === "ar";
   const unwrappedParams = use(params);
   const supabase = createClient();
   const world = WORLDS.find(w => w.id === unwrappedParams.worldId);
@@ -47,7 +50,7 @@ export default function WorldDetailPage({ params }: { params: Promise<{ worldId:
   if (!world) {
     return (
       <div
-        className="flex flex-col min-h-full items-center justify-center p-6 text-center"
+        dir={isRTL ? "rtl" : "ltr"} className="flex flex-col min-h-full items-center justify-center p-6 text-center"
       >
         <div className="text-5xl mb-3">🤔</div>
         <h1 style={{ color: "#1a6fc4", fontWeight: 900, fontSize: 22 }}>World not found!</h1>
