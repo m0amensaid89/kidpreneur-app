@@ -1,4 +1,5 @@
 import { BottomNav } from "@/components/ui/BottomNav";
+import { DesktopLayout } from '@/components/layout/DesktopLayout'
 
 export default function AppLayout({
   children,
@@ -8,7 +9,7 @@ export default function AppLayout({
   return (
     <div className="flex-1 flex flex-col w-full h-full pb-16">
       <div className="flex-1 overflow-y-auto w-full">
-        {children}
+        <DesktopLayout>{children}</DesktopLayout>
       </div>
       <BottomNav />
     </div>
