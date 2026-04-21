@@ -116,3 +116,15 @@
 [dir="rtl"] .text-left { text-align: right; }
 [dir="rtl"] .rounded-l-xl { border-radius: 0 0.75rem 0.75rem 0; }
 [dir="rtl"] .rounded-r-xl { border-radius: 0.75rem 0 0 0.75rem; }
+
+/* Desktop + Tablet Responsive Scaffolding */
+@media (min-width: 768px) {
+  .kids-card { border-radius: 1.5rem; padding: 1.5rem; }
+  .kids-btn { min-height: 52px; font-size: 1rem; }
+}
+@media (min-width: 1024px) {
+  .desktop-content { max-width: 720px; margin-left: auto; margin-right: auto; }
+  .world-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+  .mission-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+  .badge-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+}
