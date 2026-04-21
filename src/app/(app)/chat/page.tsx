@@ -132,7 +132,7 @@ function ChatInterface() {
       const res = await fetch("/api/sandbox", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt: userMessage, context }),
+        body: JSON.stringify({ prompt: userMessage, context, locale }),
       });
 
       const data = await res.json();
