@@ -1,4 +1,5 @@
 'use client'
+import { useLocale } from '@/components/LocaleProvider'
 
 import { useState, useRef, useEffect } from 'react'
 import type { InvestorPersona } from '@/lib/empire/investors'
@@ -19,6 +20,8 @@ export function EmpireBuilderChat({
   locale = 'en',
   onComplete,
 }: EmpireBuilderChatProps) {
+  const { locale, isRTL } = useLocale()
+  const isAr = locale === "ar"
   const [messages, setMessages] = useState<Message[]>([
     { role: 'investor', text: locale === 'ar' ? investor.greetingAr : investor.greeting },
   ])
@@ -29,7 +32,7 @@ export function EmpireBuilderChat({
 
   const t = locale === 'ar'
     ? { placeholder: 'اشرح فكرتك...', send: 'إرسال', thinking: 'بيفكر...', pitch: 'ابدأ العرض', done: 'عرضك اتقيّم!' }
-    : { placeholder: 'Pitch your idea...', send: 'Send', thinking: 'Thinking...', pitch: 'Start Pitch', done: 'Pitch evaluated!' }
+    : { placeholder: 'Pitch your idea...', send: {isAr ? 'إرسال' : 'Send'}, thinking: 'Thinking...', pitch: 'Start Pitch', done: 'Pitch evaluated!' }
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -74,7 +77,7 @@ export function EmpireBuilderChat({
 
   return (
     <div
-      className="flex flex-col h-full"
+      dir={isRTL ? "rtl" : "ltr"} className="flex flex-col h-full"
       style={{ fontFamily: 'Roboto, sans-serif' }}
       dir={locale === 'ar' ? 'rtl' : 'ltr'}
     >
