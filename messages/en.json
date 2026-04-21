@@ -9,23 +9,45 @@
     "cancel": "Cancel",
     "submit": "Submit",
     "start": "Start",
-    "done": "Done"
+    "done": "Done",
+    "yes": "Yes",
+    "no": "No",
+    "copy": "Copy",
+    "copied": "Copied!",
+    "share": "Share",
+    "download": "Download",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "search": "Search",
+    "confirm": "Confirm",
+    "skip": "Skip"
   },
   "nav": {
     "home": "Home",
     "profile": "Profile",
     "leaderboard": "Leaderboard",
     "certificates": "Certificates",
-    "settings": "Settings"
+    "settings": "Settings",
+    "worlds": "Worlds",
+    "badges": "Badges",
+    "me": "Me"
   },
   "home": {
-    "welcome": "Welcome back",
+    "welcome": "Welcome",
+    "heyThere": "Hey there",
     "startLearning": "Start Learning",
-    "continueJourney": "Continue Your Journey",
+    "continueJourney": "Continue Journey",
+    "yourJourney": "Your Journey",
     "worldsTitle": "Choose Your World",
+    "pickWorld": "Pick a world and let's go!",
     "xpLabel": "XP",
     "levelLabel": "Level",
-    "streakLabel": "Day Streak"
+    "streakLabel": "Day Streak",
+    "streakDays": "days",
+    "level": "Level",
+    "unlockAt": "Unlocks at",
+    "locked": "Locked"
   },
   "worlds": {
     "w1": "Canvas Kingdom",
@@ -39,15 +61,40 @@
     "of": "of",
     "complete": "Complete",
     "startMission": "Start Mission",
-    "backToLesson": "Back to Lesson"
+    "backToLesson": "Back to Lesson",
+    "toolName": "Open Tool",
+    "difficulty": "Difficulty",
+    "xpReward": "XP Reward",
+    "watchLesson": "Watch Lesson",
+    "watchFirst": "Watch the lesson first"
+  },
+  "mission": {
+    "complete": "Great job! Mission complete",
+    "xpEarned": "XP earned",
+    "nextMission": "Next Mission",
+    "allDone": "All missions done!",
+    "submitAnswer": "Submit Answer",
+    "yourAnswer": "Your answer"
+  },
+  "quiz": {
+    "question": "Question",
+    "correct": "Correct! Great job",
+    "wrong": "Wrong, try again",
+    "score": "Your score",
+    "tryAgain": "Try Again"
   },
   "profile": {
     "title": "My Profile",
     "badges": "My Badges",
     "certificates": "My Certificates",
-    "stats": "Stats",
+    "stats": "My Stats",
     "shareWithParent": "Share with Parent",
-    "leaderboardToggle": "Show on Leaderboard"
+    "leaderboardToggle": "Show on Leaderboard",
+    "totalXp": "Total XP",
+    "missions": "Missions",
+    "level": "Level",
+    "streak": "Day Streak",
+    "ageRange": "Age Range"
   },
   "parent": {
     "title": "Parent Dashboard",
@@ -55,21 +102,39 @@
     "totalXP": "Total XP",
     "currentLevel": "Current Level",
     "streak": "Day Streak",
-    "missionsCompleted": "Missions Completed",
-    "badgesEarned": "Badges Earned"
+    "missionsCompleted": "Missions Done",
+    "badgesEarned": "Badges Earned",
+    "weeklyReport": "Weekly Report",
+    "sentMonday": "Sent every Monday",
+    "sendNow": "Send Now",
+    "sent": "Sent!",
+    "addEmail": "Add parent email in Settings"
   },
   "chat": {
     "placeholder": "Ask Quacky anything...",
     "send": "Send",
     "thinking": "Quacky is thinking..."
   },
+  "voice": {
+    "title": "Quacky Voice",
+    "tap": "Tap to talk to Quacky",
+    "listening": "Listening...",
+    "thinking": "Quacky is thinking...",
+    "speaking": "Quacky is speaking...",
+    "placeholder": "Tap and speak...",
+    "micError": "Cannot access microphone"
+  },
   "certificates": {
     "earned": "You earned a certificate!",
     "download": "Download PDF",
-    "shareWithParent": "Ask parent to share",
-    "viewAll": "View my certificates",
-    "verifyTitle": "Certificate Verification",
-    "authentic": "Authentic Certificate"
+    "downloadPng": "Download Image",
+    "shareWithParent": "Ask your parents to share",
+    "viewAll": "View My Certificates",
+    "verifyTitle": "Verify Certificate",
+    "authentic": "Authentic Certificate",
+    "lessonCert": "Lesson Certificate",
+    "worldCert": "World Certificate",
+    "founderCert": "Founder Certificate"
   },
   "leaderboard": {
     "title": "Leaderboard",
@@ -77,15 +142,19 @@
     "weekly": "This Week",
     "yourRank": "Your Rank",
     "empty": "No one here yet. Be the first!",
-    "xp": "XP"
+    "xp": "XP",
+    "age8": "Ages 8-11",
+    "age12": "Ages 12-15"
   },
   "onboarding": {
     "welcome": "Welcome to KidPreneur!",
     "subtitle": "Learn AI tools and build your empire",
-    "getStarted": "Get Started",
+    "getStarted": "Start the Journey",
     "namePrompt": "What's your name?",
     "agePrompt": "How old are you?",
-    "namePlaceholder": "Enter your name"
+    "namePlaceholder": "Enter your name",
+    "age8Option": "8-11 years",
+    "age12Option": "12-15 years"
   },
   "auth": {
     "login": "Log In",
@@ -94,6 +163,96 @@
     "password": "Password",
     "forgotPassword": "Forgot password?",
     "noAccount": "Don't have an account?",
-    "hasAccount": "Already have an account?"
+    "hasAccount": "Already have an account?",
+    "logout": "Log Out",
+    "continue": "Continue"
+  },
+  "empire": {
+    "title": "Empire Builder",
+    "subtitle": "Pitch your idea to the investor",
+    "pitch": "Start Pitch",
+    "score": "Score",
+    "evaluated": "Pitch evaluated!",
+    "back": "Back to World",
+    "thinking": "Investor is thinking...",
+    "placeholder": "Pitch your idea...",
+    "send": "Send",
+    "pitchTo": "Pitch to",
+    "focus": "Focus"
+  },
+  "kids": {
+    "title": "Kid Profiles",
+    "subtitle": "Who is playing today?",
+    "addKid": "Add New Kid",
+    "choosePlayer": "Choose Player",
+    "name": "Name",
+    "age8": "8-11 years",
+    "age12": "12-15 years",
+    "chooseAvatar": "Choose Avatar",
+    "chooseColor": "Choose Color",
+    "save": "Save",
+    "cancel": "Cancel",
+    "maxKids": "Maximum 6 kids reached",
+    "level": "Level",
+    "xp": "XP",
+    "startPlaying": "Start Playing"
+  },
+  "push": {
+    "title": "Parent Milestone Alerts",
+    "desc": "Notify your parent when you earn badges and complete worlds",
+    "enable": "Enable Notifications",
+    "active": "Notifications active ✅",
+    "denied": "Notifications blocked",
+    "unsupported": "Browser not supported"
+  },
+  "referral": {
+    "title": "Invite a Parent",
+    "desc": "You both get 1 month free!",
+    "yourCode": "Your Code",
+    "copyLink": "Copy Link",
+    "copied": "Copied!",
+    "shareWhatsApp": "Share on WhatsApp",
+    "waMessage": "is learning AI entrepreneurship on KidPreneur! Join us — we both get 1 month free:"
+  },
+  "share": {
+    "title": "Share Achievement",
+    "square": "Square Post",
+    "story": "Story",
+    "whatsapp": "WhatsApp",
+    "copy": "Copy Link",
+    "copied": "Copied!",
+    "close": "Close",
+    "earnedLabel": "just unlocked",
+    "cta": "Start your journey at KidPreneur"
+  },
+  "video": {
+    "watchLesson": "Watch Lesson",
+    "play": "Play",
+    "pause": "Pause",
+    "completed": "Lesson watched!",
+    "arabic": "Arabic",
+    "skip": "Skip"
+  },
+  "badges": {
+    "earned": "You earned a badge!",
+    "viewAll": "View All Badges",
+    "firstSteps": "First Steps",
+    "quizRookie": "Quiz Rookie",
+    "missionReady": "Mission Ready"
+  },
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "arabic": "Arabic",
+    "english": "English",
+    "notifications": "Notifications",
+    "parentEmail": "Parent Email",
+    "logout": "Log Out"
+  },
+  "errors": {
+    "generic": "Something went wrong, try again",
+    "network": "Cannot connect to the internet",
+    "notFound": "Page not found",
+    "unauthorized": "Please log in first"
   }
 }
