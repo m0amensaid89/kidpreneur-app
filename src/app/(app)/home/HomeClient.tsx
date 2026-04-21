@@ -1,5 +1,8 @@
 "use client";
 
+import { useLocale } from "@/components/LocaleProvider";
+import { useTranslations } from "@/lib/i18n/useTranslations";
+
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
@@ -34,6 +37,14 @@ export function HomeClient({
   nextLevelXpStart,
 }: HomeClientProps) {
   const router = useRouter();
+  const { locale, isRTL } = useLocale();
+  const t = useTranslations();
+
+  // Arabic world names
+  const WORLD_NAMES: Record<string, string> = {
+    w1: t('worlds.w1'), w2: t('worlds.w2'), w3: t('worlds.w3'),
+    w4: t('worlds.w4'), w5: t('worlds.w5'),
+  };
   const supabase = createClient();
 
   const [completedByWorld, setCompletedByWorld] = useState<Record<string, Set<string>>>({});
@@ -75,7 +86,7 @@ export function HomeClient({
 
   return (
     <div
-      className="flex flex-col min-h-full relative overflow-hidden pb-10 animate-in fade-in duration-500"
+      dir={isRTL ? "rtl" : "ltr"} className="flex flex-col min-h-full relative overflow-hidden pb-10 animate-in fade-in duration-500"
       style={{ color: "#2C2C2A" }}
     >
       {/* Decorative floating circles — Quacky's world */}
