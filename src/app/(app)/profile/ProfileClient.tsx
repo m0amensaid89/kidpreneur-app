@@ -1,5 +1,6 @@
 "use client";
 
+import { useLocale } from "@/components/LocaleProvider";
 import type { User } from "@supabase/supabase-js";
 import Image from "next/image";
 import { BadgeFrame } from "@/components/ui/BadgeFrame";
@@ -50,13 +51,46 @@ export function ProfileClient({
 }: ProfileClientProps) {
   const router = useRouter();
   const supabase = createClient();
+  const { locale, isRTL } = useLocale();
+  const isAr = locale === 'ar';
+
+  const CATEGORY_LABEL_AR: Record<string, string> = {
+    first_time: 'الخطوات الأولى 🌱',
+    mastery: 'إتقان 🏆',
+    streak: 'مسلسل 🔥',
+    world_completion: 'فتح العوالم 🌍',
+    empire: 'الإمبراطورية 👑',
+  };
+
+  const t = isAr
+    ? {
+        totalXp: 'مجموع النقاط', missions: 'مهام', badges: 'شارات',
+        settings: 'الإعدادات', shareWithParent: 'شارك مع ولي الأمر',
+        linkCopied: 'اتنسخ الرابط! ابعته لوالديك.',
+        logout: 'خروج', logoutConfirm: 'متأكد إنك عايز تخرج؟',
+        yourQuacky: 'كواكي بتاعك', locked: 'مقفول',
+        earn: 'اكسب المزيد من المهام!',
+        kidFounder: 'مؤسس صغير',
+      }
+    : {
+        totalXp: 'TOTAL XP', missions: 'MISSIONS', badges: 'BADGES',
+        settings: 'Settings', shareWithParent: 'Share with parent',
+        linkCopied: 'Link copied! Send it to your parent.',
+        logout: 'Log out', logoutConfirm: 'Are you sure you want to log out?',
+        yourQuacky: 'Your Quacky', locked: 'Locked',
+        earn: 'Earn more from missions!',
+        kidFounder: 'Kid Founder',
+      };
+
+  const getCategoryLabel = (cat: string) =>
+    isAr ? CATEGORY_LABEL_AR[cat] ?? cat : CATEGORY_LABEL[cat] ?? cat;
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
     router.push("/login");
   };
 
-  const name = profile?.name || "Kid Founder";
+  const name = profile?.name || {t.kidFounder};
   const streak = profile?.streak || 0;
   const ageRange = profile?.age_range;
 
@@ -75,7 +109,7 @@ export function ProfileClient({
 
   return (
     <div
-      className="flex flex-col min-h-full relative overflow-hidden pb-10 animate-in fade-in duration-500"
+      dir={isRTL ? "rtl" : "ltr"} className="flex flex-col min-h-full relative overflow-hidden pb-10 animate-in fade-in duration-500"
       style={{ color: "#2C2C2A" }}
     >
       {/* Decorative circles */}
@@ -102,7 +136,7 @@ export function ProfileClient({
           >
             <Image
               src="/quacky/quacky-happy.png"
-              alt="Your Quacky"
+              alt={t.yourQuacky}
               width={110}
               height={110}
               className="object-contain"
@@ -166,9 +200,9 @@ export function ProfileClient({
 
       {/* Stats row — 3 chunky cards */}
       <div className="relative z-10 grid grid-cols-3 gap-3 px-5 mt-4">
-        <StatCard emoji="⚡" value={totalXp.toLocaleString()} label="TOTAL XP" accent="#2E8CE6" accentDark="#1a6fc4" />
-        <StatCard emoji="🎯" value={missionCount} label="MISSIONS" accent="#00A878" accentDark="#0F6E56" />
-        <StatCard emoji="🏆" value={`${earnedCount}/${allBadges.length}`} label="BADGES" accent="#FFC43D" accentDark="#BA7517" />
+        <StatCard emoji="⚡" value={totalXp.toLocaleString()} label={t.totalXp} accent="#2E8CE6" accentDark="#1a6fc4" />
+        <StatCard emoji="🎯" value={missionCount} label={t.missions} accent="#00A878" accentDark="#0F6E56" />
+        <StatCard emoji="🏆" value={`${earnedCount}/${allBadges.length}`} label={t.badges} accent="#FFC43D" accentDark="#BA7517" />
       </div>
 
       {/* Badges by category */}
@@ -223,13 +257,13 @@ export function ProfileClient({
 
       {/* Actions */}
       <div className="relative z-10 px-5 mt-6 space-y-2.5">
-        <ActionButton emoji="⚙️" label="Settings" onClick={() => router.push("/settings")} />
-        <ActionButton emoji="👨‍👩‍👧" label="Share with parent" onClick={() => {
+        <ActionButton emoji="⚙️" label={t.settings} onClick={() => router.push("/settings")} />
+        <ActionButton emoji="👨‍👩‍👧" label={t.shareWithParent} onClick={() => {
           const url = `${window.location.origin}/parent?childId=${user.id}`;
           navigator.clipboard.writeText(url);
-          alert("Link copied! Send it to your parent.");
+          alert({t.linkCopied});
         }} />
-        <ActionButton emoji="👋" label="Log out" onClick={handleLogout} destructive />
+        <ActionButton emoji="👋" label={t.logout} onClick={handleLogout} destructive />
       </div>
     </div>
   );
