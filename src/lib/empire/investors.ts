@@ -3,6 +3,7 @@ export interface InvestorPersona {
   worldId: string
   name: string
   title: string
+  titleAr?: string
   emoji: string
   color: string
   focus: string
@@ -18,6 +19,7 @@ export const INVESTORS: Record<string, InvestorPersona> = {
     worldId: 'w1',
     name: 'Maya Chen',
     title: 'Creative Director & Design Investor',
+    titleAr: 'مديرة إبداعية ومستثمرة في التصميم',
     emoji: '🎨',
     color: '#FF6340',
     focus: 'design, branding, visual tools, user experience',
@@ -45,6 +47,7 @@ RULES (follow strictly):
     worldId: 'w2',
     name: 'Omar Hassan',
     title: 'Publisher & Story Investment Fund',
+    titleAr: 'ناشر ومستثمر في صندوق القصص',
     emoji: '✍️',
     color: '#7B52EE',
     focus: 'content, storytelling, media, education',
@@ -70,6 +73,7 @@ RULES:
     worldId: 'w3',
     name: 'Sarah Adeyemi',
     title: 'Community Builder & Growth Investor',
+    titleAr: 'بانية مجتمعات ومستثمرة في النمو',
     emoji: '📣',
     color: '#2E8CE6',
     focus: 'community, growth, crowdfunding, social impact',
@@ -95,6 +99,7 @@ RULES:
     worldId: 'w4',
     name: 'Victor Osei',
     title: 'Tech Entrepreneur & Energy Ventures',
+    titleAr: 'رجل أعمال تقني ومستثمر في الطاقة',
     emoji: '⚡',
     color: '#00A878',
     focus: 'technology, systems, scalability, efficiency',
@@ -120,6 +125,7 @@ RULES:
     worldId: 'w5',
     name: 'Aria Nakamura',
     title: 'AI Venture Capital Partner',
+    titleAr: 'شريكة في صندوق استثمار الذكاء الاصطناعي',
     emoji: '🧠',
     color: '#6B35FF',
     focus: 'AI products, automation, future tech, intelligence',
