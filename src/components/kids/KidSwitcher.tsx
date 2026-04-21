@@ -38,12 +38,12 @@ export function KidSwitcher({ parentUserId, onSwitch }: KidSwitcherProps) {
     ? { title: 'اختار اللاعب', add: 'إضافة طفل جديد', name: 'الاسم',
         age1: '٨-١١ سنة', age2: '١٢-١٥ سنة', save: 'احفظ', cancel: 'إلغاء',
         maxKids: 'وصلت للحد الأقصى (٦ أطفال)', level: 'مستوى', xp: 'نقطة',
-        chooseAvatar: 'اختار الشخصية', chooseColor: 'اختار اللون',
+        choose: 'اختار الشخصية', chooseAvatar: 'اختار الشخصية', chooseColor: 'اختار اللون',
         startPlaying: 'ابدأ اللعب', addNew: 'إضافة طفل جديد' }
     : { title: 'Choose Player', add: 'Add New Kid', name: 'Name',
         age1: '8-11 years', age2: '12-15 years', save: 'Save', cancel: 'Cancel',
         maxKids: 'Maximum 6 kids reached', level: 'Level', xp: 'XP',
-        chooseAvatar: 'Choose Avatar', chooseColor: 'Choose Color',
+        choose: 'Choose Avatar', chooseAvatar: 'Choose Avatar', chooseColor: 'Choose Color',
         startPlaying: 'Start Playing', addNew: 'Add New Kid' }
 
   useEffect(() => {
