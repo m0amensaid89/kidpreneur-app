@@ -1,31 +1,53 @@
 {
   "common": {
     "loading": "جاري التحميل...",
-    "continue": "استمر",
+    "continue": "كمّل",
     "close": "إغلاق",
     "back": "رجوع",
     "next": "التالي",
-    "save": "حفظ",
+    "save": "احفظ",
     "cancel": "إلغاء",
     "submit": "إرسال",
     "start": "ابدأ",
-    "done": "تم"
+    "done": "خلاص",
+    "yes": "أيوه",
+    "no": "لأ",
+    "copy": "نسخ",
+    "copied": "اتنسخ!",
+    "share": "شارك",
+    "download": "تحميل",
+    "delete": "امسح",
+    "edit": "عدّل",
+    "add": "إضافة",
+    "search": "ابحث",
+    "confirm": "تأكيد",
+    "skip": "تخطي"
   },
   "nav": {
     "home": "الرئيسية",
     "profile": "ملفي",
     "leaderboard": "المتصدرون",
     "certificates": "شهاداتي",
-    "settings": "الإعدادات"
+    "settings": "الإعدادات",
+    "worlds": "عوالمي",
+    "badges": "شاراتي",
+    "me": "أنا"
   },
   "home": {
-    "welcome": "أهلاً بك",
+    "welcome": "أهلاً",
+    "heyThere": "أهلاً",
     "startLearning": "ابدأ التعلم",
     "continueJourney": "كمّل رحلتك",
+    "yourJourney": "رحلتك",
     "worldsTitle": "اختار عالمك",
+    "pickWorld": "اختار عالم وابدأ!",
     "xpLabel": "نقطة",
     "levelLabel": "المستوى",
-    "streakLabel": "يوم متتالي"
+    "streakLabel": "يوم متتالي",
+    "streakDays": "يوم",
+    "level": "مستوى",
+    "unlockAt": "بتفتح على",
+    "locked": "مقفول"
   },
   "worlds": {
     "w1": "مملكة اللوحات",
@@ -39,7 +61,27 @@
     "of": "من",
     "complete": "مكتملة",
     "startMission": "ابدأ المهمة",
-    "backToLesson": "رجوع للدرس"
+    "backToLesson": "رجوع للدرس",
+    "toolName": "افتح الأداة",
+    "difficulty": "الصعوبة",
+    "xpReward": "مكافأة النقاط",
+    "watchLesson": "شاهد الدرس",
+    "watchFirst": "شاهد الدرس الأول"
+  },
+  "mission": {
+    "complete": "أحسنت! المهمة اكتملت",
+    "xpEarned": "نقاط اكتسبتها",
+    "nextMission": "المهمة الجاية",
+    "allDone": "كملت كل المهام!",
+    "submitAnswer": "سلّم إجابتك",
+    "yourAnswer": "إجابتك"
+  },
+  "quiz": {
+    "question": "سؤال",
+    "correct": "صح! كملت",
+    "wrong": "غلط، حاول تاني",
+    "score": "نتيجتك",
+    "tryAgain": "حاول تاني"
   },
   "profile": {
     "title": "ملفي الشخصي",
@@ -47,7 +89,12 @@
     "certificates": "شهاداتي",
     "stats": "إحصائياتي",
     "shareWithParent": "شارك مع ولي الأمر",
-    "leaderboardToggle": "اظهر في المتصدرين"
+    "leaderboardToggle": "اظهر في المتصدرين",
+    "totalXp": "مجموع النقاط",
+    "missions": "مهام",
+    "level": "المستوى",
+    "streak": "يوم متتالي",
+    "ageRange": "الفئة العمرية"
   },
   "parent": {
     "title": "لوحة ولي الأمر",
@@ -56,20 +103,38 @@
     "currentLevel": "المستوى الحالي",
     "streak": "يوم متتالي",
     "missionsCompleted": "مهام منجزة",
-    "badgesEarned": "شارات مكتسبة"
+    "badgesEarned": "شارات مكتسبة",
+    "weeklyReport": "التقرير الأسبوعي",
+    "sentMonday": "بيتبعت كل يوم اثنين",
+    "sendNow": "ابعت دلوقتي",
+    "sent": "اتبعت!",
+    "addEmail": "أضف إيميل ولي الأمر في الإعدادات"
   },
   "chat": {
     "placeholder": "اسأل كواكي أي حاجة...",
     "send": "إرسال",
     "thinking": "كواكي بيفكر..."
   },
+  "voice": {
+    "title": "كواكي صاحبك",
+    "tap": "اضغط وتكلم مع كواكي",
+    "listening": "بسمعك...",
+    "thinking": "كواكي بيفكر...",
+    "speaking": "كواكي بيتكلم...",
+    "placeholder": "اضغط واتكلم...",
+    "micError": "مش قادر أوصل للمايك"
+  },
   "certificates": {
     "earned": "لقد حصلت على شهادة!",
     "download": "تحميل PDF",
+    "downloadPng": "تحميل صورة",
     "shareWithParent": "اطلب من والديك المشاركة",
     "viewAll": "عرض شهاداتي",
     "verifyTitle": "التحقق من الشهادة",
-    "authentic": "شهادة أصلية"
+    "authentic": "شهادة أصلية",
+    "lessonCert": "شهادة درس",
+    "worldCert": "شهادة عالم",
+    "founderCert": "شهادة مؤسس"
   },
   "leaderboard": {
     "title": "المتصدرون",
@@ -77,7 +142,9 @@
     "weekly": "هذا الأسبوع",
     "yourRank": "مرتبتك",
     "empty": "لا أحد هنا بعد. كن الأول!",
-    "xp": "نقطة"
+    "xp": "نقطة",
+    "age8": "٨-١١ سنة",
+    "age12": "١٢-١٥ سنة"
   },
   "onboarding": {
     "welcome": "أهلاً بك في KidPreneur!",
@@ -85,7 +152,9 @@
     "getStarted": "ابدأ الرحلة",
     "namePrompt": "ما اسمك؟",
     "agePrompt": "كم عمرك؟",
-    "namePlaceholder": "اكتب اسمك"
+    "namePlaceholder": "اكتب اسمك",
+    "age8Option": "٨-١١ سنة",
+    "age12Option": "١٢-١٥ سنة"
   },
   "auth": {
     "login": "تسجيل الدخول",
@@ -94,6 +163,96 @@
     "password": "كلمة المرور",
     "forgotPassword": "نسيت كلمة المرور؟",
     "noAccount": "ليس لديك حساب؟",
-    "hasAccount": "عندك حساب بالفعل؟"
+    "hasAccount": "عندك حساب بالفعل؟",
+    "logout": "خروج",
+    "continue": "كمّل"
+  },
+  "empire": {
+    "title": "Empire Builder",
+    "subtitle": "اعرض فكرتك على المستثمر",
+    "pitch": "ابدأ العرض",
+    "score": "النتيجة",
+    "evaluated": "اتقيّم عرضك!",
+    "back": "رجوع للعالم",
+    "thinking": "المستثمر بيفكر...",
+    "placeholder": "اشرح فكرتك...",
+    "send": "إرسال",
+    "pitchTo": "اعرض على",
+    "focus": "التخصص"
+  },
+  "kids": {
+    "title": "ملفات الأطفال",
+    "subtitle": "مين هيلعب النهارده؟",
+    "addKid": "إضافة طفل جديد",
+    "choosePlayer": "اختار اللاعب",
+    "name": "الاسم",
+    "age8": "٨-١١ سنة",
+    "age12": "١٢-١٥ سنة",
+    "chooseAvatar": "اختار الشخصية",
+    "chooseColor": "اختار اللون",
+    "save": "احفظ",
+    "cancel": "إلغاء",
+    "maxKids": "وصلت للحد الأقصى (٦ أطفال)",
+    "level": "مستوى",
+    "xp": "نقطة",
+    "startPlaying": "ابدأ اللعب"
+  },
+  "push": {
+    "title": "تنبيهات التقدم",
+    "desc": "وصّل والدك على إنجازاتك الجديدة",
+    "enable": "فعّل التنبيهات",
+    "active": "التنبيهات فعّالة ✅",
+    "denied": "تنبيهات مرفوضة",
+    "unsupported": "المتصفح لا يدعم التنبيهات"
+  },
+  "referral": {
+    "title": "ادعو صديق",
+    "desc": "كلكم تاخدوا شهر مجاني!",
+    "yourCode": "كودك",
+    "copyLink": "نسخ الرابط",
+    "copied": "اتنسخ!",
+    "shareWhatsApp": "شارك على واتساب",
+    "waMessage": "بيتعلم ريادة الأعمال والذكاء الاصطناعي على KidPreneur! انضم معانا وهاتوا شهر مجاني:"
+  },
+  "share": {
+    "title": "شارك الإنجاز",
+    "square": "صورة مربعة",
+    "story": "ستوري",
+    "whatsapp": "واتساب",
+    "copy": "نسخ الرابط",
+    "copied": "تم النسخ!",
+    "close": "إغلاق",
+    "earnedLabel": "حقق إنجازاً رائعاً",
+    "cta": "ابدأ رحلتك على KidPreneur"
+  },
+  "video": {
+    "watchLesson": "شاهد الدرس",
+    "play": "تشغيل",
+    "pause": "إيقاف",
+    "completed": "أحسنت! شاهدت الدرس",
+    "arabic": "عربي",
+    "skip": "تخطي"
+  },
+  "badges": {
+    "earned": "حصلت على شارة!",
+    "viewAll": "عرض كل شاراتي",
+    "firstSteps": "الخطوات الأولى",
+    "quizRookie": "مبتدئ الكويز",
+    "missionReady": "جاهز للمهام"
+  },
+  "settings": {
+    "title": "الإعدادات",
+    "language": "اللغة",
+    "arabic": "العربية",
+    "english": "الإنجليزية",
+    "notifications": "التنبيهات",
+    "parentEmail": "إيميل ولي الأمر",
+    "logout": "خروج"
+  },
+  "errors": {
+    "generic": "حصل خطأ، حاول تاني",
+    "network": "مش قادر أتوصل للإنترنت",
+    "notFound": "الصفحة دي مش موجودة",
+    "unauthorized": "لازم تسجل دخول الأول"
   }
 }
