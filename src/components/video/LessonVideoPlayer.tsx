@@ -1,5 +1,4 @@
 'use client'
-import { useLocale } from '@/components/LocaleProvider'
 
 import { useState, useRef, useCallback } from 'react'
 
@@ -22,8 +21,7 @@ export function LessonVideoPlayer({
 }: LessonVideoPlayerProps) {
   const videoUrl = locale === 'ar' ? (videoUrlAr ?? videoUrlEn) : (videoUrlEn ?? videoUrlAr)
   const videoRef = useRef<HTMLVideoElement>(null)
-  const { locale } = useLocale()
-  const isAr = locale === "ar"
+  const isAr = locale === 'ar'
   const [playing, setPlaying] = useState(false)
   const [progress, setProgress] = useState(0)
   const [completed, setCompleted] = useState(false)
