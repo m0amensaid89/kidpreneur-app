@@ -37,7 +37,7 @@
   },
   "home": {
     "welcome": "Welcome",
-    "heyThere": "Hey there",
+    "heyThere": "Hey there,",
     "startLearning": "Start Learning",
     "continueJourney": "Continue Journey",
     "yourJourney": "Your Journey",
@@ -55,7 +55,14 @@
     "keepGoing": "Keep going!",
     "worldProgress": "World Progress",
     "allWorlds": "All Worlds",
-    "nextLesson": "Next Lesson"
+    "nextLesson": "Next Lesson",
+    "xp": "XP",
+    "streak": "Streak",
+    "days": "days",
+    "worlds": "YOUR WORLDS",
+    "yourWorlds": "Your Worlds",
+    "continue": "Continue",
+    "completed": "Completed"
   },
   "worlds": {
     "w1": "Canvas Kingdom",
