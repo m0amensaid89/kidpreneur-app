@@ -75,9 +75,9 @@ export function EmpireBuilderChat({
 
   return (
     <div
-      dir={isRTL ? "rtl" : "ltr"} className="flex flex-col h-full"
-      style={{ fontFamily: 'Roboto, sans-serif' }}
-      dir={locale === 'ar' ? 'rtl' : 'ltr'}
+      dir={isAr ? 'rtl' : 'ltr'}
+      className="flex flex-col h-full"
+      style={{ fontFamily: isAr ? 'Cairo, sans-serif' : 'Roboto, sans-serif' }}
     >
       {/* Investor header */}
       <div
