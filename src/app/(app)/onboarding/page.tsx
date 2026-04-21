@@ -1,5 +1,6 @@
 "use client";
 
+import { useLocale } from "@/components/LocaleProvider";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
@@ -16,6 +17,50 @@ const SKIN_OPTIONS = [
 ];
 
 export default function OnboardingPage() {
+  const { locale, isRTL } = useLocale();
+  const isAr = locale === "ar";
+
+  // Egyptian Arabic bilingual labels for the entire onboarding flow
+  const ot = isAr
+    ? {
+        step1Label: "الخطوة الأولى",
+        step1Title: "إيه اسمك؟",
+        step1Sub: "كواكي عايز يعرف يناديك إزاي! 🦆",
+        step1Placeholder: "اسمك الأول",
+        step1Next: "كمّل →",
+        step2Label: "الخطوة الثانية",
+        step2Title: (name: string) => `عندك قد إيه يا ${name}؟`,
+        step2Sub: "هنختار المحتوى المناسب لك!",
+        age1: "من ٨ لـ ١١ سنة",
+        age2: "من ١٢ لـ ١٥ سنة",
+        step3Label: "الخطوة الأخيرة",
+        step3Title: "اختار لون كواكي!",
+        step3Sub: "ده بطتك الذكية — خليها على ذوقك 🎨",
+        startBtn: "يلا نبدأ! 🚀",
+        settingUp: "بنجهّز إمبراطوريتك...",
+        back: "رجوع",
+        skinLabels: { Classic: "كلاسيك", Canvas: "كانفاس", Story: "ستوري", Power: "باور", Neural: "نيورال" },
+      }
+    : {
+        step1Label: {ot.step1Label},
+        step1Title: "What\'s your name?",
+        step1Sub: {ot.step1Sub},
+        step1Placeholder: "Your first name",
+        step1Next: "Next →",
+        step2Label: {ot.step2Label},
+        step2Title: (name: string) => `How old are you, ${name}?`,
+        step2Sub: "We\'ll pick the right content for you!",
+        age1: {ot.age1},
+        age2: {ot.age2},
+        step3Label: {ot.step3Label},
+        step3Title: "Pick Quacky\'s color!",
+        step3Sub: "This is your AI duck — make it yours 🎨",
+        startBtn: "Let\'s go! 🚀",
+        settingUp: "Setting up...",
+        back: "Back",
+        skinLabels: { Classic: "Classic", Canvas: "Canvas", Story: "Story", Power: "Power", Neural: "Neural" },
+      };
+
   const router = useRouter();
   const supabase = createClient();
 
@@ -114,7 +159,7 @@ export default function OnboardingPage() {
             onClick={handleBack}
             className="w-10 h-10 rounded-full flex items-center justify-center transition active:scale-95"
             style={{ backgroundColor: "#FFFFFF", boxShadow: "0 3px 0 #E6D5A8" }}
-            aria-label="Back"
+            aria-label={ot.back}
           >
             <span style={{ fontSize: 20, color: "#854F0B", lineHeight: 1 }}>‹</span>
           </button>
@@ -196,7 +241,7 @@ export default function OnboardingPage() {
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  placeholder="Your first name"
+                  placeholder={ot.step1Placeholder}
                   maxLength={30}
                   autoFocus
                   className="w-full bg-transparent outline-none text-lg text-center"
@@ -232,7 +277,7 @@ export default function OnboardingPage() {
                   QUESTION 2 OF 3
                 </p>
                 <h2 className="text-3xl leading-tight" style={{ color: "#1a6fc4", fontWeight: 900 }}>
-                  How old are you, {name.trim() || "friend"}?
+                  {ot.step2Title(name.trim() || (isAr ? "صديقي" : "friend"))}
                 </h2>
                 <p className="text-sm mt-2" style={{ color: "#5F5E5A", fontWeight: 500 }}>
                   Quacky will pick the right missions for you.
@@ -351,7 +396,7 @@ export default function OnboardingPage() {
                   letterSpacing: "0.3px",
                 }}
               >
-                {isSubmitting ? "Setting up..." : "Let's go! 🚀"}
+                {isSubmitting ? ot.settingUp : ot.startBtn}
               </button>
             </div>
           )}
