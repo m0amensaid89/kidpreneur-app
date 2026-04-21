@@ -270,6 +270,10 @@ export default function LessonIntroPage({ params }: { params: Promise<{ lessonId
         </div>
       </div>
     </div>
+      <QuackyVoice
+        lessonContext={currentLesson?.title ?? ""}
+        locale="en"
+      />
   );
 }
 
