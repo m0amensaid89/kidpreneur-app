@@ -100,25 +100,35 @@ export function HomeClient({
       {/* Header : greeting + streak bubble */}
       <div className="relative z-10 flex items-center justify-between px-5 pt-6 pb-3">
         <div className="flex items-center gap-3">
-          <div
-            className="w-12 h-12 rounded-full flex items-center justify-center"
-            style={{
-              backgroundColor: "#FFFFFF",
-              border: "3px solid #2E8CE6",
-              boxShadow: "0 3px 0 #1a6fc4",
-            }}
+          <button
+            onClick={() => { window.location.href = "/home"; }}
+            className="flex items-center gap-2 active:scale-95 transition-transform"
+            style={{ background: "none", border: "none", padding: 0, cursor: "pointer" }}
+            aria-label="KidPreneur Home"
           >
-            <Image
-              src="/quacky/quacky-happy.png"
-              alt="Quacky"
-              width={36}
-              height={36}
-              className="object-contain"
-            />
-          </div>
+            <div
+              className="w-11 h-11 rounded-2xl flex items-center justify-center"
+              style={{
+                backgroundColor: "#FFC43D",
+                border: "3px solid #FFC43D",
+                boxShadow: "0 3px 0 #BA7517",
+              }}
+            >
+              <Image
+                src="/quacky/quacky-happy.png"
+                alt="Quacky"
+                width={34}
+                height={34}
+                className="object-contain"
+              />
+            </div>
+            <span style={{ fontSize: 15, fontWeight: 900, color: "#1a6fc4", letterSpacing: "-0.3px" }}>
+              KidPreneur
+            </span>
+          </button>
           <div>
             <p className="text-xs" style={{ color: "#5F5E5A", fontWeight: 700 }}>
-              Hey there,
+              {locale === "ar" ? "أهلاً،" : "Hey there,"}
             </p>
             <h1 className="text-xl leading-tight" style={{ color: "#1a6fc4", fontWeight: 900 }}>
               {name}!
