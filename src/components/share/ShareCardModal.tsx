@@ -1,55 +1,113 @@
 'use client'
 
 import { useState } from 'react'
-import { useLocale } from '@/components/LocaleProvider'
 
-interface Props {
+interface ShareCardModalProps {
   kidName: string
   achievement: string
   xp: number
-  worldColor: string
-  worldEmoji: string
+  worldName?: string
+  locale?: 'en' | 'ar'
   onClose: () => void
 }
 
-export function ShareCardModal({ kidName, achievement, xp, worldColor, worldEmoji, onClose }: Props) {
-  const { locale } = useLocale()
+export function ShareCardModal({
+  kidName,
+  achievement,
+  xp,
+  worldName,
+  locale = 'en',
+  onClose,
+}: ShareCardModalProps) {
   const [copied, setCopied] = useState(false)
-  const base = process.env.NEXT_PUBLIC_APP_URL ?? 'https://kidpreneur.i-gamify.net'
-  const params = `name=${encodeURIComponent(kidName)}&achievement=${encodeURIComponent(achievement)}&xp=${xp}&color=${encodeURIComponent(worldColor)}&emoji=${encodeURIComponent(worldEmoji)}&locale=${locale}`
-  const squareUrl = `${base}/api/share/card?${params}&format=square`
-  const storyUrl = `${base}/api/share/card?${params}&format=story`
-  const waText = locale === 'ar'
-    ? `${kidName} حقق إنجازاً في KidPreneur! ${base}`
-    : `${kidName} just unlocked "${achievement}" on KidPreneur! ${base}`
+
   const t = locale === 'ar'
-    ? { title: 'شارك الإنجاز', wa: 'واتساب', square: 'صورة مربعة', story: 'ستوري', copy: 'نسخ', copied: 'تم!', close: 'إغلاق' }
-    : { title: 'Share Achievement', wa: 'WhatsApp', square: 'Square', story: 'Story', copy: 'Copy Link', copied: 'Copied!', close: 'Close' }
+    ? {
+        title: 'شارك إنجازك!',
+        whatsapp: 'واتساب',
+        copy: 'نسخ الرابط',
+        copied: 'تم النسخ!',
+        message: `🦆 ${kidName} كسب ${xp} نقطة في KidPreneur!\n${achievement ? `✨ ${achievement}` : ''}\n${worldName ? `🌍 ${worldName}` : ''}\n\nانضم لـ KidPreneur على kidpreneur.i-gamify.net`,
+      }
+    : {
+        title: 'Share your achievement!',
+        whatsapp: 'WhatsApp',
+        copy: 'Copy link',
+        copied: 'Copied!',
+        message: `🦆 ${kidName} just earned ${xp} XP on KidPreneur!\n${achievement ? `✨ ${achievement}` : ''}\n${worldName ? `🌍 ${worldName}` : ''}\n\nJoin KidPreneur at kidpreneur.i-gamify.net`,
+      }
+
+  const shareUrl = 'https://kidpreneur.i-gamify.net'
+
+  const shareWhatsApp = () => {
+    const msg = encodeURIComponent(t.message.replace(/\\n/g, '\n'))
+    window.open(`https://wa.me/?text=${msg}`, '_blank')
+  }
+
+  const copyLink = () => {
+    navigator.clipboard.writeText(shareUrl).then(() => {
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    })
+  }
 
   return (
-    <div className="fixed inset-0 bg-black/80 flex items-end sm:items-center justify-center z-50 p-4" dir={locale === 'ar' ? 'rtl' : 'ltr'}>
-      <div className="bg-[#FFF8E7] rounded-3xl p-5 w-full max-w-sm shadow-2xl">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-black text-amber-900">🎉 {t.title}</h2>
-          <button onClick={onClose} className="text-amber-400 text-2xl">&times;</button>
+    <div
+      className="fixed inset-0 z-50 flex items-end justify-center p-4"
+      style={{ background: 'rgba(0,0,0,0.5)' }}
+      onClick={onClose}
+    >
+      <div
+        className="w-full max-w-sm rounded-3xl overflow-hidden"
+        style={{ background: '#FFF8E7' }}
+        onClick={e => e.stopPropagation()}
+        dir={locale === 'ar' ? 'rtl' : 'ltr'}
+      >
+        {/* Achievement card preview */}
+        <div
+          className="px-6 py-8 text-center"
+          style={{ background: 'linear-gradient(135deg, #D97706, #F59E0B)' }}
+        >
+          <div className="text-5xl mb-3">🦆</div>
+          <div className="text-white font-black text-2xl">{kidName}</div>
+          {achievement && (
+            <div className="text-amber-100 font-bold text-sm mt-1">{achievement}</div>
+          )}
+          <div className="mt-3 inline-block bg-white/20 rounded-full px-4 py-1.5">
+            <span className="text-white font-black text-lg">{xp.toLocaleString()} XP</span>
+          </div>
+          {worldName && (
+            <div className="text-amber-100 text-xs mt-2 font-medium">🌍 {worldName}</div>
+          )}
+          <div className="text-white/60 text-xs mt-3 font-medium">kidpreneur.i-gamify.net</div>
         </div>
-        <div className="rounded-2xl overflow-hidden mb-4 border-2 border-amber-100">
-          <img src={squareUrl} alt="Share card" className="w-full" loading="lazy" />
-        </div>
-        <div className="flex flex-col gap-3">
-          <a href={`https://wa.me/?text=${encodeURIComponent(waText)}`} target="_blank" rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 py-3 rounded-2xl text-white font-black text-sm" style={{ background: '#25D366' }}>
-            <span>📱</span>{t.wa}
-          </a>
-          <a href={squareUrl} download className="flex items-center justify-center gap-2 py-3 rounded-2xl font-black text-sm text-white" style={{ background: worldColor }}>
-            <span>{worldEmoji}</span>{t.square}
-          </a>
-          <a href={storyUrl} download className="flex items-center justify-center gap-2 py-3 rounded-2xl font-black text-sm bg-amber-100 text-amber-800">
-            <span>📲</span>{t.story}
-          </a>
-          <button onClick={() => { navigator.clipboard.writeText(squareUrl); setCopied(true); setTimeout(() => setCopied(false), 2000) }}
-            className="py-2.5 rounded-2xl text-sm font-bold text-amber-600 border-2 border-amber-200">
+
+        {/* Action buttons */}
+        <div className="p-4 flex flex-col gap-3">
+          <p className="text-center font-black text-amber-900 text-sm">{t.title}</p>
+
+          <button
+            onClick={shareWhatsApp}
+            className="w-full py-3 rounded-2xl font-black text-white text-sm flex items-center justify-center gap-2"
+            style={{ background: '#25D366' }}
+          >
+            <span className="text-lg">💬</span> {t.whatsapp}
+          </button>
+
+          <button
+            onClick={copyLink}
+            className="w-full py-3 rounded-2xl font-black text-sm flex items-center justify-center gap-2"
+            style={{ background: copied ? '#D1FAE5' : '#FDE68A', color: '#92400E' }}
+          >
+            <span>{copied ? '✅' : '🔗'}</span>
             {copied ? t.copied : t.copy}
+          </button>
+
+          <button
+            onClick={onClose}
+            className="w-full py-2.5 rounded-2xl text-sm font-bold text-amber-500"
+          >
+            ✕ Close
           </button>
         </div>
       </div>
