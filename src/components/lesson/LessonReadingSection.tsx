@@ -1,7 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react'
 import { useLocale } from '@/components/LocaleProvider'
-import { useTranslations } from '@/lib/i18n/useTranslations'
 import type { Lesson } from '@/lib/data/lessons'
 
 interface LessonReadingSectionProps {
@@ -111,7 +110,6 @@ const FEATURE_ICONS = ['✨', '🎨', '⚡', '🔮', '🎯', '🚀', '💎', '�
 export function LessonReadingSection({ lesson, worldColor, onReadingComplete }: LessonReadingSectionProps) {
   const { locale, isRTL } = useLocale()
   const isAr = locale === 'ar'
-  const t = useTranslations('lesson')
 
   const [flippedCards, setFlippedCards] = useState<Set<number>>(new Set())
   const [revealedPoints, setRevealedPoints] = useState(0)
@@ -159,29 +157,29 @@ export function LessonReadingSection({ lesson, worldColor, onReadingComplete }: 
     ? {
         intro: 'ما هي هذه الأداة؟',
         features: 'المميزات الأساسية',
-        flipHint: t('flipHint'),
+        flipHint: 'Flip each card to discover the feature',
         cardsLeft: (n: number) => `${n} كروت متبقية`,
-        allFlipped: t('allFlipped'),
-        learn: t('readingSection'),
-        tapReveal: t('tapReveal'),
+        allFlipped: 'You flipped all the cards! 🎉',
+        learn: 'What you will learn',
+        tapReveal: 'Tap to reveal the next point',
         empireTip: 'نصيحة المستثمر 💰',
-        locked: t('empireLocked'),
-        ready: t('readingReady'),
-        skip: t('skipReading'),
+        locked: 'Flip all cards to unlock the tip',
+        ready: 'Ready for Mission! ✅',
+        skip: 'Skip reading',
         progress: (done: number, total: number) => `${done} / ${total} مكتمل`,
       }
     : {
-        intro: t('whatIsTool'),
-        features: t('flipCards'),
-        flipHint: t('flipHint'),
+        intro: 'What is this tool?',
+        features: 'Key Features',
+        flipHint: 'Flip each card to discover the feature',
         cardsLeft: (n: number) => `${n} card${n !== 1 ? 's' : ''} left`,
-        allFlipped: t('allFlipped'),
-        learn: t('readingSection'),
-        tapReveal: t('tapReveal'),
-        empireTip: t('empireTipTitle'),
-        locked: t('empireLocked'),
-        ready: t('readingReady'),
-        skip: t('skipReading'),
+        allFlipped: 'You flipped all the cards! 🎉',
+        learn: 'What you will learn',
+        tapReveal: 'Tap to reveal the next point',
+        empireTip: 'The Empire Tip 💰',
+        locked: 'Flip all cards to unlock the tip',
+        ready: 'Ready for Mission! ✅',
+        skip: 'Skip reading',
         progress: (done: number, total: number) => `${done} / ${total} complete`,
       }
 
