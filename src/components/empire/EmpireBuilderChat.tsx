@@ -85,7 +85,7 @@ export function EmpireBuilderChat({
         <div className="text-3xl">{investor.emoji}</div>
         <div>
           <div className="text-white font-black text-sm">{investor.name}</div>
-          <div className="text-white text-xs opacity-80">{investor.title}</div>
+          <div className="text-white text-xs opacity-80">{isAr && investor.titleAr ? investor.titleAr : investor.title}</div>
         </div>
         {done && (
           <div className="ml-auto bg-white rounded-full px-3 py-1 text-xs font-black" style={{ color: investor.color }}>
