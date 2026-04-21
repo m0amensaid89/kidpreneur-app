@@ -1,5 +1,6 @@
 "use client";
 
+import { useLocale } from "@/components/LocaleProvider";
 import { use, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
@@ -21,6 +22,25 @@ const WORLD_COLORS: Record<string, { color: string; colorDark: string; softBg: s
 
 export default function MissionCompletePage({ params }: { params: Promise<{ missionId: string }> }) {
   const router = useRouter();
+  const { locale, isRTL } = useLocale();
+  const isAr = locale === 'ar';
+  const mt = isAr
+    ? {
+        objective: 'الهدف', instructions: 'التعليمات', missionLabel: 'المهمة',
+        submitAnswer: 'سلّم إجابتك', yourAnswer: 'إجابتك',
+        reflectionQ: 'سؤال التأمل', quackyCheer: 'كواكي بيشجعك 🦆',
+        complete: 'أحسنت! المهمة اكتملت 🎉', xpEarned: 'نقاط اكتسبتها',
+        nextMission: 'المهمة الجاية', allDone: 'كملت كل المهام!',
+        backToLesson: 'رجوع للدرس',
+      }
+    : {
+        objective: 'Objective', instructions: 'Instructions', missionLabel: 'Mission',
+        submitAnswer: 'Submit Answer', yourAnswer: 'Your Answer',
+        reflectionQ: 'Reflection Question', quackyCheer: 'Quacky is cheering 🦆',
+        complete: 'Great job! Mission complete 🎉', xpEarned: 'XP earned',
+        nextMission: 'Next mission', allDone: 'All missions done!',
+        backToLesson: 'Back to lesson',
+      };
   const unwrappedParams = use(params);
   const supabase = createClient();
   const [hasAwarded, setHasAwarded] = useState(false);
@@ -240,7 +260,7 @@ export default function MissionCompletePage({ params }: { params: Promise<{ miss
         >
           <Image
             src="/quacky/quacky-cheering.png"
-            alt="Quacky is cheering"
+            alt={mt.quackyCheer}
             width={120}
             height={120}
             className="object-contain"
