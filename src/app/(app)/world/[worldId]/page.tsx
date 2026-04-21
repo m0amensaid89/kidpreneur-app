@@ -120,7 +120,7 @@ export default function WorldDetailPage({ params }: { params: Promise<{ worldId:
         <div className="text-center pt-2">
           <div style={{ fontSize: 64, lineHeight: 1, marginBottom: 8 }}>{meta.emoji}</div>
           <h1 style={{ fontSize: 30, fontWeight: 900, color: "#FFFFFF", lineHeight: 1.1 }}>
-            {world.name}
+            {worldName ?? world.name}
           </h1>
           <p className="mt-2 max-w-xs mx-auto" style={{ fontSize: 14, color: "#FFFFFF", opacity: 0.9, fontWeight: 600, lineHeight: 1.4 }}>
             {world.description}
