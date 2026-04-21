@@ -36,7 +36,7 @@ export function KidSwitcher({ parentUserId, onSwitch }: KidSwitcherProps) {
 
   const t = isAr
     ? { title: 'اختر الطفل', add: 'إضافة طفل جديد', name: 'الاسم', age1: '٨-١١ سنة', age2: '١٢-١٥ سنة', save: 'حفظ', cancel: 'إلغاء', maxKids: 'وصلت للحد الأقصى (٦ أطفال)', level: 'مستوى', xp: 'نقطة', choose: 'اختار الشخصية', chooseColor: 'اختار اللون' }
-    : { title: isAr ? 'اختار اللاعب' : 'Choose Player', add: isAr ? 'إضافة طفل جديد' : 'Add New Kid', name: isAr ? 'الاسم' : 'Name', age1: '8-11 years', age2: '12-15 years', save: isAr ? 'احفظ' : 'Save', cancel: isAr ? 'إلغاء' : 'Cancel', maxKids: 'Max 6 kids reached', level: isAr ? 'مستوى' : {isAr ? "مستوى" : "Level"}, xp: 'XP', choose: 'Choose Avatar', chooseColor: 'Choose Color' }
+    : { title: Choose Player, add: Add New Kid, name: Name, age1: '8-11 years', age2: '12-15 years', save: Save, cancel: Cancel, maxKids: 'Max 6 kids reached', level: isAr ? 'مستوى' : {Level}, xp: 'XP', choose: 'Choose Avatar', chooseColor: 'Choose Color' }
 
   useEffect(() => {
     if (!parentUserId) return
