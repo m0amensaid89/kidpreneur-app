@@ -1,5 +1,7 @@
 "use client";
 
+import { QuackyVoice } from "@/components/voice/QuackyVoice";
+
 import { use } from "react";
 import Image from "next/image";
 import { WORLDS } from "@/lib/data/lessons";
@@ -316,5 +318,9 @@ function JourneyTile({
         {label}
       </p>
     </div>
+      <QuackyVoice
+        lessonContext={currentLesson?.title ?? ''}
+        locale="en"
+      />
   );
 }
