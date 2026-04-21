@@ -74,6 +74,7 @@ export default function LessonIntroPage({ params }: { params: Promise<{ lessonId
   const totalXp = 30 + currentLesson.missions.reduce((sum, m) => sum + (m.xpReward || 0), 0);
 
   return (
+    <>
     <div
       className="flex flex-col min-h-full relative overflow-hidden pb-10 animate-in fade-in duration-500"
       style={{ color: "#2C2C2A" }}
@@ -274,6 +275,7 @@ export default function LessonIntroPage({ params }: { params: Promise<{ lessonId
         lessonContext={currentLesson?.title ?? ""}
         locale="en"
       />
+    </>
   );
 }
 
