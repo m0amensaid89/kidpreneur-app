@@ -4,8 +4,12 @@ export const dynamic = 'force-dynamic'
 const GEMINI_KEY = process.env.GOOGLE_AI_STUDIO_KEY
 
 export async function POST(req: NextRequest) {
+  let locale = 'en'
   try {
-    const { message, lessonContext, locale } = await req.json()
+    const body = await req.json()
+    const { message, lessonContext } = body
+    locale = body.locale ?? 'en'
+
     if (!message) return NextResponse.json({ error: 'message required' }, { status: 400 })
 
     const systemPrompt = locale === 'ar'
@@ -27,13 +31,12 @@ export async function POST(req: NextRequest) {
 
     const data = await response.json()
     const reply = data.candidates?.[0]?.content?.parts?.[0]?.text ?? (
-      locale === 'ar' ? 'عظيم! استمر!' : 'Great job! Keep going! 🦆'
+      locale === 'ar' ? 'عظيم! استمر! 🦆' : 'Great job! Keep going! 🦆'
     )
 
     return NextResponse.json({ reply })
   } catch {
-    return NextResponse.json({
-      reply: locale === 'ar' ? 'عظيم! استمر!' : 'Great job! Keep going! 🦆'
-    })
+    const fallback = locale === 'ar' ? 'عظيم! استمر! 🦆' : 'Great job! Keep going! 🦆'
+    return NextResponse.json({ reply: fallback })
   }
 }
