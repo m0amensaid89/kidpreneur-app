@@ -19,18 +19,17 @@ export function EmpireBuilderChat({
   onComplete,
 }: EmpireBuilderChatProps) {
   const isAr = locale === 'ar'
-  const isRTL = isAr
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'investor', text: locale === 'ar' ? investor.greetingAr : investor.greeting },
+    { role: 'investor', text: isAr ? investor.greetingAr : investor.greeting },
   ])
   const [input, setInput] = useState('')
   const [loading, setLoading] = useState(false)
   const [done, setDone] = useState(false)
   const bottomRef = useRef<HTMLDivElement>(null)
 
-  const t = locale === 'ar'
-    ? { placeholder: 'اشرح فكرتك...', send: 'إرسال', thinking: 'بيفكر...', pitch: 'ابدأ العرض', done: 'عرضك اتقيّم!' }
-    : { placeholder: 'Pitch your idea...', send: 'Send', thinking: 'Thinking...', pitch: 'Start Pitch', done: 'Pitch evaluated!' }
+  const t = isAr
+    ? { placeholder: 'اشرح فكرتك...', send: 'إرسال', thinking: 'بيفكر...', done: 'عرضك اتقيّم!' }
+    : { placeholder: 'Pitch your idea...', send: 'Send', thinking: 'Thinking...', done: 'Evaluated!' }
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -44,7 +43,7 @@ export function EmpireBuilderChat({
     setLoading(true)
 
     try {
-      const history = messages.slice(1) // skip greeting
+      const history = messages.slice(1)
       const res = await fetch('/api/empire/pitch', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -56,18 +55,17 @@ export function EmpireBuilderChat({
         }),
       })
       const data = await res.json()
-      const reply = data.reply ?? (locale === 'ar' ? 'وريني أكتر.' : 'Tell me more.')
+      const reply = data.reply ?? (isAr ? 'وريني أكتر.' : 'Tell me more.')
 
       setMessages(prev => [...prev, { role: 'investor', text: reply }])
 
-      // Check if score is in the reply (investor gave final verdict)
       const scoreMatch = reply.match(/(?:SCORE|النتيجة).*?(\d+)\s*\/\s*10/i)
       if (scoreMatch) {
         setDone(true)
         onComplete?.(parseInt(scoreMatch[1]))
       }
     } catch {
-      setMessages(prev => [...prev, { role: 'investor', text: locale === 'ar' ? 'حاول تاني.' : 'Try again.' }])
+      setMessages(prev => [...prev, { role: 'investor', text: isAr ? 'حاول تاني.' : 'Try again.' }])
     } finally {
       setLoading(false)
     }
@@ -101,7 +99,7 @@ export function EmpireBuilderChat({
         {messages.map((msg, i) => (
           <div
             key={i}
-            className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
+            className={"flex " + (msg.role === 'user' ? 'justify-end' : 'justify-start')}
           >
             {msg.role === 'investor' && (
               <span className="text-xl mr-2 mt-1 shrink-0">{investor.emoji}</span>
@@ -142,7 +140,7 @@ export function EmpireBuilderChat({
             className="flex-1 rounded-2xl px-4 py-2.5 text-sm font-medium outline-none"
             style={{
               background: '#fff',
-              border: `2px solid ${investor.color}40`,
+              border: '2px solid ' + investor.color + '40',
               color: '#2C2C2A',
             }}
           />
