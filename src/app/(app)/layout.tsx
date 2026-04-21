@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { BottomNav } from "@/components/ui/BottomNav";
 import { DesktopLayout } from '@/components/layout/DesktopLayout'
@@ -10,12 +10,11 @@ export default function AppLayout({
 }) {
   return (
     <DesktopLayout>
-      <div className="flex flex-col min-h-full">
-        <div className="flex-1">
+      <div className="flex-1 flex flex-col w-full h-full pb-16 lg:pb-0">
+        <div className="flex-1 overflow-y-auto w-full">
           {children}
         </div>
-        {/* BottomNav: visible on mobile only */}
-        <div className="block lg:hidden">
+        <div className="lg:hidden">
           <BottomNav />
         </div>
       </div>
