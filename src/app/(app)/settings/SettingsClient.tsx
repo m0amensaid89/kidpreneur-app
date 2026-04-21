@@ -292,7 +292,7 @@ export function SettingsClient({ user, profile }: SettingsClientProps) {
               border: "2.5px solid #854F0B",
               cursor: "pointer",
             }}
-            aria-label={soundsEnabled ? {t.turnOffSounds} : {t.turnOnSounds}}
+            aria-label={soundsEnabled ? t.turnOffSounds : t.turnOnSounds}
           >
             <div
               className="absolute top-0.5 transition-all"
@@ -340,7 +340,7 @@ export function SettingsClient({ user, profile }: SettingsClientProps) {
             letterSpacing: "0.3px",
           }}
         >
-          {isSaving ? {t.saving} : "Save changes 💾"}
+          {isSaving ? t.saving : "Save changes 💾"}
         </button>
 
         {/* Reset progress — destructive */}
