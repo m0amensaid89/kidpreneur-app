@@ -316,7 +316,7 @@ function BadgeTile({ badge, earned }: { badge: Badge; earned: boolean }) {
         boxShadow: earned ? `0 3px 0 ${rarity.dark}` : "0 2px 0 #D3D1C7",
         opacity: earned ? 1 : 0.65,
       }}
-      title={badge.description}
+      title={isAr && badge.descriptionAr ? badge.descriptionAr : badge.description}
     >
       <div className="relative flex items-center justify-center">
         <BadgeFrame badge={badge} size="sm" showText={false} />
@@ -344,7 +344,7 @@ function BadgeTile({ badge, earned }: { badge: Badge; earned: boolean }) {
           textTransform: "uppercase",
         }}
       >
-        {badge.name}
+        {isAr && badge.nameAr ? badge.nameAr : badge.name}
       </p>
     </div>
   );
