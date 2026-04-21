@@ -261,7 +261,7 @@ export function ProfileClient({
         <ActionButton emoji="👨‍👩‍👧" label={t.shareWithParent} onClick={() => {
           const url = `${window.location.origin}/parent?childId=${user.id}`;
           navigator.clipboard.writeText(url);
-          alert({t.linkCopied});
+          alert(t.linkCopied);
         }} />
         <ActionButton emoji="👋" label={t.logout} onClick={handleLogout} destructive />
       </div>
