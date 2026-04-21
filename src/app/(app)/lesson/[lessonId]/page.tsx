@@ -9,6 +9,7 @@ import { use } from "react";
 import Image from "next/image";
 import { WORLDS } from "@/lib/data/lessons";
 import { useRouter } from "next/navigation";
+import { useLocale } from "@/components/LocaleProvider";
 
 // Per-world identity with kids-UI palette
 const WORLD_COLORS: Record<
@@ -22,14 +23,21 @@ const WORLD_COLORS: Record<
   w5: { color: "#6B35FF", colorDark: "#3C3489", softBg: "#DFD4FF", emoji: "🧠", number: 5 },
 };
 
-const DIFFICULTY_LABEL: Record<string, string> = {
+const DIFFICULTY_LABEL_EN: Record<string, string> = {
   easy: "Easy",
   medium: "Medium",
   hard: "Challenging",
 };
+const DIFFICULTY_LABEL_AR: Record<string, string> = {
+  easy: "سهل",
+  medium: "متوسط",
+  hard: "صعب",
+};
 
 export default function LessonIntroPage({ params }: { params: Promise<{ lessonId: string }> }) {
   const router = useRouter();
+  const { isRTL, locale } = useLocale();
+  const isAr = locale === "ar";
   const unwrappedParams = use(params);
 
   let currentLesson = null;
@@ -46,7 +54,7 @@ export default function LessonIntroPage({ params }: { params: Promise<{ lessonId
   if (!currentLesson || !currentWorld) {
     return (
       <div
-        className="flex flex-col min-h-full items-center justify-center p-6 text-center"
+        dir={isRTL ? "rtl" : "ltr"} className="flex flex-col min-h-full items-center justify-center p-6 text-center"
       >
         <div className="text-5xl mb-3">🤔</div>
         <h1 style={{ color: "#1a6fc4", fontWeight: 900, fontSize: 22 }}>Hmm, this lesson is missing!</h1>
@@ -137,7 +145,7 @@ export default function LessonIntroPage({ params }: { params: Promise<{ lessonId
 
         {/* Stat chips */}
         <div className="flex flex-wrap gap-2 mt-4">
-          <Chip emoji="⚡" label={DIFFICULTY_LABEL[currentLesson.difficulty] || currentLesson.difficulty} />
+          <Chip emoji="⚡" label={(isAr ? DIFFICULTY_LABEL_AR : DIFFICULTY_LABEL_EN)[currentLesson.difficulty] || currentLesson.difficulty} />
           <Chip emoji="⏱️" label={`${currentLesson.estimatedMinutes} min`} />
           <Chip emoji="⭐" label={`+${totalXp} XP`} />
         </div>
