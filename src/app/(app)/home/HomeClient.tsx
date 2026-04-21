@@ -42,8 +42,11 @@ export function HomeClient({
 
   // Arabic world names
   const WORLD_NAMES: Record<string, string> = {
-    w1: t('worlds.w1'), w2: t('worlds.w2'), w3: t('worlds.w3'),
-    w4: t('worlds.w4'), w5: t('worlds.w5'),
+    w1: locale === 'ar' ? 'مملكة اللوحات' : t('worlds.w1'),
+    w2: locale === 'ar' ? 'مصنع القصص' : t('worlds.w2'),
+    w3: locale === 'ar' ? 'ميدان الجماهير' : t('worlds.w3'),
+    w4: locale === 'ar' ? 'شبكة القوة' : t('worlds.w4'),
+    w5: locale === 'ar' ? 'عصر الذكاء' : t('worlds.w5'),
   };
   const supabase = createClient();
 
@@ -234,7 +237,7 @@ export function HomeClient({
             <WorldCard
               key={world.id}
               id={world.id}
-              name={world.name}
+              name={locale === "ar" ? (WORLD_NAMES[world.id] || world.name) : world.name}
               description={world.description}
               progress={progress}
               lessonCount={world.lessonCount}
