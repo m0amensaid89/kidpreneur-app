@@ -1,5 +1,6 @@
 "use client";
 
+import { useLocale } from "@/components/LocaleProvider";
 import { useState, useEffect } from "react";
 import type { User } from "@supabase/supabase-js";
 import Image from "next/image";
@@ -20,9 +21,37 @@ const SKIN_OPTIONS = [
 ];
 
 const AGE_OPTIONS = ["8-10", "11-13", "14-15"];
+// Bilingual skin labels — Egyptian dialect
+const SKIN_LABELS_AR: Record<string, string> = {
+  Classic: 'كلاسيك', Canvas: 'كانفاس', Story: 'ستوري', Power: 'باور', Neural: 'نيورال',
+};
+
 
 export function SettingsClient({ user, profile }: SettingsClientProps) {
   const router = useRouter();
+  const { locale, isRTL } = useLocale();
+  const isAr = locale === 'ar';
+  const t = isAr
+    ? {
+        back: 'رجوع', yourName: 'اسمك', nameQuestion: 'كواكي هيناديك إيه؟',
+        ageQuestion: 'عمرك قد إيه؟', age8: '٨-١١ سنة', age12: '١٢-١٥ سنة',
+        soundEffects: 'مؤثرات صوتية', soundDesc: 'أصوات ممتعة أثناء التعلم',
+        turnOffSounds: 'أوقف الأصوات', turnOnSounds: 'شغّل الأصوات',
+        language: 'اللغة', quackySkin: 'شخصية كواكي',
+        save: 'احفظ التغييرات', saving: 'جاري الحفظ...',
+        areYouSure: 'متأكد؟', logout: 'خروج', cancel: 'إلغاء',
+        english: 'الإنجليزية', arabic: 'العربية',
+      }
+    : {
+        back: 'Back', yourName: 'YOUR NAME', nameQuestion: 'What should Quacky call you?',
+        ageQuestion: 'HOW OLD ARE YOU?', age8: '8-11 years', age12: '12-15 years',
+        soundEffects: 'Sound effects', soundDesc: 'Fun sounds while you learn',
+        turnOffSounds: 'Turn off sounds', turnOnSounds: 'Turn on sounds',
+        language: 'Language', quackySkin: 'Quacky Skin',
+        save: 'Save Changes', saving: 'Saving...',
+        areYouSure: 'Are you sure?', logout: 'Log Out', cancel: 'Cancel',
+        english: 'English', arabic: 'Arabic',
+      };
   const supabase = createClient();
 
   const [name, setName] = useState(profile?.name || "");
@@ -88,7 +117,7 @@ export function SettingsClient({ user, profile }: SettingsClientProps) {
           onClick={() => router.back()}
           className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 transition active:scale-95"
           style={{ backgroundColor: "#FFFFFF", boxShadow: "0 3px 0 #E6D5A8" }}
-          aria-label="Back"
+          aria-label={t.back}
         >
           <span style={{ fontSize: 20, color: "#854F0B", lineHeight: 1, fontWeight: 900 }}>‹</span>
         </button>
@@ -145,7 +174,7 @@ export function SettingsClient({ user, profile }: SettingsClientProps) {
             <input
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="What should Quacky call you?"
+              placeholder={t.nameQuestion}
               className="w-full bg-transparent outline-none text-base"
               style={{ color: "#2C2C2A", fontWeight: 700 }}
             />
@@ -211,7 +240,7 @@ export function SettingsClient({ user, profile }: SettingsClientProps) {
                   onClick={() => setSkinColor(skin.id)}
                   className="flex flex-col items-center gap-1 transition-transform active:scale-95"
                   style={{ cursor: "pointer" }}
-                  aria-label={skin.label}
+                  aria-label={isAr ? SKIN_LABELS_AR[skin.label] ?? skin.label : skin.label}
                 >
                   <div
                     className="rounded-full transition-all"
@@ -226,7 +255,7 @@ export function SettingsClient({ user, profile }: SettingsClientProps) {
                     }}
                   />
                   <span style={{ fontSize: 9, fontWeight: 900, letterSpacing: "0.5px", color: isSelected ? skin.dark : "#888780" }}>
-                    {skin.label.toUpperCase()}
+                    {isAr ? SKIN_LABELS_AR[skin.label] ?? skin.label : skin.label.toUpperCase()}
                   </span>
                 </button>
               );
@@ -263,7 +292,7 @@ export function SettingsClient({ user, profile }: SettingsClientProps) {
               border: "2.5px solid #854F0B",
               cursor: "pointer",
             }}
-            aria-label={soundsEnabled ? "Turn off sounds" : "Turn on sounds"}
+            aria-label={soundsEnabled ? {t.turnOffSounds} : {t.turnOnSounds}}
           >
             <div
               className="absolute top-0.5 transition-all"
@@ -311,7 +340,7 @@ export function SettingsClient({ user, profile }: SettingsClientProps) {
             letterSpacing: "0.3px",
           }}
         >
-          {isSaving ? "Saving..." : "Save changes 💾"}
+          {isSaving ? {t.saving} : "Save changes 💾"}
         </button>
 
         {/* Reset progress — destructive */}
