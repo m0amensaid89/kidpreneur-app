@@ -1,6 +1,8 @@
 "use client";
 
 import { QuackyVoice } from "@/components/voice/QuackyVoice";
+import { ToolSandbox } from "@/components/sandbox/ToolSandbox";
+import { getSandboxConfig } from "@/lib/sandbox/sandbox-config";
 
 import { use } from "react";
 import Image from "next/image";
@@ -71,6 +73,7 @@ export default function LessonIntroPage({ params }: { params: Promise<{ lessonId
   }
 
   const meta = WORLD_COLORS[currentWorld.id] || WORLD_COLORS.w1;
+  const sandboxConfig = getSandboxConfig(currentLesson.id);
   const totalXp = 30 + currentLesson.missions.reduce((sum, m) => sum + (m.xpReward || 0), 0);
 
   return (
@@ -271,6 +274,15 @@ export default function LessonIntroPage({ params }: { params: Promise<{ lessonId
         </div>
       </div>
     </div>
+      {sandboxConfig && (
+        <div className="px-4 pb-2">
+          <ToolSandbox
+            lessonId={currentLesson.id}
+            config={sandboxConfig}
+            onComplete={() => {}}
+          />
+        </div>
+      )}
       <QuackyVoice
         lessonContext={currentLesson?.title ?? ""}
         locale="en"
