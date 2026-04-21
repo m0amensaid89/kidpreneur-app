@@ -90,7 +90,7 @@ export function ProfileClient({
     router.push("/login");
   };
 
-  const name = profile?.name || {t.kidFounder};
+  const name = profile?.name || t.kidFounder;
   const streak = profile?.streak || 0;
   const ageRange = profile?.age_range;
 
