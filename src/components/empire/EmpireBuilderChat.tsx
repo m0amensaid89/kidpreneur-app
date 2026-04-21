@@ -1,6 +1,4 @@
 'use client'
-import { useLocale } from '@/components/LocaleProvider'
-
 import { useState, useRef, useEffect } from 'react'
 import type { InvestorPersona } from '@/lib/empire/investors'
 
@@ -20,8 +18,7 @@ export function EmpireBuilderChat({
   locale = 'en',
   onComplete,
 }: EmpireBuilderChatProps) {
-  const { locale, isRTL } = useLocale()
-  const isAr = locale === "ar"
+  const isAr = locale === 'ar'
   const [messages, setMessages] = useState<Message[]>([
     { role: 'investor', text: locale === 'ar' ? investor.greetingAr : investor.greeting },
   ])
