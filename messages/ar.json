@@ -46,7 +46,7 @@
   },
   "home": {
     "welcome": "أهلاً",
-    "heyThere": "أهلاً",
+    "heyThere": "أهلاً،",
     "startLearning": "ابدأ التعلم",
     "continueJourney": "كمّل رحلتك",
     "yourJourney": "رحلتك",
@@ -56,7 +56,7 @@
     "levelLabel": "المستوى",
     "streakLabel": "يوم متتالي",
     "streakDays": "يوم",
-    "level": "مستوى",
+    "level": "المستوى",
     "unlockAt": "بتفتح على",
     "locked": "مقفول",
     "totalLessons": "درس",
@@ -64,7 +64,14 @@
     "keepGoing": "كمّل كده!",
     "worldProgress": "التقدم في العالم",
     "allWorlds": "كل العوالم",
-    "nextLesson": "الدرس الجاي"
+    "nextLesson": "الدرس الجاي",
+    "xp": "نقطة",
+    "streak": "مسلسل",
+    "days": "يوم",
+    "worlds": "عوالمك",
+    "yourWorlds": "عوالمك",
+    "continue": "كمّل",
+    "completed": "مكتمل"
   },
   "worlds": {
     "w1": "مملكة اللوحات",
