@@ -2,6 +2,7 @@
 
 import { QuackyVoice } from "@/components/voice/QuackyVoice";
 import { ToolSandbox } from "@/components/sandbox/ToolSandbox";
+import { LessonReadingSection } from "@/components/lesson/LessonReadingSection";
 import { getSandboxConfig } from "@/lib/sandbox/sandbox-config";
 
 import { use } from "react";
@@ -205,6 +206,16 @@ export default function LessonIntroPage({ params }: { params: Promise<{ lessonId
               </div>
             ))}
           </div>
+        </div>
+
+
+        {/* ── INTERACTIVE READING SECTION ── */}
+        <div className="px-4 pb-2">
+          <LessonReadingSection
+            lesson={currentLesson}
+            worldColor={meta.color}
+            onReadingComplete={() => {}}
+          />
         </div>
 
         {/* Journey preview — 3 fun tiles */}
