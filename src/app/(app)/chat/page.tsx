@@ -165,7 +165,7 @@ function ChatInterface() {
         }
       }
     } catch {
-      setMessages((prev) => [...prev, { role: "quacky", content: {ct.tryAgain} }]);
+      setMessages((prev) => [...prev, { role: "quacky", content: ct.tryAgain }]);
       setQuackyPose("quacky-happy");
     } finally {
       setIsWaiting(false);
