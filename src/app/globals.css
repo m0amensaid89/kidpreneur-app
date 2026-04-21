@@ -257,3 +257,99 @@
   direction: ltr;
   display: inline-block;
 }
+
+/* ══════════════════════════════════════════════════
+   RTL TRANSLATION PASS 2 — Full Layout Arabic
+   Comprehensive fix for all new components
+   ══════════════════════════════════════════════════ */
+
+/* Flip cards — ensure 3D perspective works in RTL */
+[dir="rtl"] .flip-card { direction: rtl; }
+
+/* Profile page — stats row */
+[dir="rtl"] .profile-stats { flex-direction: row-reverse; }
+[dir="rtl"] .stat-label { text-align: center; }
+
+/* Settings form — label alignment */
+[dir="rtl"] label { text-align: right; display: block; }
+[dir="rtl"] input[type="text"], [dir="rtl"] input[type="email"] {
+  text-align: right;
+  direction: rtl;
+}
+
+/* Chat page — message bubbles */
+[dir="rtl"] .chat-bubble-user {
+  margin-left: 0;
+  margin-right: auto;
+  border-radius: 18px 18px 18px 4px;
+}
+[dir="rtl"] .chat-bubble-quacky {
+  margin-right: 0;
+  margin-left: auto;
+  border-radius: 18px 18px 4px 18px;
+}
+
+/* Mission page — instruction steps */
+[dir="rtl"] .mission-step { flex-direction: row-reverse; text-align: right; }
+[dir="rtl"] .step-number { margin-left: 0; margin-right: 0; }
+
+/* Quiz options — RTL alignment */
+[dir="rtl"] .quiz-option { text-align: right; flex-direction: row-reverse; }
+
+/* Leaderboard — rank on correct side */
+[dir="rtl"] .leaderboard-row { flex-direction: row-reverse; }
+[dir="rtl"] .leaderboard-rank { margin-left: 0; margin-right: 8px; }
+
+/* World page — lesson cards RTL */
+[dir="rtl"] .lesson-card { flex-direction: row-reverse; }
+
+/* Badge categories — right-align headers */
+[dir="rtl"] .badge-category-header { text-align: right; }
+[dir="rtl"] .badge-grid { direction: rtl; }
+
+/* Empire builder — chat direction */
+[dir="rtl"] .empire-chat { direction: rtl; }
+[dir="rtl"] .empire-input { text-align: right; direction: rtl; }
+
+/* Referral card */
+[dir="rtl"] .referral-code { direction: ltr; display: inline-block; }
+
+/* Sandbox tip text */
+[dir="rtl"] .sandbox-tip { text-align: right; direction: rtl; }
+[dir="rtl"] .sandbox-output { direction: rtl; text-align: right; }
+
+/* Reading section flip cards — RTL text inside */
+[dir="rtl"] .flip-card-back { text-align: right; }
+[dir="rtl"] .reading-point { flex-direction: row-reverse; text-align: right; }
+[dir="rtl"] .reading-point-num { margin-left: 0; margin-right: 0; }
+
+/* Progress bars — right to left fill */
+[dir="rtl"] .progress-bar-fill { transform-origin: right center; }
+
+/* Number display — always LTR */
+[dir="rtl"] .number-ltr, [dir="rtl"] .xp-display, [dir="rtl"] .level-display,
+[dir="rtl"] .score-display, [dir="rtl"] .streak-display {
+  direction: ltr;
+  display: inline-block;
+  unicode-bidi: isolate;
+}
+
+/* KidPreneur brand name — always LTR */
+[dir="rtl"] .brand-name, [dir="rtl"] [data-brand] {
+  direction: ltr;
+  display: inline-block;
+}
+
+/* Quacky duck image — don't mirror it */
+[dir="rtl"] img[alt*="Quacky"], [dir="rtl"] img[alt*="quacky"] {
+  transform: none !important;
+}
+
+/* Arabic line spacing boost */
+[dir="rtl"] p, [dir="rtl"] li, [dir="rtl"] span:not(.number-ltr) {
+  word-spacing: 0.05em;
+}
+
+/* Desktop nav — RTL */
+[dir="rtl"] .desktop-nav { flex-direction: row-reverse; }
+[dir="rtl"] .desktop-nav-item { margin-left: 0; margin-right: 4px; }
