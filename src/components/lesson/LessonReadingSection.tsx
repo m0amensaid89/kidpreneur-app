@@ -1,6 +1,4 @@
 'use client'
-// @ts-nocheck
-
 import { useState, useEffect } from 'react'
 import { useLocale } from '@/components/LocaleProvider'
 import type { Lesson } from '@/lib/data/lessons'
@@ -160,7 +158,7 @@ export function LessonReadingSection({ lesson, worldColor, onReadingComplete }: 
         intro: 'ما هي هذه الأداة؟',
         features: 'المميزات الأساسية',
         flipHint: 'اقلب الكروت واكتشف كل ميزة',
-        cardsLeft: (n) => `${n} كروت متبقية`,
+        cardsLeft: (n: number) => `${n} كروت متبقية`,
         allFlipped: 'قلبت كل الكروت!',
         learn: 'إيه اللي هتتعلمه',
         tapReveal: 'اضغط لتكشف النقطة الجاية',
@@ -168,13 +166,13 @@ export function LessonReadingSection({ lesson, worldColor, onReadingComplete }: 
         locked: 'اقلب كل الكروت عشان تفتح النصيحة',
         ready: 'جاهز للمهمة! ✅',
         skip: 'تخطي القراءة',
-        progress: (done, total) => `${done} / ${total} مكتمل`,
+        progress: (done: number, total: number) => `${done} / ${total} مكتمل`,
       }
     : {
         intro: 'What is this tool?',
         features: 'Key Features',
         flipHint: 'Flip each card to discover the feature',
-        cardsLeft: (n) => `${n} card${n !== 1 ? 's' : ''} left`,
+        cardsLeft: (n: number) => `${n} card${n !== 1 ? 's' : ''} left`,
         allFlipped: 'You flipped all the cards!',
         learn: 'What you will learn',
         tapReveal: 'Tap to reveal the next point',
@@ -182,7 +180,7 @@ export function LessonReadingSection({ lesson, worldColor, onReadingComplete }: 
         locked: 'Flip all cards to unlock the tip',
         ready: 'Ready for Mission! ✅',
         skip: 'Skip reading',
-        progress: (done, total) => `${done} / ${total} complete`,
+        progress: (done: number, total: number) => `${done} / ${total} complete`,
       }
 
   const cardsRemaining = totalCards - flippedCards.size
