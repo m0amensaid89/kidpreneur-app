@@ -10,6 +10,15 @@ import { EmpireBuilderButton } from '@/components/empire/EmpireBuilderButton'
 
 type LessonStatus = "available" | "locked" | "completed";
 
+const WORLD_NAMES_AR: Record<string, string> = {
+  w1: 'مملكة اللوحات', w2: 'مصنع القصص', w3: 'ميدان الجماهير',
+  w4: 'شبكة القوة', w5: 'عصر الذكاء',
+};
+
+const LESSON_STATUS_AR: Record<string, string> = {
+  available: 'متاح', locked: 'مقفول', completed: 'مكتمل',
+};
+
 const WORLD_META: Record<string, { color: string; colorDark: string; softBg: string; emoji: string; number: number }> = {
   w1: { color: "#FF6340", colorDark: "#D85A30", softBg: "#FFE4DC", emoji: "🎨", number: 1 },
   w2: { color: "#7B52EE", colorDark: "#534AB7", softBg: "#E8E2FF", emoji: "✍️", number: 2 },
