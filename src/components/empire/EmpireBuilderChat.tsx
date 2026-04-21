@@ -19,6 +19,7 @@ export function EmpireBuilderChat({
   onComplete,
 }: EmpireBuilderChatProps) {
   const isAr = locale === 'ar'
+  const isRTL = isAr
   const [messages, setMessages] = useState<Message[]>([
     { role: 'investor', text: locale === 'ar' ? investor.greetingAr : investor.greeting },
   ])
