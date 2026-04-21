@@ -31,7 +31,9 @@
     "settings": "الإعدادات",
     "worlds": "عوالمي",
     "badges": "شاراتي",
-    "me": "أنا"
+    "me": "أنا",
+    "learn": "تعلّم",
+    "chat": "دردشة"
   },
   "home": {
     "welcome": "أهلاً",
@@ -47,7 +49,13 @@
     "streakDays": "يوم",
     "level": "مستوى",
     "unlockAt": "بتفتح على",
-    "locked": "مقفول"
+    "locked": "مقفول",
+    "totalLessons": "درس",
+    "xpPoints": "نقطة",
+    "keepGoing": "كمّل كده!",
+    "worldProgress": "التقدم في العالم",
+    "allWorlds": "كل العوالم",
+    "nextLesson": "الدرس الجاي"
   },
   "worlds": {
     "w1": "مملكة اللوحات",
@@ -66,7 +74,28 @@
     "difficulty": "الصعوبة",
     "xpReward": "مكافأة النقاط",
     "watchLesson": "شاهد الدرس",
-    "watchFirst": "شاهد الدرس الأول"
+    "watchFirst": "شاهد الدرس الأول",
+    "difficulty_easy": "سهل",
+    "difficulty_medium": "متوسط",
+    "difficulty_hard": "صعب",
+    "estimatedTime": "دقيقة تقريباً",
+    "toolCategory": "التصنيف",
+    "costInfo": "السعر",
+    "parentTip": "نصيحة لولي الأمر",
+    "readingSection": "إيه اللي هتتعلمه",
+    "flipCards": "المميزات الأساسية",
+    "flipHint": "اقلب الكروت واكتشف كل ميزة",
+    "cardsLeft": "كروت متبقية",
+    "allFlipped": "قلبت كل الكروت! 🎉",
+    "tapReveal": "اضغط تكشف النقطة الجاية",
+    "empireTipTitle": "نصيحة المستثمر 💰",
+    "empireLocked": "اقلب كل الكروت عشان تفتح النصيحة",
+    "readingReady": "جاهز للمهمة! ✅",
+    "skipReading": "تخطي القراءة",
+    "readingComplete": "كملت القراءة! جاهز للمهمة.",
+    "whatIsTool": "ما هي هذه الأداة؟",
+    "toolTip": "جرّب الأداة",
+    "openTool": "افتح الأداة"
   },
   "mission": {
     "complete": "أحسنت! المهمة اكتملت",
@@ -74,14 +103,24 @@
     "nextMission": "المهمة الجاية",
     "allDone": "كملت كل المهام!",
     "submitAnswer": "سلّم إجابتك",
-    "yourAnswer": "إجابتك"
+    "yourAnswer": "إجابتك",
+    "instructions": "الخطوات",
+    "sandboxPrompt": "استخدم الصندوق التجريبي",
+    "reflectionQuestion": "سؤال للتأمل",
+    "missionProgress": "تقدم المهمة"
   },
   "quiz": {
     "question": "سؤال",
     "correct": "صح! كملت",
     "wrong": "غلط، حاول تاني",
     "score": "نتيجتك",
-    "tryAgain": "حاول تاني"
+    "tryAgain": "حاول تاني",
+    "explainer": "الشرح",
+    "nextQuestion": "السؤال الجاي",
+    "finalScore": "النتيجة النهائية",
+    "perfect": "كامل! أحسنت 🏆",
+    "passed": "عدّيت! كملت",
+    "failed": "خلاص، حاول تاني"
   },
   "profile": {
     "title": "ملفي الشخصي",
@@ -94,7 +133,12 @@
     "missions": "مهام",
     "level": "المستوى",
     "streak": "يوم متتالي",
-    "ageRange": "الفئة العمرية"
+    "ageRange": "الفئة العمرية",
+    "totalLessons": "دروس مكتملة",
+    "longestStreak": "أطول streak",
+    "joinDate": "تاريخ الانضمام",
+    "editProfile": "تعديل الملف",
+    "shareProgress": "شارك تقدمك"
   },
   "parent": {
     "title": "لوحة ولي الأمر",
@@ -178,7 +222,12 @@
     "placeholder": "اشرح فكرتك...",
     "send": "إرسال",
     "pitchTo": "اعرض على",
-    "focus": "التخصص"
+    "focus": "التخصص",
+    "pitchPlaceholder": "اشرح فكرتك للمستثمر...",
+    "excellent": "ممتاز! 🏆",
+    "good": "كويس 👍",
+    "tryAgain": "حاول تاني",
+    "feedback": "تقييم المستثمر"
   },
   "kids": {
     "title": "ملفات الأطفال",
@@ -231,7 +280,9 @@
     "pause": "إيقاف",
     "completed": "أحسنت! شاهدت الدرس",
     "arabic": "عربي",
-    "skip": "تخطي"
+    "skip": "تخطي",
+    "english": "إنجليزي",
+    "switchLanguage": "غيّر اللغة"
   },
   "badges": {
     "earned": "حصلت على شارة!",
@@ -247,12 +298,73 @@
     "english": "الإنجليزية",
     "notifications": "التنبيهات",
     "parentEmail": "إيميل ولي الأمر",
-    "logout": "خروج"
+    "logout": "خروج",
+    "account": "الحساب",
+    "privacy": "الخصوصية",
+    "about": "عن التطبيق",
+    "version": "الإصدار",
+    "contact": "تواصل معنا",
+    "deleteAccount": "حذف الحساب",
+    "confirmDelete": "هل أنت متأكد من حذف حسابك؟",
+    "cancel": "إلغاء",
+    "confirm": "تأكيد"
   },
   "errors": {
     "generic": "حصل خطأ، حاول تاني",
     "network": "مش قادر أتوصل للإنترنت",
     "notFound": "الصفحة دي مش موجودة",
-    "unauthorized": "لازم تسجل دخول الأول"
+    "unauthorized": "لازم تسجل دخول الأول",
+    "lessonNotFound": "الدرس ده مش موجود",
+    "worldNotFound": "العالم ده مش موجود",
+    "quizFailed": "حاول مرة تانية",
+    "saveFailed": "مش قدر يحفظ دلوقتي",
+    "offline": "مش متصل بالإنترنت"
+  },
+  "world": {
+    "w1": "مملكة اللوحات",
+    "w2": "مصنع القصص",
+    "w3": "ميدان الجماهير",
+    "w4": "شبكة القوة",
+    "w5": "عصر الذكاء",
+    "lessons": "الدروس",
+    "unlocked": "مفتوح",
+    "locked": "مقفول",
+    "progress": "التقدم",
+    "complete": "مكتمل",
+    "startWorld": "ابدأ العالم",
+    "continueWorld": "كمّل العالم",
+    "lessonCount": "درس"
+  },
+  "sandbox": {
+    "title": "جرّبه دلوقتي",
+    "imagePrompt": "اوصف اللي عايز تعمله",
+    "textPrompt": "اكتب موضوعك",
+    "voicePrompt": "اكتب النص اللي عايز تسمعه",
+    "researchPrompt": "ابحث عن أي موضوع",
+    "generate": "اعمل",
+    "tryAgain": "جرّب تاني",
+    "copy": "نسخ",
+    "copied": "اتنسخ!",
+    "loading": "بيشتغل...",
+    "error": "حصل خطأ، حاول تاني",
+    "guideTitle": "خطوات الاستخدام",
+    "openSite": "افتح الموقع",
+    "missionComplete": "المهمة اكتملت ✅",
+    "quackyTip": "نصيحة كواكي",
+    "imageResult": "الصورة اتولّدت!",
+    "downloadImage": "تحميل الصورة"
+  },
+  "difficulty": {
+    "easy": "سهل",
+    "medium": "متوسط",
+    "hard": "صعب"
+  },
+  "accessibility": {
+    "menuOpen": "افتح القائمة",
+    "menuClose": "إغلاق القائمة",
+    "backToHome": "رجوع للرئيسية",
+    "loading": "جاري التحميل",
+    "imageAlt": "صورة الدرس",
+    "profilePicture": "صورة الملف الشخصي"
   }
 }
