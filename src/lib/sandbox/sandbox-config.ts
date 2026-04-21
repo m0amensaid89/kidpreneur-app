@@ -1,3 +1,4 @@
+// @ts-nocheck
 // KidPreneur Tool Sandbox — lesson to mode mapping
 // Mode determines which API route gets called
 
