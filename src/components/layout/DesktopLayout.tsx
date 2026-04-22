@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { useBreakpoint } from '@/hooks/useBreakpoint'
 import { LanguageToggle } from '@/components/LanguageToggle'
 import { useTranslations } from '@/lib/i18n/useTranslations'
@@ -33,12 +34,12 @@ export function DesktopLayout({ children }: { children: React.ReactNode }) {
           padding: '0 24px', height: 56, gap: 8,
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0 }}>
-          <span style={{ fontSize: 22 }}>🦆</span>
+        <a href="/home" style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0, textDecoration: 'none' }}>
+          <Image src="/quacky/quacky-logo.png" alt="KidPreneur" width={38} height={38} style={{ objectFit: 'contain' }} />
           <span style={{ fontWeight: 900, fontSize: 16, color: '#92400E', fontFamily: 'Roboto, sans-serif' }}>
             KidPreneur
           </span>
-        </div>
+        </a>
 
         <nav style={{ display: 'flex', alignItems: 'center', gap: 4, flex: 1, justifyContent: 'center' }}>
           {NAV_ITEMS.map(item => {
