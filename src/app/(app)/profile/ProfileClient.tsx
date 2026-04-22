@@ -304,6 +304,8 @@ function StatCard({
 }
 
 function BadgeTile({ badge, earned }: { badge: Badge; earned: boolean }) {
+  const { locale } = useLocale();
+  const isAr = locale === 'ar';
   const rarity = RARITY_COLOR[badge.rarity] || RARITY_COLOR.common;
 
   return (
