@@ -21,35 +21,27 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    // 2. Look up video path for this lesson + locale
+    // 2. Look up video URL for this lesson + locale
+    // Uses existing table schema: video_url_en / video_url_ar
     const { data: row, error: dbError } = await supabase
       .from('lesson_videos')
-      .select('video_path_en, video_path_ar')
+      .select('video_url_en, video_url_ar')
       .eq('lesson_id', lessonId)
+      .eq('is_active', true)
       .single()
 
     if (dbError || !row) {
-      // No video uploaded yet — return null gracefully (player will show placeholder)
+      // No video uploaded yet — return null gracefully (player shows placeholder)
       return NextResponse.json({ url: null })
     }
 
-    const path = locale === 'ar' ? (row.video_path_ar ?? row.video_path_en) : (row.video_path_en ?? row.video_path_ar)
-    if (!path) {
-      return NextResponse.json({ url: null })
-    }
+    // Pick locale-appropriate URL, fall back to other locale if missing
+    const url = locale === 'ar'
+      ? (row.video_url_ar ?? row.video_url_en ?? null)
+      : (row.video_url_en ?? row.video_url_ar ?? null)
 
-    // 3. Generate signed URL — valid 1 hour (3600 seconds)
-    // Signed URL is tied to this request and expires — cannot be shared
-    const { data: signed, error: signError } = await supabase.storage
-      .from('lesson-videos')
-      .createSignedUrl(path, 3600)
+    return NextResponse.json({ url })
 
-    if (signError || !signed?.signedUrl) {
-      console.error('Signed URL error:', signError)
-      return NextResponse.json({ error: 'Failed to generate video URL' }, { status: 500 })
-    }
-
-    return NextResponse.json({ url: signed.signedUrl })
   } catch (err) {
     console.error('Video URL route error:', err)
     return NextResponse.json({ error: 'Internal error' }, { status: 500 })
