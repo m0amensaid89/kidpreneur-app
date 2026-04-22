@@ -35,6 +35,7 @@ export default function WorldDetailPage({ params }: { params: Promise<{ worldId:
   const unwrappedParams = use(params);
   const supabase = createClient();
   const world = WORLDS.find(w => w.id === unwrappedParams.worldId);
+  const worldName = isAr ? (WORLD_NAMES_AR[unwrappedParams.worldId] ?? world?.name) : world?.name;
 
   const [completedLessonIds, setCompletedLessonIds] = useState<Set<string>>(new Set());
   const [loading, setLoading] = useState(true);
