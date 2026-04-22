@@ -72,6 +72,7 @@ export default function OnboardingPage() {
   };
 
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const supabase = createClient();
 
   const handleComplete = async () => {
     setIsSubmitting(true);
