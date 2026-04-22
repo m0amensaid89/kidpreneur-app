@@ -43,5 +43,6 @@
     "typescript": "^5",
     "@types/canvas-confetti": "^1.9.0"
   },
-  "_bt": 1776835749
+  "_bt": 1776835749,
+  "_deploy": 1776840667
 }
