@@ -19,6 +19,7 @@ const SKIN_OPTIONS = [
 export default function OnboardingPage() {
   const { locale, isRTL } = useLocale();
   const isAr = locale === "ar";
+  const router = useRouter();
 
   const ot = isAr
     ? {
