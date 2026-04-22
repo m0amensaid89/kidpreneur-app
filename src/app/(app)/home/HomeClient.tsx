@@ -109,22 +109,14 @@ export function HomeClient({
             style={{ background: "none", border: "none", padding: 0, cursor: "pointer" }}
             aria-label="KidPreneur Home"
           >
-            <div
-              className="w-11 h-11 rounded-2xl flex items-center justify-center"
-              style={{
-                backgroundColor: "#FFC43D",
-                border: "3px solid #FFC43D",
-                boxShadow: "0 3px 0 #BA7517",
-              }}
-            >
-              <Image
-                src="/quacky/quacky-happy.png"
-                alt="Quacky"
-                width={34}
-                height={34}
-                className="object-contain"
-              />
-            </div>
+            <Image
+              src="/quacky/quacky-logo.png"
+              alt="KidPreneur"
+              width={44}
+              height={44}
+              className="object-contain"
+              priority
+            />
             <span style={{ fontSize: 15, fontWeight: 900, color: "#1a6fc4", letterSpacing: "-0.3px" }}>
               KidPreneur
             </span>
