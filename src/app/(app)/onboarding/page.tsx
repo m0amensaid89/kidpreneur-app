@@ -61,6 +61,7 @@ export default function OnboardingPage() {
   const [name, setName] = useState("");
   const [ageRange, setAgeRange] = useState("");
   const [skinColor, setSkinColor] = useState("blue");
+  const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleNext = () => {
