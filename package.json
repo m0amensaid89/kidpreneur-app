@@ -1,6 +1,6 @@
 {
   "name": "kidpreneur-app",
-  "version": "0.1.0" ,
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -42,5 +42,6 @@
     "tailwindcss": "^4",
     "typescript": "^5",
     "@types/canvas-confetti": "^1.9.0"
-  }
+  },
+  "_bt": 1776835749
 }
