@@ -100,8 +100,8 @@ export function HomeClient({
       <div className="absolute top-80 right-10 w-12 h-12 rounded-full pointer-events-none"
         style={{ backgroundColor: "#B3E5FC", opacity: 0.45 }} aria-hidden="true" />
 
-      {/* Header : greeting + streak bubble */}
-      <div className="relative z-10 flex items-center justify-between px-5 pt-6 pb-3">
+      {/* Header : greeting + streak bubble — hidden on desktop (DesktopLayout has logo) */}
+      <div className="relative z-10 flex items-center justify-between px-5 pt-6 pb-3 lg:hidden">
         <div className="flex items-center gap-3">
           <button
             onClick={() => { window.location.href = "/home"; }}
