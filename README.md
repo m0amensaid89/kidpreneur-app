@@ -38,3 +38,4 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 <!-- deploy-trigger: 1776815074 -->
 <!-- deploy trigger: quacky-logo + no-duplicate header + Sprint G -->
 <!-- deploy: onboarding step fix + quacky logo -->
+<!-- Deploy 1776834529 — Sprint G+H: Full AR AI + Quacky logo + Lesson redesign -->
