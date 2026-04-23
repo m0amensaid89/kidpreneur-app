@@ -40,6 +40,57 @@ const CATEGORY_LABEL: Record<string, string> = {
 
 const CATEGORY_ORDER = ["first_time", "mastery", "streak", "world_completion", "empire"];
 
+
+// BadgeTile sub-component — defined OUTSIDE main component so hooks work correctly
+function BadgeTile({ badge, earned }: { badge: Badge; earned: boolean }) {
+  const { locale } = useLocale();
+  const isAr = locale === 'ar';
+  const rarity = RARITY_COLOR[badge.rarity] || RARITY_COLOR.common;
+
+  return (
+    <div
+      className="aspect-square p-2 flex flex-col items-center justify-center text-center gap-1 transition-all"
+      style={{
+        backgroundColor: earned ? `${rarity.color}15` : "#F4F4EC",
+        border: `2.5px solid ${earned ? rarity.color : "#E6D5A8"}`,
+        borderRadius: "16px",
+        boxShadow: earned ? `0 3px 0 ${rarity.dark}` : "0 2px 0 #D3D1C7",
+        opacity: earned ? 1 : 0.65,
+      }}
+      title={isAr && badge.descriptionAr ? badge.descriptionAr : badge.description}
+    >
+      <div className="relative flex items-center justify-center">
+        <BadgeFrame badge={badge} size="sm" showText={false} />
+        {!earned && (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div
+              className="rounded-full p-1"
+              style={{
+                backgroundColor: "rgba(255, 255, 255, 0.85)",
+                border: "2px solid #C4C2B9",
+              }}
+            >
+              <Lock className="w-3 h-3" style={{ color: "#888780" }} strokeWidth={2.5} />
+            </div>
+          </div>
+        )}
+      </div>
+      <p
+        className="leading-tight line-clamp-2"
+        style={{
+          fontSize: 9,
+          fontWeight: 900,
+          letterSpacing: "0.3px",
+          color: earned ? rarity.dark : "#888780",
+          textTransform: "uppercase",
+        }}
+      >
+        {isAr && badge.nameAr ? badge.nameAr : badge.name}
+      </p>
+    </div>
+  );
+}
+
 export function ProfileClient({
   user,
   profile,
@@ -303,54 +354,6 @@ function StatCard({
   );
 }
 
-function BadgeTile({ badge, earned }: { badge: Badge; earned: boolean }) {
-  const { locale } = useLocale();
-  const isAr = locale === 'ar';
-  const rarity = RARITY_COLOR[badge.rarity] || RARITY_COLOR.common;
-
-  return (
-    <div
-      className="aspect-square p-2 flex flex-col items-center justify-center text-center gap-1 transition-all"
-      style={{
-        backgroundColor: earned ? `${rarity.color}15` : "#F4F4EC",
-        border: `2.5px solid ${earned ? rarity.color : "#E6D5A8"}`,
-        borderRadius: "16px",
-        boxShadow: earned ? `0 3px 0 ${rarity.dark}` : "0 2px 0 #D3D1C7",
-        opacity: earned ? 1 : 0.65,
-      }}
-      title={isAr && badge.descriptionAr ? badge.descriptionAr : badge.description}
-    >
-      <div className="relative flex items-center justify-center">
-        <BadgeFrame badge={badge} size="sm" showText={false} />
-        {!earned && (
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div
-              className="rounded-full p-1"
-              style={{
-                backgroundColor: "rgba(255, 255, 255, 0.85)",
-                border: "2px solid #C4C2B9",
-              }}
-            >
-              <Lock className="w-3 h-3" style={{ color: "#888780" }} strokeWidth={2.5} />
-            </div>
-          </div>
-        )}
-      </div>
-      <p
-        className="leading-tight line-clamp-2"
-        style={{
-          fontSize: 9,
-          fontWeight: 900,
-          letterSpacing: "0.3px",
-          color: earned ? rarity.dark : "#888780",
-          textTransform: "uppercase",
-        }}
-      >
-        {isAr && badge.nameAr ? badge.nameAr : badge.name}
-      </p>
-    </div>
-  );
-}
 
 function ActionButton({
   emoji,
