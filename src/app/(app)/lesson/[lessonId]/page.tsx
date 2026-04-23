@@ -175,6 +175,14 @@ export default function LessonIntroPage({ params }: { params: Promise<{ lessonId
           </p>
         </div>
 
+        {/* VIDEO PLAYER — auth-gated, shows if video uploaded for this lesson */}
+        <div className="px-4 pb-2">
+          <LessonVideoPlayer
+            lessonId={currentLesson.id}
+            lessonTitle={currentLesson.title}
+          />
+        </div>
+
         {/* ══════════════════════════════════════════
             PHASE 2: LEARN — What you'll learn
             Gagné Event 3: Recall Prior Knowledge
