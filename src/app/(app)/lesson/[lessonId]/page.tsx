@@ -233,7 +233,7 @@ export default function LessonIntroPage({ params }: { params: Promise<{ lessonId
         ══════════════════════════════════════════ */}
         <PhaseHeader emoji="🎯" label={lt.missionsPhase} color={meta.colorDark} />
         <div className="space-y-3 mb-6">
-          {currentLesson.missions.map((mission, i) => (
+          {currentLesson.missions.map((mission, mIdx) => (
             <div key={mission.id} className="flex items-center gap-3 px-4 py-3.5 cursor-pointer active:scale-98 transition-transform"
               onClick={() => router.push(`/mission/${mission.id}`)}
               style={{ backgroundColor: i === 0 ? meta.softBg : "#F7F7F7", borderRadius: 18, border: `2.5px solid ${i === 0 ? meta.color : "#E0E0E0"}`, boxShadow: i === 0 ? `0 3px 0 ${meta.colorDark}` : "0 2px 0 #CCCCCC" }}>
