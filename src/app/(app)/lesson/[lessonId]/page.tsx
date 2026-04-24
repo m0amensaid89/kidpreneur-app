@@ -5,6 +5,7 @@ import { ToolSandbox } from "@/components/sandbox/ToolSandbox";
 import { LessonReadingSection } from "@/components/lesson/LessonReadingSection";
 import { getSandboxConfig } from "@/lib/sandbox/sandbox-config";
 import { LessonVideoPlayer } from "@/components/video/LessonVideoPlayer";
+import { getLessonAr } from "@/lib/data/lessons-ar";
 
 import { use } from "react";
 import Image from "next/image";
@@ -35,6 +36,7 @@ export default function LessonIntroPage({ params }: { params: Promise<{ lessonId
   const router = useRouter();
   const { isRTL, locale } = useLocale();
   const isAr = locale === "ar";
+  const lessonAr = isAr ? getLessonAr(currentLesson.id) : null;
   const unwrappedParams = use(params);
 
   // Bilingual labels
@@ -171,7 +173,7 @@ export default function LessonIntroPage({ params }: { params: Promise<{ lessonId
             {lt.quackySays}
           </p>
           <p style={{ fontSize: 14, lineHeight: 1.45, color: "#2C2C2A", fontWeight: 600 }}>
-            {currentLesson.warmUpChallenge}
+            {isAr && lessonAr ? lessonAr.warmUpChallenge : currentLesson.warmUpChallenge}
           </p>
         </div>
 
@@ -190,7 +192,7 @@ export default function LessonIntroPage({ params }: { params: Promise<{ lessonId
         ══════════════════════════════════════════ */}
         <PhaseHeader emoji="🎯" label={lt.whatLearn} color={meta.colorDark} />
         <div className="space-y-2.5 mb-6">
-          {currentLesson.learningPoints.map((point, i) => (
+          {(isAr && lessonAr ? lessonAr.learningPoints : currentLesson.learningPoints).map((point, i) => (
             <div key={i} className="flex items-center gap-3 px-3.5 py-3"
               style={{ backgroundColor: meta.softBg, borderRadius: 16, border: `2px solid ${meta.color}` }}>
               <div className="flex items-center justify-center shrink-0 rounded-full"
@@ -243,7 +245,7 @@ export default function LessonIntroPage({ params }: { params: Promise<{ lessonId
                 <p style={{ fontSize: 11, fontWeight: 900, letterSpacing: "1.5px", color: i === 0 ? meta.colorDark : "#888", marginBottom: 1 }}>
                   {lt.mission} {i + 1}
                 </p>
-                <p style={{ fontSize: 13, fontWeight: 700, color: "#2C2C2A" }}>{mission.title}</p>
+                <p style={{ fontSize: 13, fontWeight: 700, color: "#2C2C2A" }}>{isAr && lessonAr && lessonAr.missions[mIdx] ? lessonAr.missions[mIdx].title : mission.title}</p>
               </div>
               <div className="shrink-0">
                 <span style={{ fontSize: 12, fontWeight: 900, color: i === 0 ? meta.colorDark : "#888" }}>
