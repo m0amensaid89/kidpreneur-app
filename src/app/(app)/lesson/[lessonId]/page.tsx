@@ -36,7 +36,6 @@ export default function LessonIntroPage({ params }: { params: Promise<{ lessonId
   const router = useRouter();
   const { isRTL, locale } = useLocale();
   const isAr = locale === "ar";
-  const lessonAr = isAr ? getLessonAr(currentLesson.id) : null;
   const unwrappedParams = use(params);
 
   // Bilingual labels
@@ -108,6 +107,7 @@ export default function LessonIntroPage({ params }: { params: Promise<{ lessonId
     );
   }
 
+  const lessonAr = isAr ? getLessonAr(currentLesson.id) : null;
   const meta = WORLD_COLORS[currentWorld.id] || WORLD_COLORS.w1;
   const sandboxConfig = getSandboxConfig(currentLesson.id);
   const totalXp = 30 + currentLesson.missions.reduce((sum, m) => sum + (m.xpReward || 0), 0);
