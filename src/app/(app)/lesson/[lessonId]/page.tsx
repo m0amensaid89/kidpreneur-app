@@ -236,7 +236,7 @@ export default function LessonIntroPage({ params }: { params: Promise<{ lessonId
           {currentLesson.missions.map((mission, mIdx) => (
             <div key={mission.id} className="flex items-center gap-3 px-4 py-3.5 cursor-pointer active:scale-98 transition-transform"
               onClick={() => router.push(`/mission/${mission.id}`)}
-              style={{ backgroundColor: mIdx === 0 ? meta.softBg : "#F7F7F7", borderRadius: 18, border: `2.5px solid ${i === 0 ? meta.color : "#E0E0E0"}`, boxShadow: i === 0 ? `0 3px 0 ${meta.colorDark}` : "0 2px 0 #CCCCCC" }}>
+              style={{ backgroundColor: mIdx === 0 ? meta.softBg : "#F7F7F7", borderRadius: 18, border: `2.5px solid ${mIdx === 0 ? meta.color : "#E0E0E0"}`, boxShadow: mIdx === 0 ? `0 3px 0 ${meta.colorDark}` : "0 2px 0 #CCCCCC" }}>
               <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0"
                 style={{ backgroundColor: mIdx === 0 ? meta.color : "#E0E0E0", color: mIdx === 0 ? "#FFFFFF" : "#888" }}>
                 <span style={{ fontSize: 16 }}>{mIdx === 0 ? "▶" : `${mIdx + 1}`}</span>
