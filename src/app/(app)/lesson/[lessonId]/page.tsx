@@ -236,19 +236,19 @@ export default function LessonIntroPage({ params }: { params: Promise<{ lessonId
           {currentLesson.missions.map((mission, mIdx) => (
             <div key={mission.id} className="flex items-center gap-3 px-4 py-3.5 cursor-pointer active:scale-98 transition-transform"
               onClick={() => router.push(`/mission/${mission.id}`)}
-              style={{ backgroundColor: i === 0 ? meta.softBg : "#F7F7F7", borderRadius: 18, border: `2.5px solid ${i === 0 ? meta.color : "#E0E0E0"}`, boxShadow: i === 0 ? `0 3px 0 ${meta.colorDark}` : "0 2px 0 #CCCCCC" }}>
+              style={{ backgroundColor: mIdx === 0 ? meta.softBg : "#F7F7F7", borderRadius: 18, border: `2.5px solid ${i === 0 ? meta.color : "#E0E0E0"}`, boxShadow: i === 0 ? `0 3px 0 ${meta.colorDark}` : "0 2px 0 #CCCCCC" }}>
               <div className="w-10 h-10 rounded-full flex items-center justify-center shrink-0"
-                style={{ backgroundColor: i === 0 ? meta.color : "#E0E0E0", color: i === 0 ? "#FFFFFF" : "#888" }}>
-                <span style={{ fontSize: 16 }}>{i === 0 ? "▶" : `${i + 1}`}</span>
+                style={{ backgroundColor: mIdx === 0 ? meta.color : "#E0E0E0", color: mIdx === 0 ? "#FFFFFF" : "#888" }}>
+                <span style={{ fontSize: 16 }}>{mIdx === 0 ? "▶" : `${mIdx + 1}`}</span>
               </div>
               <div className="flex-1 min-w-0">
-                <p style={{ fontSize: 11, fontWeight: 900, letterSpacing: "1.5px", color: i === 0 ? meta.colorDark : "#888", marginBottom: 1 }}>
-                  {lt.mission} {i + 1}
+                <p style={{ fontSize: 11, fontWeight: 900, letterSpacing: "1.5px", color: mIdx === 0 ? meta.colorDark : "#888", marginBottom: 1 }}>
+                  {lt.mission} {mIdx + 1}
                 </p>
                 <p style={{ fontSize: 13, fontWeight: 700, color: "#2C2C2A" }}>{isAr && lessonAr && lessonAr.missions[mIdx] ? lessonAr.missions[mIdx].title : mission.title}</p>
               </div>
               <div className="shrink-0">
-                <span style={{ fontSize: 12, fontWeight: 900, color: i === 0 ? meta.colorDark : "#888" }}>
+                <span style={{ fontSize: 12, fontWeight: 900, color: mIdx === 0 ? meta.colorDark : "#888" }}>
                   +{mission.xpReward || 10} XP
                 </span>
               </div>
